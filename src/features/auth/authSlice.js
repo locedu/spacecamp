@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  token: null, // Or whatever state you're using to track user authentication
+  token: null,  // Token is initially null (or you can fetch it from localStorage)
 };
 
 const authSlice = createSlice({
@@ -10,10 +10,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, action) {
-      state.token = action.payload;
+      state.token = action.payload;  // Set the token
     },
     logout(state) {
-      state.token = null; // Clear the token on logout
+      state.token = null;  // Remove the token on logout
     },
   },
 });
