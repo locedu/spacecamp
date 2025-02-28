@@ -1,10 +1,16 @@
 // src/components/Navbar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import '../styles/navbar.css';
 
 function Navbar() {
-  const token = useSelector((state) => state.auth.token); // Get the auth token from Redux state
+  const token = useSelector((state) => state.auth.token); // Check if the user is authenticated
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch({ type: 'auth/logout' }); // Dispatch the logout action
+  };
 
   return (
     <nav>
@@ -16,7 +22,10 @@ function Navbar() {
             <li><Link to="/register">Register</Link></li>
           </>
         ) : (
-          <></> // Future Logout link will be added when Login is implemented
+          <>
+            <li><Link to="/dashboard">Dashboard</Link></li>
+            <li><button onClick={handleLogout}>Logout</button></li>
+          </>
         )}
       </ul>
     </nav>
