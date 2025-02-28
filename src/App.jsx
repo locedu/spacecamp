@@ -25,9 +25,8 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* Protected Routes */}
-          <Route path="/dashboard" element={
-            <PrivateRoute element={<Dashboard />} />
-          }>
+          <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />}>
+            {/* Nested Routes under /dashboard */}
             <Route path="feed" element={<Feed />} />
             <Route path="profile" element={<Profile />} />
             <Route path="notifications" element={<Notifications />} />
