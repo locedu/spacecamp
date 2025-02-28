@@ -66,3 +66,41 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* src/styles/style.css */
+nav {
+  background-color: #2f4f4f;
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+li {
+  display: inline-block;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+a:hover {
+  color: #ddd;
+}
+
+button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e53935;
+}
