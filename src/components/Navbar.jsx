@@ -9,7 +9,7 @@ function Navbar() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch({ type: 'auth/logout' }); // Dispatch the logout action
+    dispatch({ type: 'auth/logout' }); // Dispatch the logout action to clear token from Redux
   };
 
   return (
