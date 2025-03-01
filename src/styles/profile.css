@@ -1,0 +1,18 @@
+/* src/styles/profile.css */
+/* src/styles/profile.css */
+.profile-container {
+    background-color: #eaeaea;
+    border-radius: 0.5em;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 45%;
+    box-sizing: border-box;
+  }
+  
+  
+  /* Optional: styling for the section title */
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
