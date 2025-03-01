@@ -1,0 +1,14 @@
+/* Style for the profile container */
+.feed-container {
+    background-color: #eaeaea; /* Grey background */
+    border-radius: 0.5em; /* Rounded corners */
+    padding: 20px; /* Some padding inside the container */
+    max-width: 600px; /* Optional: You can set a max-width to make the profile more compact */
+    margin: 20px auto; /* Center the container horizontally */
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333; /* Darker color for the heading */
+  }
+  

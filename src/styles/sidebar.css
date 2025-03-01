@@ -6,6 +6,7 @@
     padding: 1em;
     background-color: #eaeaea !important;
     border-radius: .5em !important;
+    margin: .5em;
   }
   
   /* React Bootstrap ButtonGroup for vertical alignment */

@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './views/Dashboard';
 import Feed from './views/Feed';
@@ -28,13 +27,18 @@ function App() {
 
           {/* Protected Routes */}
           <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />}>
-            {/* Nested Routes under /dashboard */}
+            {/* Nested Routes under /dashboard (for full layout with multiple sections) */}
             <Route path="feed" element={<Feed />} />
             <Route path="profile" element={<Profile />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="friends" element={<Friends />} />
-            <Route path="activity" element={<Activity />} /> {/* Add Activity route */}
+            <Route path="activity" element={<Activity />} /> {/* Activity section on dashboard */}
           </Route>
+
+          {/* Specific Targeted Views (for focused views with no layout) */}
+          <Route path="/dashboard/notifications" element={<Notifications />} /> {/* Specific notifications view */}
+          <Route path="/dashboard/directory" element={<Friends />} /> {/* Example: Specific directory view */}
+          <Route path="/dashboard/activity" element={<Activity />} /> {/* Direct access to Activity view */}
         </Routes>
       </main>
     </Router>
