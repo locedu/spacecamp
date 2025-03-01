@@ -1,15 +1,57 @@
-/* Style for the profile container */
+/* Style for the feed container */
 .feed-container {
-    background-color: #eaeaea;
+    background-color: #eaeaea; /* Light gray background */
     border-radius: 0.5em;
     padding: 20px;
     margin: 10px;
-    flex: 1 1 45%;
+    flex: 1 1 45%;  /* Ensures the feed container takes up the right amount of space */
     box-sizing: border-box;
   }
   
+  /* Style for the individual posts */
+  .post {
+    background-color: white;  /* White background for each post */
+    padding: 15px;
+    border-radius: 0.5em;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Soft shadow for the posts */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;  /* Smooth transition effect for hover */
+  }
+  
+  .post:hover {
+    transform: translateY(-5px);  /* Slight lift effect on hover */
+  }
+  
+  /* Styling the post title and user info */
+  .post h6 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .post p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;  /* Darker gray text */
+  }
+  
+  /* Style for loading and empty state */
+  .loading-state {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Style for the header of the feed */
   h2 {
     text-align: center;
-    color: #333; /* Darker color for the heading */
+    color: #333;  /* Darker color for the heading */
+    margin-bottom: 20px;
   }
   
