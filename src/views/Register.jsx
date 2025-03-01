@@ -2,10 +2,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterMutation } from '../features/auth/authAPI';  // Import the register mutation hook
-
-// css
-import '../styles/register.css';  // Import the register form styling
-
+import { TextField, Button, CircularProgress, Box } from '@mui/material';  // MUI components
+import '../styles/register.css';  // Import register form styling
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -36,54 +34,73 @@ function Register() {
   };
 
   return (
-    <div>
+    <Box
+      component="form"
+      onSubmit={handleRegister}
+      sx={{
+        backgroundColor: '#fff',
+        padding: '20px',
+        borderRadius: '8px',
+        maxWidth: 400,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+      }}
+    >
       <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="name">Name (Optional)</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Registering...' : 'Register'}
-        </button>
-        {error && <p>{error.message}</p>}
-      </form>
-    </div>
+
+      <TextField
+        label="Email"
+        variant="outlined"
+        fullWidth
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <TextField
+        label="Username"
+        variant="outlined"
+        fullWidth
+        required
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+
+      <TextField
+        label="Password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        required
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <TextField
+        label="Name (Optional)"
+        variant="outlined"
+        fullWidth
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        fullWidth
+        disabled={isLoading}
+        sx={{
+          padding: '12px',
+        }}
+      >
+        {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Register'}
+      </Button>
+
+      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error.message}</p>}
+    </Box>
   );
 }
 
