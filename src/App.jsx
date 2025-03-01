@@ -1,5 +1,8 @@
-// src/App.jsx
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import TokenValidation from './components/TokenValidation';  // Import the token validation component
+
 import Dashboard from './views/Dashboard';
 import Feed from './views/Feed';
 import Profile from './views/Profile';
@@ -16,8 +19,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles/app.css";
 
 function App() {
+  const token = useSelector((state) => state.auth.token); // Get token from Redux store
+
   return (
     <Router>
+      {/* Token validation will check the expiration only on protected routes */}
+      <TokenValidation token={token} /> 
+
       <Navbar />
       <main className="content">
         <Routes>
