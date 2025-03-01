@@ -1,5 +1,6 @@
 # spacecamp
 
+- profile (shows data, no edit)
 - css (subroutes:AllSections)
 - further dashboard cleanup + sidebar button (dashboard button)
 - layout (cleanup: dashboard shows all sections), routes refactoring to allow for this.
