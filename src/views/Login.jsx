@@ -2,10 +2,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../features/auth/authAPI';  // Import login mutation hook
-
-//css
+import { TextField, Button, CircularProgress, Box } from '@mui/material';  // MUI components
 import '../styles/login.css';  // Import login form styling
-
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -31,35 +29,57 @@ function Login() {
   };
 
   return (
-    <div>
+    <Box
+      component="form"
+      onSubmit={handleLogin}
+      sx={{
+        backgroundColor: '#fff',
+        padding: '20px',
+        borderRadius: '8px',
+        maxWidth: 400,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+      }}
+    >
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
-        </button>
-        {error && <p>{error.message}</p>}
-      </form>
-    </div>
+
+      <TextField
+        label="Email"
+        variant="outlined"
+        fullWidth
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <TextField
+        label="Password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        required
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        fullWidth
+        disabled={isLoading}
+        sx={{
+          padding: '12px',
+          marginTop: '20px',
+        }}
+      >
+        {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Login'}
+      </Button>
+
+      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error.message}</p>}
+    </Box>
   );
 }
 
