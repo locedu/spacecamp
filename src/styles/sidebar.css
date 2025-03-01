@@ -11,17 +11,17 @@
   
   /* React Bootstrap ButtonGroup for vertical alignment */
   .sidebar-button {
-    width: 100%;  /* Ensure buttons span the full width */
-    margin-bottom: 5px;
+    width: 100%; /* Ensure buttons span the full width */
+    margin: 0; /* Remove margin to make them flush */
   }
   
   /* Styling for the Logout button */
   .logout-button {
-    margin-top: 15px;  /* Space between the button group and the logout button */
+    margin-top: 15px; /* Space between the button group and the logout button */
   }
   
   .logout-button:hover {
-    background-color: #0056b3;  /* Same hover color as other buttons */
+    background-color: #0056b3; /* Same hover color as other buttons */
     border-color: #0056b3; /* Match hover border to button color */
   }
   
