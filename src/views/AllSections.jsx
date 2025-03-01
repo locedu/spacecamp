@@ -7,20 +7,20 @@ import Activity from './Activity';
 
 function AllSections() {
   return (
-    <div className="dashboard-row">
-      <div className="dashboard-section">
-        <Feed />
-      </div>
-      <div className="dashboard-section">
+    <div className="all-sections">
+      <div className="section-container">
         <Profile />
       </div>
-      <div className="dashboard-section">
+      <div className="section-container">
+        <Feed />
+      </div>
+      <div className="section-container">
         <Notifications />
       </div>
-      <div className="dashboard-section">
+      <div className="section-container">
         <Friends />
       </div>
-      <div className="dashboard-section">
+      <div className="section-container">
         <Activity />
       </div>
     </div>

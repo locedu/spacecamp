@@ -1,24 +1,29 @@
 /* src/styles/dashboard.css */
 .dashboard {
     display: flex;
-    justify-content: space-between; /* Space between content and sidebar */
+    justify-content: space-between;
   }
   
-  /* Flexbox container for the sections */
-  .dashboard-row {
+  .content {
+    flex: 1 1 75%; /* Content takes up 75% of the width */
+    padding: 0px;
+  }
+  
+  .all-sections {
     display: flex;
-    flex-wrap: wrap; /* Allow the sections to wrap to the next line if necessary */
-    justify-content: space-between; /* Space sections evenly */
-    gap: 10px; /* Add space between the sections */
+    flex-wrap: wrap;
+    gap: 1em;
   }
   
-  .dashboard-section {
-    background-color: #eaeaea;
-    border-radius: 0.5em;
-    padding: 20px;
-    margin: 10px;
-    flex: 1 1 45%;
+  .section-container {
+    width: 45%; /* Each section container takes up 45% of the width */
     box-sizing: border-box;
+    padding: 0px;
+    margin-bottom: 0px;
   }
   
+  /* The items inside section-container naturally take 100% width */
+  .section-container > * {
+    width: 100%; /* Ensure that each section (Feed, Profile, etc.) takes 100% of the container's width */
+  }
   
