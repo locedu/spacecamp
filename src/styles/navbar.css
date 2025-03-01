@@ -3,65 +3,84 @@
 /* Navbar Styling */
 nav {
     display: flex;
-    justify-content: flex-end; /* Align items to the right */
+    justify-content: flex-end;  /* Align items to the right */
     align-items: center;  /* Vertically center the items */
     background-color: #2f4f4f;
     padding: 10px 20px;
     width: 100%;  /* Make sure the navbar spans the full width */
-  }
+}
   
-  ul {
+/* Style for the unordered list (menu items) */
+ul {
     display: flex;
     list-style-type: none;
     gap: 20px;  /* Space between links */
     padding: 0;
     margin: 0;
     align-items: center;  /* Ensure list items are centered vertically */
-  }
+}
   
-  li {
+/* Styling for each list item */
+li {
     display: inline-block;
-  }
+}
   
-  /* Styling for all link states */
-  a {
-    color: white;  /* Make sure all links are white */
+/* Styling for all link states */
+a {
+    color: white !important;  /* Keep all links white */
     text-decoration: none;
     padding: 10px 20px;  /* Some space around the link */
     border-radius: 5px;  /* Optional: rounded corners */
+    display: flex;
+    align-items: center; /* Ensure links are vertically centered */
+    justify-content: center; /* Ensure links are horizontally centered */
     transition: background-color 0.3s ease;  /* Smooth hover effect */
-  }
+}
   
-  /* Ensure visited links are also white */
-  a:visited {
-    color: white;
-  }
+/* Ensure visited links are also white */
+a:visited {
+    color: white !important;
+}
   
-  /* Hover effect */
-  a:hover {
-    background-color: #0056b3;  /* Darker blue on hover */
-  }
+/* Remove hover effect (link should always remain white) */
+a:hover {
+    background-color: transparent;  /* No background change on hover */
+    color: white !important;  /* Ensure the link remains white on hover */
+}
   
-  /* Active links */
-  a:active {
-    color: white;  /* Ensure active links remain white */
-  }
+/* Active links */
+a:active {
+    color: white !important;  /* Ensure active links remain white */
+}
   
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
+/* Styling for the logout button */
+button {
+    padding: 10px 20px;
+    background-color: transparent;  /* No background */
+    color: white;  /* Keep the button text white */
+    border: none;
+    cursor: pointer;
+}
+  
+button:hover {
+    background-color: transparent;  /* No background change on hover */
+    color: white;  /* Ensure button text remains white */
+}
+  
+/* Mobile responsiveness */
+@media (max-width: 768px) {
     nav {
-      flex-direction: column; /* Stack navbar items vertically on small screens */
-      align-items: flex-start; /* Align items to the start */
+        flex-direction: column; /* Stack navbar items vertically on small screens */
+        align-items: flex-start; /* Align items to the start */
     }
-  
+
     ul {
-      flex-direction: column;
-      width: 100%;
+        flex-direction: column;
+        width: 100%;
     }
-  
+
     li {
-      width: 100%;
-      text-align: left;
+        width: 100%;
+        text-align: left;
     }
-  }
-  
+}

@@ -11,7 +11,7 @@ import Home from './views/Home'; // Home route
 import Activity from './views/Activity'; // Import the Activity component
 import PrivateRoute from './components/PrivateRoute';  // Import PrivateRoute
 import Navbar from './components/Navbar';  // Import Navbar
-import './styles/app.css';  // Import the new app.css file
+// import './styles/app.css';  // Import the new app.css file
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

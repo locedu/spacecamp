@@ -3,8 +3,9 @@
 /* Sidebar container */
 .sidebar {
     width: 250px;
-    padding: 10px;
+    padding: 1em;
     background-color: #eaeaea !important;
+    border-radius: .5em !important;
   }
   
   /* React Bootstrap ButtonGroup for vertical alignment */
