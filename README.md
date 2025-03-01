@@ -1,5 +1,6 @@
 # spacecamp
 
+- load posts (basic)
 - session expiration (TokenValidation.jsx)
 - profile (shows data, no edit)
 - css (subroutes:AllSections)
