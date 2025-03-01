@@ -13,6 +13,7 @@ import AllSections from './views/AllSections'; // Import AllSections component
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./styles/app.css";
 
 function App() {
   return (
