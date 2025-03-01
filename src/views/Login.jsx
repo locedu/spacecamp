@@ -3,6 +3,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../features/auth/authAPI';  // Import login mutation hook
 
+//css
+import '../styles/login.css';  // Import login form styling
+
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -3,6 +3,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterMutation } from '../features/auth/authAPI';  // Import the register mutation hook
 
+// css
+import '../styles/register.css';  // Import the register form styling
+
+
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -13,19 +13,16 @@ function Navbar() {
   };
 
   return (
-    <nav>
+    <nav className="navbar">
       <ul>
-        <li><Link to="/">Home</Link></li>
         {!token ? (
           <>
+            <li><Link to="/">Home</Link></li>
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/register">Register</Link></li>
           </>
         ) : (
-          <>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><button onClick={handleLogout}>Logout</button></li>
-          </>
+          <li><button onClick={handleLogout}>Logout</button></li>
         )}
       </ul>
     </nav>
