@@ -1,5 +1,6 @@
 # spacecamp
 
+- session expiration (TokenValidation.jsx)
 - profile (shows data, no edit)
 - css (subroutes:AllSections)
 - further dashboard cleanup + sidebar button (dashboard button)
