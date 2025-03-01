@@ -1,9 +1,11 @@
 // src/views/Home.jsx
+import "../styles/home.css";
+
 function Home() {
     return (
-      <div>
-        <h2>Welcome to Our App!</h2>
-
+      <div className="home">
+        <h1>Hello.</h1>
+        <p>React Redux.</p>
       </div>
     );
   }

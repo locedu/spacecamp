@@ -3,7 +3,7 @@
 /* Navbar Styling */
 nav {
     display: flex;
-    justify-content: space-between; /* Align items to the ends */
+    justify-content: flex-end; /* Align items to the right */
     align-items: center;  /* Vertically center the items */
     background-color: #2f4f4f;
     padding: 10px 20px;
@@ -13,32 +13,38 @@ nav {
   ul {
     display: flex;
     list-style-type: none;
-    gap: 20px;
+    gap: 20px;  /* Space between links */
+    padding: 0;
+    margin: 0;
+    align-items: center;  /* Ensure list items are centered vertically */
   }
   
   li {
     display: inline-block;
   }
   
+  /* Styling for all link states */
   a {
-    color: white;
+    color: white;  /* Make sure all links are white */
     text-decoration: none;
+    padding: 10px 20px;  /* Some space around the link */
+    border-radius: 5px;  /* Optional: rounded corners */
+    transition: background-color 0.3s ease;  /* Smooth hover effect */
   }
   
-  a:hover {
-    color: #ddd;
-  }
-  
-  button {
-    background-color: #f44336;
+  /* Ensure visited links are also white */
+  a:visited {
     color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
   }
   
-  button:hover {
-    background-color: #e53935;
+  /* Hover effect */
+  a:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+  }
+  
+  /* Active links */
+  a:active {
+    color: white;  /* Ensure active links remain white */
   }
   
   /* Mobile responsiveness */

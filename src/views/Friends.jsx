@@ -2,7 +2,7 @@
 function Friends() {
     return (
       <div>
-        <h3>Friends</h3>
+        <h2>Friends</h2>
         <p>This is the placeholder content for the Friends section.</p>
       </div>
     );

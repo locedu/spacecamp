@@ -5,12 +5,14 @@ import Feed from './views/Feed';
 import Profile from './views/Profile';
 import Notifications from './views/Notifications';
 import Friends from './views/Friends';
-import Login from './views/Login'; 
+import Login from './views/Login';
 import Register from './views/Register';
 import Home from './views/Home'; // Home route
+import Activity from './views/Activity'; // Import the Activity component
 import PrivateRoute from './components/PrivateRoute';  // Import PrivateRoute
 import Navbar from './components/Navbar';  // Import Navbar
 import './styles/app.css';  // Import the new app.css file
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="friends" element={<Friends />} />
+            <Route path="activity" element={<Activity />} /> {/* Add Activity route */}
           </Route>
         </Routes>
       </main>
