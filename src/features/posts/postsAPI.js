@@ -7,22 +7,23 @@ export const postsAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers, { getState }) => {
-      // Retrieve token from Redux store or localStorage
       const token = getState().auth.token || localStorage.getItem('token');
-
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
-
       return headers;
     },
   }),
+  tagTypes: ['Posts'],  // ✅ Define a tag for posts
+
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: () => '/api/posts',  // Endpoint for fetching all posts
+      query: () => '/api/posts',
+      providesTags: ['Posts'],  // ✅ Provide tag so it can be invalidated
     }),
-    getPostById: builder.query({  // ✅ Add missing query for fetching a single post
+    getPostById: builder.query({
       query: (id) => `/api/posts/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Posts', id }], // ✅ Provide tag per post
     }),
     createPost: builder.mutation({
       query: (newPost) => ({
@@ -30,9 +31,25 @@ export const postsAPI = createApi({
         method: 'POST',
         body: newPost,
       }),
+      invalidatesTags: ['Posts'],  // ✅ Invalidate to refresh list
+    }),
+    updatePost: builder.mutation({
+      query: ({ id, ...updatedData }) => ({
+        url: `/api/posts/${id}`,
+        method: 'PUT',
+        body: updatedData,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'Posts', id }, // ✅ Invalidate specific post
+        'Posts', // ✅ Also refresh the full post list
+      ],
     }),
   }),
 });
 
-// ✅ Export all required hooks
-export const { useGetPostsQuery, useGetPostByIdQuery, useCreatePostMutation } = postsAPI;
+export const {
+  useGetPostsQuery,
+  useGetPostByIdQuery,
+  useCreatePostMutation,
+  useUpdatePostMutation,
+} = postsAPI;

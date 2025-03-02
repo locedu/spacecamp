@@ -15,7 +15,7 @@ import AllSections from './views/AllSections';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 
-import Posts from './views/Feed'; // Renaming Feed to Posts for clarity
+import Feed from './views/Feed'; // Keeping Feed.jsx as is
 import NewPost from './views/NewPost';
 import EditPost from './views/EditPost';
 import ViewPost from './views/ViewPost';
@@ -42,15 +42,15 @@ function App() {
           <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />}>
             <Route index element={<AllSections />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="posts" element={<Posts />} /> {/* Updated Route */}
+            <Route path="posts" element={<Feed />} /> {/* ✅ Feed remains unchanged */}
             <Route path="notifications" element={<Notifications />} />
             <Route path="friends" element={<Friends />} />
             <Route path="activity" element={<Activity />} />
 
             {/* Post Routes */}
-            <Route path="posts/new" element={<NewPost />} />
-            <Route path="posts/:id/edit" element={<EditPost />} />
-            <Route path="posts/:id" element={<ViewPost />} />
+            <Route path="posts/new" element={<NewPost />} />   {/* ✅ Create a new post */}
+            <Route path="posts/:id/edit" element={<EditPost />} />  {/* ✅ Edit a post */}
+            <Route path="posts/:id" element={<ViewPost />} />  {/* ✅ View a single post */}
           </Route>
         </Routes>
       </main>

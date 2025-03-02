@@ -1,0 +1,62 @@
+.edit-post-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-post-container h2 {
+    text-align: center;
+}
+
+.edit-post-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-post-container label {
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.edit-post-container input,
+.edit-post-container textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.edit-post-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.save-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #0056b3;
+}
+
+.cancel-btn {
+    background-color: #aaa;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #888;
+}
