@@ -4,22 +4,11 @@ import { useGetPostByIdQuery } from '../features/posts/postsAPI';
 import '../styles/viewPost.css';
 
 function ViewPost() {
-  const { id } = useParams(); // Get post ID from URL
-  const { data: post, error, isLoading } = useGetPostByIdQuery(id); // Fetch post by ID
+  const { id } = useParams();
+  const { data: post, error, isLoading } = useGetPostByIdQuery(id);
 
-  if (isLoading) {
-    return <div className="loading-state">Loading post...</div>;
-  }
-
-  if (error || !post) {
-    return <div className="error-message">Error loading post or post not found.</div>;
-  }
-
-  // Ensure post.user exists to prevent runtime errors
-  const authorName = post?.user?.name || "Unknown Author";
-
-  // Format date
-  const formatDate = (date) => (date ? new Date(date).toLocaleDateString() : "Unknown Date");
+  if (isLoading) return <div className="loading-state">Loading post...</div>;
+  if (error || !post) return <div className="error-message">Error loading post or post not found.</div>;
 
   return (
     <div className="view-post-container">
@@ -31,13 +20,14 @@ function ViewPost() {
           {post.content}
         </div>
         <div className="post-footer">
-          <span className="timestamp">Updated: {formatDate(post.updatedAt)}</span>
-          <p className="post-author">by {authorName}</p>
+          <span className="timestamp">Updated: {new Date(post.updatedAt).toLocaleDateString()}</span>
+          <p className="post-author">by {post.user?.name || "Unknown Author"}</p>
         </div>
       </div>
 
-      {/* Back Button */}
+      {/* Buttons */}
       <div className="view-post-actions">
+        <Link to={`/dashboard/posts/${post.id}/edit`} className="edit-btn">Edit</Link>
         <Link to="/dashboard/posts" className="view-post-back-btn">Back</Link>
       </div>
     </div>
