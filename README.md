@@ -1,5 +1,6 @@
 # spacecamp
 
+- new post (NewPost) working.
 - edit post (EditPost) working.
 - view post (ViewPost) displays author's name (needs email for admins only LATER).
 - new views (NewPost, EditPost, ViewPost), component (Post).
