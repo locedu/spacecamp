@@ -1,57 +1,59 @@
 /* Style for the feed container */
 .feed-container {
-    background-color: #eaeaea; /* Light gray background */
-    border-radius: 0.5em;
     padding: 20px;
     margin: 10px;
-    flex: 1 1 45%;  /* Ensures the feed container takes up the right amount of space */
+    background-color: #eaeaea; /* Light gray background for the entire feed */
+    border-radius: 8px;
     box-sizing: border-box;
+    max-width: 800px; /* Limit the width for better readability */
+    margin: 1em auto; /* Center the feed */
+    font-family: Arial, sans-serif; /* Clean font */
   }
   
-  /* Style for the individual posts */
+  /* Style for each individual post */
   .post {
-    background-color: white;  /* White background for each post */
+    background-color: #fff; /* White background for each post */
     padding: 15px;
-    border-radius: 0.5em;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Soft shadow for the posts */
-    margin-bottom: 15px;
-    transition: transform 0.3s ease-in-out;  /* Smooth transition effect for hover */
-  }
-  
-  .post:hover {
-    transform: translateY(-5px);  /* Slight lift effect on hover */
-  }
-  
-  /* Styling the post title and user info */
-  .post h6 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .post p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #555;  /* Darker gray text */
-  }
-  
-  /* Style for loading and empty state */
-  .loading-state {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .error-message {
-    color: red;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* Style for the header of the feed */
-  h2 {
-    text-align: center;
-    color: #333;  /* Darker color for the heading */
     margin-bottom: 20px;
+    border-radius: 8px; /* Rounded corners for each post */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: left; /* Left-align text */
+  }
+  
+  /* Header of the post (title and author) */
+  .post-header {
+    margin-bottom: 10px;
+  }
+  
+  .post-header h2 {
+    font-size: 1.2em; /* Slightly larger font size for the title */
+    font-weight: bold; /* Make the title bold */
+    margin: 0;
+    color: #333; /* Dark gray color for title */
+  }
+  
+  .post-header .author {
+    font-size: 0.9em; /* Smaller font for the author's name */
+    color: #777; /* Light gray color for the author */
+    margin-top: 5px;
+  }
+  
+  /* Content of the post */
+  .post-content {
+    font-size: 1em; /* Normal text size for content */
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Footer with timestamp */
+  .post-footer {
+    font-size: 0.8em; /* Smaller font for the footer */
+    color: #777; /* Light gray color for the timestamp */
+  }
+  
+  .post-footer .timestamp {
+    display: block; /* Ensure the timestamp appears on a new line */
+    margin-top: 10px;
   }
   

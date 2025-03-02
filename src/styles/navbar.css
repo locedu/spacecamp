@@ -27,7 +27,7 @@ li {
   
 /* Styling for all link states */
 a {
-    color: white !important;  /* Keep all links white */
+    color: white;  /* Keep all links white */
     text-decoration: none;
     padding: 10px 20px;  /* Some space around the link */
     border-radius: 5px;  /* Optional: rounded corners */
@@ -39,18 +39,18 @@ a {
   
 /* Ensure visited links are also white */
 a:visited {
-    color: white !important;
+    color: white;
 }
   
 /* Remove hover effect (link should always remain white) */
 a:hover {
     background-color: transparent;  /* No background change on hover */
-    color: white !important;  /* Ensure the link remains white on hover */
+    color: white;  /* Ensure the link remains white on hover */
 }
   
 /* Active links */
 a:active {
-    color: white !important;  /* Ensure active links remain white */
+    color: white;  /* Ensure active links remain white */
 }
   
 /* Styling for the logout button */

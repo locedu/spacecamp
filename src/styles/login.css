@@ -5,18 +5,4 @@ main.content {
     padding: 2em;
   }
   
-  /* Title styling */
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px; /* Spacing below the title */
-  }
-  
-  /* Error message styling */
-  p {
-    color: red;
-    font-size: 0.9rem;
-    text-align: center;
-    margin-top: 10px;
-  }
   

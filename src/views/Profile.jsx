@@ -1,72 +1,56 @@
 import { useEffect } from 'react';
-import { useFetchUserProfileQuery } from '../features/auth/authAPI';  // Use RTK Query hook
-import { Box, CircularProgress, Typography } from '@mui/material';  // MUI components
-import '../styles/profile.css'; // Profile styles
+import { useFetchUserProfileQuery } from '../features/auth/authAPI';
+import '../styles/profile.css';
 
 function Profile() {
-  const { data: response, error, isLoading } = useFetchUserProfileQuery();  // Fetch user profile
+  const { data: response, error, isLoading } = useFetchUserProfileQuery();
 
-  // Log the response data for debugging
   useEffect(() => {
     if (response) {
-      console.log("Response data:", response);  // Check the data structure in console
+      console.log("Response data:", response);
     }
   }, [response]);
 
-  // Loading state
   if (isLoading) {
-    return (
-      <Box sx={{ textAlign: 'center', padding: '20px' }}>
-        <CircularProgress />
-        <Typography>Loading profile...</Typography>
-      </Box>
-    );
+    return <div className="profile-container"><div className="profile-content">Loading profile...</div></div>;
   }
 
-  // Error state
   if (error) {
-    return (
-      <Box sx={{ textAlign: 'center', padding: '20px' }}>
-        <Typography color="error">Error loading profile</Typography>
-      </Box>
-    );
+    return <div className="profile-container"><div className="profile-content error">Error loading profile</div></div>;
   }
 
-  // Handle case where user data is not available
   if (!response?.user) {
-    return (
-      <Box sx={{ textAlign: 'center', padding: '20px' }}>
-        <Typography>No profile data available</Typography>
-      </Box>
-    );
+    return <div className="profile-container"><div className="profile-content no-data">No profile data available</div></div>;
   }
 
-  const user = response.user;  // Extract user object
+  const user = response.user;
 
-  // User data display with fallbacks
+  // Format updatedAt to show only the date
+  const formattedUpdatedAt = user?.updatedAt
+    ? new Date(user.updatedAt).toLocaleDateString()
+    : 'Unknown';
+
   return (
-    <Box className="profile-container">
-      <Typography variant="h4" align="center">{user?.name || 'Unknown User'}'s Profile</Typography>
-      
-      {/* Profile Image */}
-      <Box className="profile-image-container" sx={{ textAlign: 'center' }}>
-        <img
-          src={user?.profileImage || 'default-avatar.png'}  // Fallback image if no profile image is available
-          alt={`${user?.name}'s profile`}
-          className="profile-image"
-          style={{ borderRadius: '50%', width: '150px', height: '150px', objectFit: 'cover' }}
-        />
-      </Box>
-      
-      {/* User Information */}
-      <Box sx={{ marginTop: '20px', textAlign: 'center' }}>
-        <Typography><strong>Email:</strong> {user?.email || 'N/A'}</Typography>
-        <Typography><strong>Username:</strong> {user?.username || 'N/A'}</Typography>
-        <Typography><strong>Status:</strong> {user?.status || 'N/A'}</Typography>
-        <Typography><strong>Status Message:</strong> {user?.statusMessage || 'No status'}</Typography>
-        <Typography><strong>Bio:</strong> {user?.bio || 'No bio available'}</Typography>
-      </Box>
-    </Box>
+    <div className="profile-container">
+      <div className="profile-content">
+        <h2>Profile</h2>
+        <div className="profile-info">
+          <div><strong>Name:</strong> {user?.name || 'N/A'}</div>
+          <div><strong>Email:</strong> {user?.email || 'N/A'}</div>
+          <div><strong>Username:</strong> {user?.username || 'N/A'}</div>
+          <div><strong>Status:</strong> {user?.status || 'N/A'}</div>
+          <div><strong>Status Message:</strong> {user?.statusMessage || 'No status'}</div>
+          <div><strong>Bio:</strong> {user?.bio || 'No bio available'}</div>
+          <div><strong>Last Login:</strong> {user?.lastLogin || 'Unknown'}</div>
+        </div>
+
+        {/* Footer with formatted Updated Date and Edit Profile */}
+        <div className="profile-footer">
+          <div className="last-updated">Updated: {formattedUpdatedAt}</div>
+          <a href="#" className="edit-link">Edit</a>
+        </div>
+      </div>
+    </div>
   );
 }
 
