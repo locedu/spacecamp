@@ -1,11 +1,12 @@
 import React from 'react';
-import { useGetPostsQuery } from '../features/posts/postsAPI';  // Import the RTK Query hook
-import '../styles/feed.css'; // Styling for Feed component
+import { useGetPostsQuery } from '../features/posts/postsAPI';
+import { useLocation, Link } from 'react-router-dom'; // Import useLocation and Link
+import '../styles/feed.css';
 
 function Feed() {
-  const { data: posts, error, isLoading } = useGetPostsQuery(); // Fetch posts from the backend
+  const { data: posts, error, isLoading } = useGetPostsQuery();
+  const location = useLocation(); // Get current route
 
-  // Loading state
   if (isLoading) {
     return (
       <div className="loading-state">
@@ -14,7 +15,6 @@ function Feed() {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className="error-message">
@@ -23,7 +23,6 @@ function Feed() {
     );
   }
 
-  // No posts available
   if (!posts || posts.length === 0) {
     return (
       <div className="loading-state">
@@ -32,16 +31,21 @@ function Feed() {
     );
   }
 
-  // Format the updatedAt date
-  const formatDate = (date) => {
-    const newDate = new Date(date);
-    return newDate.toLocaleString(); // Convert to a readable date string
-  };
+  // Sort posts by updatedAt (newest first)
+  const sortedPosts = [...posts].sort(
+    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+  );
 
-  // Display posts
+  // Show only first 2 posts if on /dashboard, otherwise show all
+  const isDashboard = location.pathname === "/dashboard";
+  const visiblePosts = isDashboard ? sortedPosts.slice(0, 2) : sortedPosts;
+
+  // Format date function
+  const formatDate = (date) => new Date(date).toLocaleString();
+
   return (
     <div className="feed-container">
-      {posts.map((post) => (
+      {visiblePosts.map((post) => (
         <div key={post.id} className="post">
           <div className="post-header">
             <h2>{post.title}</h2>
@@ -51,10 +55,17 @@ function Feed() {
             <p>{post.content}</p>
           </div>
           <div className="post-footer">
-            <span className="timestamp">Updated at: {formatDate(post.updatedAt)}</span>
+            <span className="timestamp">Updated: {formatDate(post.updatedAt)}</span>
           </div>
         </div>
       ))}
+
+      {/* Show "View More" only on /dashboard */}
+      {isDashboard && (
+        <div className="view-more">
+          <Link to="/dashboard/feed">View More</Link>
+        </div>
+      )}
     </div>
   );
 }
