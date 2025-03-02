@@ -1,78 +1,46 @@
-/* Style for the feed container */
+/* Feed Container */
 .feed-container {
-    padding: 20px;
-    margin: 10px;
-    background-color: #eaeaea; /* Light gray background for the entire feed */
+    padding: 0; /* Keep AppBar flush */
+    margin: 20px auto; /* ✅ Adds spacing around the Feed */
+    max-width: 800px;
+    background-color: #eaeaea;
     border-radius: 8px;
-    box-sizing: border-box;
-    max-width: 800px; /* Limit the width for better readability */
-    margin: 1em auto; /* Center the feed */
-    font-family: Arial, sans-serif; /* Clean font */
-  }
-  
-  /* Style for each individual post */
-  .post {
-    background-color: #fff; /* White background for each post */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* AppBar Styling */
+.feed-appbar {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Style for each post */
+.post {
+    background-color: #fff;
     padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px; /* Rounded corners for each post */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    text-align: left; /* Left-align text */
-  }
-  
-  /* Header of the post (title and author) */
-  .post-header {
-    margin-bottom: 10px;
-  }
-  
-  .post-header h2 {
-    font-size: 1.2em; /* Slightly larger font size for the title */
-    font-weight: bold; /* Make the title bold */
-    text-align: left !important;
-    margin: 0;
-    color: #333; /* Dark gray color for title */
-  }
-  
-  .post-header .author {
-    font-size: 0.9em; /* Smaller font for the author's name */
-    color: #777; /* Light gray color for the author */
-    margin-top: 5px;
-    text-align: left !important;
-  }
-
-  .post-author {
+    margin: 20px; /* ✅ Adds spacing between posts */
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
-  }
-  
-  /* Content of the post */
-  .post-content {
-    font-size: 1em; /* Normal text size for content */
-    line-height: 1.6;
-    color: #333;
-    margin-bottom: 15px;
-    text-align: left !important;
-  }
-  
-  /* Footer with timestamp */
-  .post-footer {
-    font-size: 0.8em; /* Smaller font for the footer */
-    color: #777; /* Light gray color for the timestamp */
-  }
-  
-  .post-footer .timestamp {
-    display: block; /* Ensure the timestamp appears on a new line */
-    margin-top: 10px;
-  }
+}
 
- /* Feed Buttons Container (Keeps "New" & "View More" inside the Feed Box) */
+/* Feed Label - Small Text at Top */
+.feed-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #666;
+    margin: 15px;
+}
+
+/* Feed Buttons */
 .feed-buttons {
     display: flex;
-    justify-content: space-between; /* Positions buttons at opposite ends */
-    margin-top: 20px;
+    justify-content: space-between;
+    margin: 20px; /* ✅ Adds space above buttons */
     padding: 10px 0;
 }
 
-/* Styling for Both Buttons */
+/* Buttons */
 .feed-btn {
     display: inline-block;
     padding: 10px 15px;
@@ -87,16 +55,26 @@
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* Hover Effect */
 .feed-btn:hover {
     background-color: #0056b3;
     transform: scale(1.05);
 }
 
-.feed-label {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: #666;
-    margin-bottom: 10px;
+/* View All Link */
+.feed-view-all {
+    text-align: right; /* ✅ Aligns text to the right */
+    margin: 10px 15px;
+    display: flex;
 }
 
+.view-all-link {
+    font-size: 0.9em;
+    color: #007bff;
+    text-decoration: none;
+    display: inline; /* ✅ Ensures hover effect applies only to the text */
+}
+
+.view-all-link:hover {
+    text-decoration: underline;
+    color: #007bff;
+}
