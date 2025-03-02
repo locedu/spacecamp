@@ -19,16 +19,20 @@ export const postsAPI = createApi({
   }),
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: () => '/api/posts',  // Endpoint for fetching posts
+      query: () => '/api/posts',  // Endpoint for fetching all posts
+    }),
+    getPostById: builder.query({  // ✅ Add missing query for fetching a single post
+      query: (id) => `/api/posts/${id}`,
     }),
     createPost: builder.mutation({
       query: (newPost) => ({
         url: '/api/posts',
         method: 'POST',
-        body: newPost,  // Sending new post data
+        body: newPost,
       }),
     }),
   }),
 });
 
-export const { useGetPostsQuery, useCreatePostMutation } = postsAPI;  // Export hooks for both actions
+// ✅ Export all required hooks
+export const { useGetPostsQuery, useGetPostByIdQuery, useCreatePostMutation } = postsAPI;

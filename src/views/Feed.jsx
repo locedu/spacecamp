@@ -45,7 +45,7 @@ function Feed() {
     <div className="feed-container">
       {/* AppBar Header */}
       <div className="feed-header">
-        <h2>Feed</h2>
+        <h2>Posts</h2>
       </div>
 
       {visiblePosts.map((post) => (
@@ -55,7 +55,7 @@ function Feed() {
       {/* Buttons Container (Keeps Both Buttons Inside Feed) */}
       <div className="feed-buttons">
         {isDashboard && (
-          <Link to="/dashboard/feed" className="feed-btn">
+          <Link to="/dashboard/posts" className="feed-btn">
             View More
           </Link>
         )}
