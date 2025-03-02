@@ -1,5 +1,6 @@
 # spacecamp
 
+- new views (NewPost, EditPost, ViewPost), component (Post).
 - feed (display 2 on dashboard, all on /dashboard/feed)
 - dashboard (profile, feed layout and css)
 - load posts (basic)
