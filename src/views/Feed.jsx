@@ -2,6 +2,8 @@ import React from 'react';
 import { useGetPostsQuery } from '../features/posts/postsAPI';
 import { useLocation, Link } from 'react-router-dom';
 import Post from '../components/Post';
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import '../styles/feed.css';
 
 function Feed() {
@@ -27,24 +29,37 @@ function Feed() {
 
   // Show only first 2 posts if on /dashboard, otherwise show all
   const isDashboard = location.pathname === "/dashboard";
+  const isPostsPage = location.pathname === "/dashboard/posts";
   const visiblePosts = isDashboard ? sortedPosts.slice(0, 2) : sortedPosts;
+
+  // ✅ Set dynamic title
+  const pageTitle = isDashboard ? "Recent Posts" : isPostsPage ? "Posts" : "Feed";
 
   return (
     <div className="feed-container">
-      {/* ✅ Small discreet label instead of large header */}
-      <div className="feed-label">Recent Posts</div>
+      <AppBar position="static" color="primary" className="feed-appbar">
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            {pageTitle}
+          </Typography>
+          <IconButton color="inherit" component={Link} to="/dashboard/posts/new">
+            <AddIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
 
       {visiblePosts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
 
-      {/* Buttons Container */}
-      <div className="feed-buttons">
-        {isDashboard && (
-          <Link to="/dashboard/posts" className="feed-btn">View More</Link>
-        )}
-        <Link to="/dashboard/posts/new" className="feed-btn">New</Link>
-      </div>
+      {/* ✅ Plain text link for "View All (Total Count)" */}
+      {isDashboard && (
+        <div className="feed-view-all">
+          <Link to="/dashboard/posts" className="view-all-link">
+            View All ({posts.length})
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
