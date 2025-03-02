@@ -1,5 +1,6 @@
 # spacecamp
 
+- Feed cleanup (+) button, View All link.
 - new post (NewPost) working.
 - edit post (EditPost) working.
 - view post (ViewPost) displays author's name (needs email for admins only LATER).
