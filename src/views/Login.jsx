@@ -1,21 +1,24 @@
 // src/views/Login.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../features/auth/authAPI';  // Import login mutation hook
-import { TextField, Button, CircularProgress, Box } from '@mui/material';  // MUI components
-import '../styles/login.css';  // Import login form styling
+import { useLoginMutation } from '../features/auth/authAPI';
+import { TextField, Button, CircularProgress, Box } from '@mui/material';
+import '../styles/login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, { isLoading, error }] = useLoginMutation();  // RTK Query hook for login mutation
+  const [login, { isLoading, error }] = useLoginMutation();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Send POST request with email and password using RTK Query
-      const response = await login({ email, password }).unwrap();
+      // Convert email to lowercase before sending
+      const formattedEmail = email.trim().toLowerCase();
+
+      // Send POST request with formatted email and password
+      const response = await login({ email: formattedEmail, password }).unwrap();
 
       // Save the token to localStorage and update the Redux store
       localStorage.setItem('token', response.token);
@@ -51,7 +54,7 @@ function Login() {
         fullWidth
         required
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value.trim().toLowerCase())} // ✅ Auto-lowercase input
       />
 
       <TextField

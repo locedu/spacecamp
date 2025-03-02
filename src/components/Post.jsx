@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import '../styles/post.css'; // Separate styles for posts
 
 function Post({ post }) {
-  const formatDate = (date) => new Date(date).toLocaleDateString();
+  const formatDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString() + " " + newDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
 
   return (
     <div className="post">

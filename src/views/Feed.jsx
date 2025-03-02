@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGetPostsQuery } from '../features/posts/postsAPI';
 import { useLocation, Link } from 'react-router-dom';
-import Post from '../components/Post'; // Import Post component
+import Post from '../components/Post';
 import '../styles/feed.css';
 
 function Feed() {
@@ -9,27 +9,15 @@ function Feed() {
   const location = useLocation();
 
   if (isLoading) {
-    return (
-      <div className="loading-state">
-        <p>Loading posts...</p>
-      </div>
-    );
+    return <div className="loading-state"><p>Loading posts...</p></div>;
   }
 
   if (error) {
-    return (
-      <div className="error-message">
-        <p>Error loading posts</p>
-      </div>
-    );
+    return <div className="error-message"><p>Error loading posts</p></div>;
   }
 
   if (!posts || posts.length === 0) {
-    return (
-      <div className="loading-state">
-        <p>No posts available</p>
-      </div>
-    );
+    return <div className="loading-state"><p>No posts available</p></div>;
   }
 
   // Sort posts by updatedAt (newest first)
@@ -43,25 +31,19 @@ function Feed() {
 
   return (
     <div className="feed-container">
-      {/* AppBar Header */}
-      <div className="feed-header">
-        <h2>Posts</h2>
-      </div>
+      {/* ✅ Small discreet label instead of large header */}
+      <div className="feed-label">Recent Posts</div>
 
       {visiblePosts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
 
-      {/* Buttons Container (Keeps Both Buttons Inside Feed) */}
+      {/* Buttons Container */}
       <div className="feed-buttons">
         {isDashboard && (
-          <Link to="/dashboard/posts" className="feed-btn">
-            View More
-          </Link>
+          <Link to="/dashboard/posts" className="feed-btn">View More</Link>
         )}
-        <Link to="/dashboard/posts/new" className="feed-btn">
-          New
-        </Link>
+        <Link to="/dashboard/posts/new" className="feed-btn">New</Link>
       </div>
     </div>
   );

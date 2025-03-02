@@ -1,32 +1,34 @@
 // src/views/Register.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRegisterMutation } from '../features/auth/authAPI';  // Import the register mutation hook
-import { TextField, Button, CircularProgress, Box } from '@mui/material';  // MUI components
-import '../styles/register.css';  // Import register form styling
+import { useRegisterMutation } from '../features/auth/authAPI';
+import { TextField, Button, CircularProgress, Box } from '@mui/material';
+import '../styles/register.css';
 
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [name, setName] = useState('');  // Optional field
-  const [register, { isLoading, error }] = useRegisterMutation();  // RTK Query hook for registration
+  const [name, setName] = useState('');
+  const [register, { isLoading, error }] = useRegisterMutation();
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      // Send POST request to backend using RTK Query
+      // Convert email to lowercase before sending
+      const formattedEmail = email.trim().toLowerCase();
+
+      // Send POST request to backend
       const response = await register({
-        email,
+        email: formattedEmail,
         password,
         username,
         name,
       }).unwrap();
 
-      // If registration is successful, navigate to login
       console.log('Registration successful:', response);
-      navigate('/login'); // Redirect to login after successful registration
+      navigate('/login');
     } catch (err) {
       console.error('Registration failed:', err);
       alert('Registration failed. Please check the details and try again.');
@@ -56,7 +58,7 @@ function Register() {
         fullWidth
         required
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value.trim().toLowerCase())} // ✅ Auto-lowercase input
       />
 
       <TextField

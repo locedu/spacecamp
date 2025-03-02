@@ -1,0 +1,14 @@
+.new-post-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.new-post-container h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #333;
+}

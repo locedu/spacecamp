@@ -10,6 +10,12 @@ function ViewPost() {
   if (isLoading) return <div className="loading-state">Loading post...</div>;
   if (error || !post) return <div className="error-message">Error loading post or post not found.</div>;
 
+  // Format date and time
+  const formatDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString() + " " + newDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   return (
     <div className="view-post-container">
       <div className="post">
@@ -20,7 +26,7 @@ function ViewPost() {
           {post.content}
         </div>
         <div className="post-footer">
-          <span className="timestamp">Updated: {new Date(post.updatedAt).toLocaleDateString()}</span>
+          <span className="timestamp">Updated: {formatDate(post.updatedAt)}</span>
           <p className="post-author">by {post.user?.name || "Unknown Author"}</p>
         </div>
       </div>
