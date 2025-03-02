@@ -1,11 +1,12 @@
 import React from 'react';
 import { useGetPostsQuery } from '../features/posts/postsAPI';
-import { useLocation, Link } from 'react-router-dom'; // Import useLocation and Link
+import { useLocation, Link } from 'react-router-dom';
+import Post from '../components/Post'; // Import Post component
 import '../styles/feed.css';
 
 function Feed() {
   const { data: posts, error, isLoading } = useGetPostsQuery();
-  const location = useLocation(); // Get current route
+  const location = useLocation();
 
   if (isLoading) {
     return (
@@ -40,32 +41,28 @@ function Feed() {
   const isDashboard = location.pathname === "/dashboard";
   const visiblePosts = isDashboard ? sortedPosts.slice(0, 2) : sortedPosts;
 
-  // Format date function
-  const formatDate = (date) => new Date(date).toLocaleString();
-
   return (
     <div className="feed-container">
+      {/* AppBar Header */}
+      <div className="feed-header">
+        <h2>Feed</h2>
+      </div>
+
       {visiblePosts.map((post) => (
-        <div key={post.id} className="post">
-          <div className="post-header">
-            <h2>{post.title}</h2>
-            <p className="author">by {post.user.name}</p>
-          </div>
-          <div className="post-content">
-            <p>{post.content}</p>
-          </div>
-          <div className="post-footer">
-            <span className="timestamp">Updated: {formatDate(post.updatedAt)}</span>
-          </div>
-        </div>
+        <Post key={post.id} post={post} />
       ))}
 
-      {/* Show "View More" only on /dashboard */}
-      {isDashboard && (
-        <div className="view-more">
-          <Link to="/dashboard/feed">View More</Link>
-        </div>
-      )}
+      {/* Buttons Container (Keeps Both Buttons Inside Feed) */}
+      <div className="feed-buttons">
+        {isDashboard && (
+          <Link to="/dashboard/feed" className="feed-btn">
+            View More
+          </Link>
+        )}
+        <Link to="/dashboard/posts/new" className="feed-btn">
+          New
+        </Link>
+      </div>
     </div>
   );
 }
