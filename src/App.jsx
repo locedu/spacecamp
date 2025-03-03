@@ -19,7 +19,8 @@ import Feed from './views/Feed'; // Keeping Feed.jsx as is
 import NewPost from './views/NewPost';
 import EditPost from './views/EditPost';
 import ViewPost from './views/ViewPost';
-import NewComment from './views/NewComment';  // ✅ Import the new component
+import NewComment from './views/NewComment';  
+import EditComment from './views/EditComment';  // ✅ Import EditComment page
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles/app.css";
@@ -48,11 +49,12 @@ function App() {
             <Route path="friends" element={<Friends />} />
             <Route path="activity" element={<Activity />} />
 
-            {/* Post Routes */}
-            <Route path="posts/new" element={<NewPost />} />   {/* ✅ Create a new post */}
-            <Route path="posts/:id/edit" element={<EditPost />} />  {/* ✅ Edit a post */}
-            <Route path="posts/:id" element={<ViewPost />} />  {/* ✅ View a single post */}
-            <Route path="posts/:id/comment" element={<NewComment />} />  {/* ✅ Add Comment Page */}
+            {/* Post & Comment Routes */}
+            <Route path="posts/new" element={<NewPost />} />  
+            <Route path="posts/:id/edit" element={<EditPost />} />  
+            <Route path="posts/:id" element={<ViewPost />} />  
+            <Route path="posts/:id/comment" element={<NewComment />} />  
+            <Route path="comments/:id/edit" element={<EditComment />} />
           </Route>
         </Routes>
       </main>
