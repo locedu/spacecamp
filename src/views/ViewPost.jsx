@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useGetPostByIdQuery } from '../features/posts/postsAPI';
 import { useGetCommentsForPostQuery } from '../features/comments/commentsAPI';
@@ -13,7 +13,12 @@ function ViewPost() {
   const { data: post, error: postError, isLoading: postLoading } = useGetPostByIdQuery(id);
 
   // Fetch comments for this post
-  const { data: comments, error: commentsError, isLoading: commentsLoading } = useGetCommentsForPostQuery(id);
+  const { data: comments, error: commentsError, isLoading: commentsLoading, refetch } = useGetCommentsForPostQuery(id);
+
+  // Force refetch when the component is mounted or when navigating back
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (postLoading || commentsLoading) return <div className="loading-state">Loading...</div>;
 
@@ -29,6 +34,11 @@ function ViewPost() {
 
   console.log("Fetched Comments:", comments); // ✅ Debugging
 
+  // ✅ Sort comments by updatedAt in descending order (most recently updated first)
+  const sortedComments = comments ? [...comments].sort(
+    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+  ) : [];
+
   return (
     <div className="view-post-container">
       {/* Display Post */}
@@ -37,9 +47,9 @@ function ViewPost() {
       {/* Display Comments using the Comment Component */}
       <div className="comments-container">
         <h3 className="comments-header">Comments</h3>
-        {comments?.length > 0 ? (
+        {sortedComments.length > 0 ? (
           <ul className="comments-list">
-            {comments.map((comment) => (
+            {sortedComments.map((comment) => (
               <Comment key={comment.id} comment={comment} />
             ))}
           </ul>
@@ -55,6 +65,7 @@ function ViewPost() {
         </Link>
         <Link to={`/dashboard/posts/${post.id}/edit`} className="edit-btn">Edit</Link>
         <Link to="/dashboard/posts" className="view-post-back-btn">Back</Link>
+        <button onClick={() => refetch()} className="refresh-btn">Refresh Comments</button> {/* ✅ Manual Refresh */}
       </div>
     </div>
   );
