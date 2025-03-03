@@ -1,5 +1,6 @@
 # spacecamp
 
+- diplaying comments in Post details (ViewPost, Post, Comment)
 - Feed cleanup (+) button, View All link.
 - new post (NewPost) working.
 - edit post (EditPost) working.
