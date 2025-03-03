@@ -8,27 +8,64 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Back Button */
+/* Post Styling */
+.post {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-header h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.post-content {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* Post Footer */
+.post-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.post-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.timestamp {
+    font-style: italic;
+    color: #888;
+}
+
+/* Action Links */
 .view-post-actions {
     text-align: center;
     margin-top: 20px;
 }
 
-.view-post-back-btn {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
+/* Simple text links (No button styling) */
+.view-post-actions a {
+    display: inline; /* Ensures it only takes up text space */
+    color: #007bff;
     font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 5px;
+    font-weight: normal;
     text-decoration: none;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease, transform 0.2s ease;
+    margin: 0 10px; /* Space between links */
 }
 
-.view-post-back-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+/* Underline effect on hover */
+.view-post-actions a:hover {
+    text-decoration: underline;
 }
