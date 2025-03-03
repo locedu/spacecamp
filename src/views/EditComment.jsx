@@ -7,21 +7,21 @@ function EditComment() {
   const { id } = useParams(); // Get comment ID from URL
   const navigate = useNavigate();
 
-  // Fetch comment data
+  // Fetch the existing comment
   const { data: comment, error, isLoading } = useGetCommentByIdQuery(id);
-  const [updateComment] = useUpdateCommentMutation(); // Mutation for updating comment
+  const [updateComment] = useUpdateCommentMutation();
 
-  // Local state for form field
+  // Local state for the comment content
   const [content, setContent] = useState('');
 
-  // Populate form once comment data is available
+  // Populate the form when data is available
   useEffect(() => {
     if (comment) {
       setContent(comment.content);
     }
   }, [comment]);
 
-  // Handle input changes
+  // Handle input change
   const handleChange = (e) => {
     setContent(e.target.value);
   };
@@ -29,8 +29,12 @@ function EditComment() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateComment({ commentId: id, content });
-    navigate(`/dashboard/posts/${comment.postId}`); // Redirect back to the post
+    try {
+      await updateComment({ id, content }).unwrap();
+      navigate(-1); // Go back to the previous page
+    } catch (err) {
+      console.error("Failed to update comment:", err);
+    }
   };
 
   if (isLoading) return <div className="loading-state">Loading comment...</div>;
@@ -50,7 +54,7 @@ function EditComment() {
 
         <div className="edit-comment-actions">
           <button type="submit" className="save-btn">Save</button>
-          <button type="button" className="cancel-btn" onClick={() => navigate(`/dashboard/posts/${comment.postId}`)}>Cancel</button>
+          <button type="button" className="cancel-btn" onClick={() => navigate(-1)}>Cancel</button>
         </div>
       </form>
     </div>
