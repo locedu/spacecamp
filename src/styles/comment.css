@@ -1,10 +1,19 @@
+/* Ensure the comment list stacks items vertically */
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: block;  /* ✅ Ensures comments stack vertically */
+}
+
 /* Individual Comment Box */
 .comment-item {
     background: aliceblue;
     padding: 10px;
     margin-bottom: 0.5em;
-    width: 100%;  /* ✅ Ensures full width */
-    box-sizing: border-box;  /* ✅ Prevents overflow issues */
+    width: 100%;  /* ✅ Full width */
+    display: block;  /* ✅ Prevents flex row behavior */
+    box-sizing: border-box;  /* ✅ Avoids overflow issues */
 }
 
 /* Comment Text */
