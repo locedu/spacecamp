@@ -19,6 +19,7 @@ import Feed from './views/Feed'; // Keeping Feed.jsx as is
 import NewPost from './views/NewPost';
 import EditPost from './views/EditPost';
 import ViewPost from './views/ViewPost';
+import NewComment from './views/NewComment';  // ✅ Import the new component
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles/app.css";
@@ -51,6 +52,7 @@ function App() {
             <Route path="posts/new" element={<NewPost />} />   {/* ✅ Create a new post */}
             <Route path="posts/:id/edit" element={<EditPost />} />  {/* ✅ Edit a post */}
             <Route path="posts/:id" element={<ViewPost />} />  {/* ✅ View a single post */}
+            <Route path="posts/:id/comment" element={<NewComment />} />  {/* ✅ Add Comment Page */}
           </Route>
         </Routes>
       </main>

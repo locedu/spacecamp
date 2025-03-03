@@ -29,27 +29,44 @@
     margin-bottom: 15px;
 }
 
-/* Post footer (timestamp, author, actions) */
+/* ✅ Updated Post Footer Layout */
 .post-footer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     font-size: 0.9em;
     color: #777;
     border-top: 1px solid #eee;
-    padding-top: 10px;
+    padding-top: 0px !important;
 }
 
-/* Timestamp styling */
+/* ✅ Bottom-left details (Author, Timestamp, Comments, Likes) */
+.post-details {
+    display: flex;
+    flex-direction: column; /* Stack items */
+    align-items: flex-start;
+    gap: 3px; /* Adds slight spacing between rows */
+}
+
+.post-details p {
+    margin: 0;
+}
+
+/* Timestamp */
 .timestamp {
     font-size: 0.8em;
     color: #777;
 }
 
-/* Author name */
+/* Author */
 .post-author {
     font-weight: bold;
     color: #555;
+}
+
+/* ✅ Bottom-right "View Post" link */
+.post-actions {
+    align-self: flex-end;
 }
 
 /* "View Post" link */
@@ -62,4 +79,5 @@
 
 .view-post-link:hover {
     color: #0056b3;
+    text-decoration: underline;
 }

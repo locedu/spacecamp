@@ -1,0 +1,32 @@
+/* Individual Comment Box */
+.comment-item {
+    background: aliceblue;
+    padding: 10px;
+    margin-bottom: 0.5em;
+    width: 100%;  /* ✅ Ensures full width */
+    box-sizing: border-box;  /* ✅ Prevents overflow issues */
+}
+
+/* Comment Text */
+.comment-content {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-align: left;
+    color: black;
+}
+
+/* Comment Author */
+.comment-author {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+    text-align: left;
+    color: black;
+}
+
+/* Comment Timestamp */
+.comment-time {
+    font-size: 0.8rem;
+    color: black;
+    text-align: left;
+}
