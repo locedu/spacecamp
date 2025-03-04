@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const baseUrl = import.meta.env.VITE_API_URL; // ✅ Match `postsAPI.js` setup
+const baseUrl = import.meta.env.VITE_API_URL; // ✅ Ensure the API base URL is set correctly
 
 export const commentsAPI = createApi({
   reducerPath: 'commentsAPI',
@@ -14,7 +14,7 @@ export const commentsAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Comments'], // ✅ Simple tag structure for caching
+  tagTypes: ['Comments', 'Posts'], 
 
   endpoints: (builder) => ({
     getCommentsForPost: builder.query({
@@ -31,7 +31,10 @@ export const commentsAPI = createApi({
         method: 'POST',
         body: newComment,
       }),
-      invalidatesTags: (result, error, { postId }) => [{ type: 'Comments', postId }],
+      invalidatesTags: (result, error, { postId }) => [
+        { type: 'Comments', postId },
+        { type: 'Posts', id: postId }, // ✅ Ensure post refreshes to update comment count
+      ],
     }),
     updateComment: builder.mutation({
       query: ({ id, content }) => ({
@@ -42,6 +45,17 @@ export const commentsAPI = createApi({
       invalidatesTags: (result, error, { id, postId }) => [
         { type: 'Comments', postId },
         { type: 'Comments', id },
+        { type: 'Posts', id: postId }, 
+      ],
+    }),
+    deleteComment: builder.mutation({
+      query: (commentId) => ({
+        url: `/api/comments/${commentId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, { postId }) => [
+        { type: 'Comments', postId },
+        { type: 'Posts', id: postId }, 
       ],
     }),
   }),
@@ -52,4 +66,5 @@ export const {
   useGetCommentByIdQuery,  
   useAddCommentMutation,
   useUpdateCommentMutation,
+  useDeleteCommentMutation
 } = commentsAPI;

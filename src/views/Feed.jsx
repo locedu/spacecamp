@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGetPostsQuery } from '../features/posts/postsAPI';
 import { useLocation, Link } from 'react-router-dom';
 import Post from '../components/Post';
@@ -7,8 +7,13 @@ import AddIcon from '@mui/icons-material/Add';
 import '../styles/feed.css';
 
 function Feed() {
-  const { data: posts, error, isLoading } = useGetPostsQuery();
+  const { data: posts, error, isLoading, refetch } = useGetPostsQuery();
   const location = useLocation();
+
+  // ✅ Force a fresh request when the component is mounted or navigated back to
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (isLoading) {
     return <div className="loading-state"><p>Loading posts...</p></div>;
@@ -22,12 +27,12 @@ function Feed() {
     return <div className="loading-state"><p>No posts available</p></div>;
   }
 
-  // Sort posts by updatedAt (newest first)
+  // ✅ Sort posts by updatedAt (newest first)
   const sortedPosts = [...posts].sort(
     (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
   );
 
-  // Show only first 2 posts if on /dashboard, otherwise show all
+  // ✅ Show only first 2 posts if on /dashboard, otherwise show all
   const isDashboard = location.pathname === "/dashboard";
   const isPostsPage = location.pathname === "/dashboard/posts";
   const visiblePosts = isDashboard ? sortedPosts.slice(0, 2) : sortedPosts;

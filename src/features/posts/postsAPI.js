@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const baseUrl = import.meta.env.VITE_API_URL; // Ensure this URL is correct
+const baseUrl = import.meta.env.VITE_API_URL;
 
 export const postsAPI = createApi({
   reducerPath: 'postsAPI',
@@ -14,16 +14,16 @@ export const postsAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Posts'],  // ✅ Define a tag for posts
+  tagTypes: ['Posts'], 
 
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => '/api/posts',
-      providesTags: ['Posts'],  // ✅ Provide tag so it can be invalidated
+      providesTags: ['Posts'], // ✅ Posts cache tag
     }),
     getPostById: builder.query({
       query: (id) => `/api/posts/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Posts', id }], // ✅ Provide tag per post
+      providesTags: (result, error, id) => [{ type: 'Posts', id }], 
     }),
     createPost: builder.mutation({
       query: (newPost) => ({
@@ -31,7 +31,7 @@ export const postsAPI = createApi({
         method: 'POST',
         body: newPost,
       }),
-      invalidatesTags: ['Posts'],  // ✅ Invalidate to refresh list
+      invalidatesTags: ['Posts'],  
     }),
     updatePost: builder.mutation({
       query: ({ id, ...updatedData }) => ({
@@ -40,8 +40,8 @@ export const postsAPI = createApi({
         body: updatedData,
       }),
       invalidatesTags: (result, error, { id }) => [
-        { type: 'Posts', id }, // ✅ Invalidate specific post
-        'Posts', // ✅ Also refresh the full post list
+        { type: 'Posts', id }, // ✅ Invalidate only the updated post
+        'Posts', 
       ],
     }),
     deletePost: builder.mutation({
@@ -49,7 +49,7 @@ export const postsAPI = createApi({
         url: `/api/posts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Posts'],  // ✅ Ensure post list refreshes after deletion
+      invalidatesTags: ['Posts'], 
     }),
   }),
 });
@@ -59,5 +59,5 @@ export const {
   useGetPostByIdQuery,
   useCreatePostMutation,
   useUpdatePostMutation,
-  useDeletePostMutation, // ✅ Export delete mutation
+  useDeletePostMutation,
 } = postsAPI;
