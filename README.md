@@ -1,5 +1,6 @@
 # spacecamp
 
+- likes working (postsAPI, ViewPost)
 - comment count will refresh (Feed, ViewPost) when posting new comment.
 - edit post (author only)
 - edit comment (completed /dashboard/comment/:id) from post view (ViewPost)
