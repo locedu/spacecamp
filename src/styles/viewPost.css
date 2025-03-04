@@ -1,16 +1,14 @@
 /* ViewPost Main Container */
 .view-post-container {
     max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    margin: .2em auto;
+    padding: .2em;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Post Styling */
 .post {
-    padding: 20px;
+    padding: .5em;
     border-bottom: 1px solid #ddd;
 }
 
@@ -49,23 +47,44 @@
     color: #888;
 }
 
-/* Action Links */
+/* Action Buttons Row */
 .view-post-actions {
-    text-align: center;
-    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start; /* Aligns items in a row */
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    margin: 15px 0;
 }
 
-/* Simple text links (No button styling) */
-.view-post-actions a {
-    display: inline; /* Ensures it only takes up text space */
+/* Style for links & buttons to behave like inline elements */
+.view-post-actions a,
+.view-post-actions button {
     color: #007bff;
     font-size: 16px;
     font-weight: normal;
     text-decoration: none;
-    margin: 0 10px; /* Space between links */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    display: inline-flex; /* ✅ Ensures inline behavior */
+    align-items: center;
+    width: auto; /* ✅ Prevents buttons from stretching */
+    white-space: nowrap; /* ✅ Prevents text from breaking */
 }
 
-/* Underline effect on hover */
-.view-post-actions a:hover {
+/* Hover Effect */
+.view-post-actions a:hover,
+.view-post-actions button:hover {
+    text-decoration: underline;
+}
+
+/* Delete Button (Red) */
+.delete-btn {
+    color: #dc3545;
+}
+
+.delete-btn:hover {
     text-decoration: underline;
 }
