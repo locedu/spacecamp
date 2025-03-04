@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import {
   useGetPostByIdQuery,
   useDeletePostMutation,
+  useLikePostMutation,
+  useUnlikePostMutation,
 } from "../features/posts/postsAPI";
 import { useGetCommentsForPostQuery } from "../features/comments/commentsAPI";
 import Post from "../components/Post";
@@ -20,7 +22,7 @@ function ViewPost() {
     data: post,
     error: postError,
     isLoading: postLoading,
-    refetch: refetchPost,  // ✅ Refetch Post Data
+    refetch: refetchPost,
   } = useGetPostByIdQuery(id);
 
   // Fetch comments for this post
@@ -31,6 +33,10 @@ function ViewPost() {
     refetch: refetchComments,
   } = useGetCommentsForPostQuery(id);
 
+  // Mutations for like/unlike
+  const [likePost] = useLikePostMutation();
+  const [unlikePost] = useUnlikePostMutation();
+
   // Mutation to delete post
   const [deletePost] = useDeletePostMutation();
 
@@ -39,7 +45,7 @@ function ViewPost() {
     refetchComments();
   }, [refetchComments]);
 
-  // ✅ Force refetching post data when comments change
+  // Force refetching post data when comments change
   useEffect(() => {
     if (comments) {
       refetchPost();
@@ -61,14 +67,27 @@ function ViewPost() {
 
   console.log("Fetched Comments:", comments);
 
-  // ✅ Sort comments by updatedAt in descending order (most recently updated first)
+  // Sort comments by updatedAt in descending order (most recently updated first)
   const sortedComments = comments
     ? [...comments].sort(
         (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
       )
     : [];
 
-  // ✅ Handle post deletion
+  // Check if the user has liked the post
+  const hasLiked = post?.likes?.some((like) => like.userId === user?.id);
+
+  // Handle like/unlike toggle
+  const handleLikeToggle = async () => {
+    if (hasLiked) {
+      await unlikePost(post.id);
+    } else {
+      await likePost(post.id);
+    }
+    refetchPost(); // Refresh post data after like/unlike action
+  };
+
+  // Handle post deletion
   const handleDelete = async () => {
     if (
       window.confirm(
@@ -84,6 +103,23 @@ function ViewPost() {
     <div className="view-post-container">
       {/* Display Post */}
       <Post post={post} />
+
+      {/* Like/Unlike Link */}
+      <div className="like-section">
+        <button
+          className="like-btn"
+          onClick={handleLikeToggle}
+          style={{
+            background: "none",
+            border: "none",
+            color: "blue",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          {hasLiked ? "Unlike" : "Like"}
+        </button>
+      </div>
 
       {/* Action Buttons in a Flexbox Row */}
       <div className="view-post-actions">
