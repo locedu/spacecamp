@@ -15,11 +15,12 @@ function ViewPost() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
-  // Fetch post details
+  // Fetch post details (including comment count)
   const {
     data: post,
     error: postError,
     isLoading: postLoading,
+    refetch: refetchPost,  // ✅ Refetch Post Data
   } = useGetPostByIdQuery(id);
 
   // Fetch comments for this post
@@ -27,7 +28,7 @@ function ViewPost() {
     data: comments,
     error: commentsError,
     isLoading: commentsLoading,
-    refetch,
+    refetch: refetchComments,
   } = useGetCommentsForPostQuery(id);
 
   // Mutation to delete post
@@ -35,8 +36,15 @@ function ViewPost() {
 
   // Force refetch when the component is mounted or when navigating back
   useEffect(() => {
-    refetch();
-  }, [refetch]);
+    refetchComments();
+  }, [refetchComments]);
+
+  // ✅ Force refetching post data when comments change
+  useEffect(() => {
+    if (comments) {
+      refetchPost();
+    }
+  }, [comments, refetchPost]);
 
   if (postLoading || commentsLoading)
     return <div className="loading-state">Loading...</div>;
