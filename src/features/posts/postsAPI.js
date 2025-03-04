@@ -14,16 +14,16 @@ export const postsAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Posts'], 
+  tagTypes: ['Posts'],
 
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => '/api/posts',
-      providesTags: ['Posts'], // ✅ Posts cache tag
+      providesTags: ['Posts'],
     }),
     getPostById: builder.query({
       query: (id) => `/api/posts/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Posts', id }], 
+      providesTags: (result, error, id) => [{ type: 'Posts', id }],
     }),
     createPost: builder.mutation({
       query: (newPost) => ({
@@ -31,7 +31,7 @@ export const postsAPI = createApi({
         method: 'POST',
         body: newPost,
       }),
-      invalidatesTags: ['Posts'],  
+      invalidatesTags: ['Posts'],
     }),
     updatePost: builder.mutation({
       query: ({ id, ...updatedData }) => ({
@@ -39,17 +39,32 @@ export const postsAPI = createApi({
         method: 'PUT',
         body: updatedData,
       }),
-      invalidatesTags: (result, error, { id }) => [
-        { type: 'Posts', id }, // ✅ Invalidate only the updated post
-        'Posts', 
-      ],
+      invalidatesTags: (result, error, { id }) => [{ type: 'Posts', id }, 'Posts'],
     }),
     deletePost: builder.mutation({
       query: (id) => ({
         url: `/api/posts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Posts'], 
+      invalidatesTags: ['Posts'],
+    }),
+
+    // ✅ Add Like Post Mutation
+    likePost: builder.mutation({
+      query: (postId) => ({
+        url: `/api/likes/${postId}`,
+        method: 'POST',
+      }),
+      invalidatesTags: (result, error, postId) => [{ type: 'Posts', postId }], // ✅ Refresh Post Data
+    }),
+
+    // ✅ Add Unlike Post Mutation
+    unlikePost: builder.mutation({
+      query: (postId) => ({
+        url: `/api/likes/${postId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, postId) => [{ type: 'Posts', postId }], // ✅ Refresh Post Data
     }),
   }),
 });
@@ -60,4 +75,6 @@ export const {
   useCreatePostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
+  useLikePostMutation, // ✅ New
+  useUnlikePostMutation, // ✅ New
 } = postsAPI;
