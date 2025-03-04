@@ -1,26 +1,45 @@
-import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useGetPostByIdQuery } from '../features/posts/postsAPI';
-import { useGetCommentsForPostQuery } from '../features/comments/commentsAPI';
-import Post from '../components/Post';
-import Comment from '../components/Comment';
-import '../styles/viewPost.css';
+import React, { useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  useGetPostByIdQuery,
+  useDeletePostMutation,
+} from "../features/posts/postsAPI";
+import { useGetCommentsForPostQuery } from "../features/comments/commentsAPI";
+import Post from "../components/Post";
+import Comment from "../components/Comment";
+import "../styles/viewPost.css";
 
 function ViewPost() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
 
   // Fetch post details
-  const { data: post, error: postError, isLoading: postLoading } = useGetPostByIdQuery(id);
+  const {
+    data: post,
+    error: postError,
+    isLoading: postLoading,
+  } = useGetPostByIdQuery(id);
 
   // Fetch comments for this post
-  const { data: comments, error: commentsError, isLoading: commentsLoading, refetch } = useGetCommentsForPostQuery(id);
+  const {
+    data: comments,
+    error: commentsError,
+    isLoading: commentsLoading,
+    refetch,
+  } = useGetCommentsForPostQuery(id);
+
+  // Mutation to delete post
+  const [deletePost] = useDeletePostMutation();
 
   // Force refetch when the component is mounted or when navigating back
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  if (postLoading || commentsLoading) return <div className="loading-state">Loading...</div>;
+  if (postLoading || commentsLoading)
+    return <div className="loading-state">Loading...</div>;
 
   if (postError) {
     console.error("Post fetch error:", postError);
@@ -32,17 +51,56 @@ function ViewPost() {
     return <div className="error-message">Error loading comments.</div>;
   }
 
-  console.log("Fetched Comments:", comments); // ✅ Debugging
+  console.log("Fetched Comments:", comments);
 
   // ✅ Sort comments by updatedAt in descending order (most recently updated first)
-  const sortedComments = comments ? [...comments].sort(
-    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-  ) : [];
+  const sortedComments = comments
+    ? [...comments].sort(
+        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+      )
+    : [];
+
+  // ✅ Handle post deletion
+  const handleDelete = async () => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this post? This action cannot be undone."
+      )
+    ) {
+      await deletePost(id);
+      navigate("/dashboard/posts"); // Redirect to posts list after deletion
+    }
+  };
 
   return (
     <div className="view-post-container">
       {/* Display Post */}
       <Post post={post} />
+
+      {/* Action Buttons in a Flexbox Row */}
+      <div className="view-post-actions">
+        <Link to={`/dashboard/posts/${post.id}/comment`} className="action-btn">
+          Add Comment
+        </Link>
+
+        {user?.id === post.userId && (
+          <>
+            <Link
+              to={`/dashboard/posts/${post.id}/edit`}
+              className="action-btn"
+            >
+              Edit
+            </Link>
+            <button onClick={handleDelete} className="action-btn delete-btn">
+              Delete
+            </button>
+          </>
+        )}
+
+        <Link to="/dashboard/posts" className="action-btn">
+          Back
+        </Link>
+      </div>
 
       {/* Display Comments using the Comment Component */}
       <div className="comments-container">
@@ -56,16 +114,6 @@ function ViewPost() {
         ) : (
           <p className="no-comments">Currently no comments on this post.</p>
         )}
-      </div>
-
-      {/* Action Links */}
-      <div className="view-post-actions">
-        <Link to={`/dashboard/posts/${post.id}/comment`} className="add-comment-link">
-          Add Comment
-        </Link>
-        <Link to={`/dashboard/posts/${post.id}/edit`} className="edit-btn">Edit</Link>
-        <Link to="/dashboard/posts" className="view-post-back-btn">Back</Link>
-        <button onClick={() => refetch()} className="refresh-btn">Refresh Comments</button> {/* ✅ Manual Refresh */}
       </div>
     </div>
   );

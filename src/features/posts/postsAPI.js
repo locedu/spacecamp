@@ -44,6 +44,13 @@ export const postsAPI = createApi({
         'Posts', // ✅ Also refresh the full post list
       ],
     }),
+    deletePost: builder.mutation({
+      query: (id) => ({
+        url: `/api/posts/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Posts'],  // ✅ Ensure post list refreshes after deletion
+    }),
   }),
 });
 
@@ -52,4 +59,5 @@ export const {
   useGetPostByIdQuery,
   useCreatePostMutation,
   useUpdatePostMutation,
+  useDeletePostMutation, // ✅ Export delete mutation
 } = postsAPI;
