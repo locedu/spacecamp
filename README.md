@@ -1,5 +1,6 @@
 # spacecamp
 
+- edit post (author only)
 - edit comment (completed /dashboard/comment/:id) from post view (ViewPost)
 - edit comment link showing up author (Comment.jsx) / in progress..
 - diplaying comments in Post details (ViewPost, Post, Comment)
