@@ -1,5 +1,6 @@
 # spacecamp
 
+- comment count will refresh (Feed, ViewPost) when posting new comment.
 - edit post (author only)
 - edit comment (completed /dashboard/comment/:id) from post view (ViewPost)
 - edit comment link showing up author (Comment.jsx) / in progress..
