@@ -1,5 +1,7 @@
 # spacecamp
 
+- Sidebar (My Profile) updates Profile.
+- searchable directory updates Profile.
 - directory searchable (Directory) functional (need to link to Profile).
 - likes working (postsAPI, ViewPost)
 - comment count will refresh (Feed, ViewPost) when posting new comment.
