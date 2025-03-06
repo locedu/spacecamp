@@ -4,6 +4,7 @@ import Profile from './Profile';
 import Notifications from './Notifications';
 import Friends from './Friends';
 import Activity from './Activity';
+import Directory from './Directory';
 
 function AllSections() {
   return (
@@ -12,8 +13,12 @@ function AllSections() {
         <Profile />
       </div>
       <div className="section-container">
+        <Directory />
+      </div>
+      <div className="section-container">
         <Feed />
       </div>
+
       <div className="section-container">
         <Notifications />
       </div>
@@ -23,6 +28,7 @@ function AllSections() {
       <div className="section-container">
         <Activity />
       </div>
+
     </div>
   );
 }
