@@ -1,28 +1,32 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const baseUrl = import.meta.env.VITE_API_URL; // ✅ Use environment variable for API URL
+const baseUrl = import.meta.env.VITE_API_URL; // Ensure this is correct
 
 export const userAPI = createApi({
-  reducerPath: "userAPI",
+  reducerPath: 'userAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl, // ✅ Consistent with authAPI
+    baseUrl, // Correct base URL
     prepareHeaders: (headers, { getState }) => {
-      // ✅ Retrieve token from Redux or localStorage
-      const token = getState().auth.token || localStorage.getItem("token");
+      const token = getState().auth.token || localStorage.getItem('token');
       if (token) {
-        headers.set("Authorization", `Bearer ${token}`); // ✅ Attach token
+        headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;
     },
   }),
   endpoints: (builder) => ({
     searchUsers: builder.query({
-      query: ({ query, filter = "username" }) => ({
+      query: ({ query, filter = 'username' }) => ({
         url: `/api/users/search?q=${encodeURIComponent(query)}&filter=${filter}`,
-        method: "GET",
+        method: 'GET',
       }),
+    }),
+    // Fetch user by ID
+    getUserById: builder.query({
+      query: (id) => `/api/users/${id}`, // Fetch user by ID
     }),
   }),
 });
 
-export const { useSearchUsersQuery } = userAPI;
+// Export hooks for use in components
+export const { useSearchUsersQuery, useGetUserByIdQuery } = userAPI;

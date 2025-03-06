@@ -1,17 +1,25 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux"; // Import useDispatch and useSelector from Redux
 import { useSearchUsersQuery } from "../features/user/userAPI";
-import { Link } from "react-router-dom";
+import { setSelectedUserId } from "../features/profile/profileSlice"; // Import setSelectedUserId action
 import "../styles/directory.css"; // ✅ Import styling
 
 const Directory = () => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("username");
 
+  const dispatch = useDispatch(); // Initialize dispatch
+  const selectedUserId = useSelector((state) => state.profile.selectedUserId); // Access selectedUserId from Redux
+
   // Fetch users based on search input
   const { data: users, error, isLoading } = useSearchUsersQuery(
     { query, filter },
     { skip: query.length === 0 }
   );
+
+  const handleUserClick = (userId) => {
+    dispatch(setSelectedUserId(userId)); // Dispatch action to set selected user ID
+  };
 
   return (
     <div className="directory-container">
@@ -50,7 +58,15 @@ const Directory = () => {
           <tbody>
             {users.map((user) => (
               <tr key={user.id}>
-                <td>{user.name}</td>
+                <td>
+                  <span
+                    className="user-link"
+                    onClick={() => handleUserClick(user.id)} // Dispatch selected userId to Redux
+                    style={{ cursor: 'pointer', color: 'blue' }}
+                  >
+                    {user.name}
+                  </span>
+                </td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
               </tr>
@@ -61,6 +77,11 @@ const Directory = () => {
 
       {/* If no users are found */}
       {query && users?.length === 0 && <p className="no-results">No users found</p>}
+
+      {/* Display selected user ID */}
+      <div>
+        <strong>Selected User ID: </strong>{selectedUserId || "None"}
+      </div>
     </div>
   );
 };

@@ -4,10 +4,12 @@ import { authAPI } from '../features/auth/authAPI'; // Import the RTK Query API 
 import { postsAPI } from '../features/posts/postsAPI'; // Import the postsAPI
 import { commentsAPI } from '../features/comments/commentsAPI'; // ✅ Import the commentsAPI
 import { userAPI } from '../features/user/userAPI'; // ✅ Import the userAPI
+import profileReducer from '../features/profile/profileSlice'; // ✅ Import the profileSlice reducer
 
 const store = configureStore({
   reducer: {
     auth: authReducer,  // Add the auth reducer to the store
+    profile: profileReducer, // Add profileReducer to manage selectedUserId
     [authAPI.reducerPath]: authAPI.reducer, // Add the authAPI reducer to handle RTK Query requests
     [postsAPI.reducerPath]: postsAPI.reducer, // Add the postsAPI reducer to handle RTK Query requests
     [commentsAPI.reducerPath]: commentsAPI.reducer, // ✅ Add the commentsAPI reducer
