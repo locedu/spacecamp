@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
-import { useFetchUserProfileQuery } from '../features/auth/authAPI';
+import { useSelector } from 'react-redux';
+import { useGetUserByIdQuery } from '../features/user/userAPI'; // Import the correct hook
 import '../styles/profile.css';
 
 function Profile() {
-  const { data: response, error, isLoading } = useFetchUserProfileQuery();
+  const selectedUserId = useSelector((state) => state.profile.selectedUserId); // Get the selected user ID from Redux store
 
-  useEffect(() => {
-    if (response) {
-      console.log("Response data:", response);
-    }
-  }, [response]);
+  const { data: userResponse, isLoading, error } = useGetUserByIdQuery(selectedUserId); // Fetch the user profile using the selectedUserId
+
+  // Debug: Log the response to see what's coming in
+  console.log("User Response:", userResponse);
 
   if (isLoading) {
     return <div className="profile-container"><div className="profile-content">Loading profile...</div></div>;
@@ -19,11 +18,20 @@ function Profile() {
     return <div className="profile-container"><div className="profile-content error">Error loading profile</div></div>;
   }
 
-  if (!response?.user) {
-    return <div className="profile-container"><div className="profile-content no-data">No profile data available</div></div>;
+  // Check if data is received properly
+  if (!userResponse) {
+    return (
+      <div className="profile-container">
+        <div className="profile-content no-data">
+          No profile data available
+          {/* Display the raw response for debugging */}
+          <pre>{JSON.stringify(userResponse, null, 2)}</pre>
+        </div>
+      </div>
+    );
   }
 
-  const user = response.user;
+  const user = userResponse;  // Accessing the user data directly from the response
 
   // Format updatedAt to show only the date
   const formattedUpdatedAt = user?.updatedAt
