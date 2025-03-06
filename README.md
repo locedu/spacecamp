@@ -1,5 +1,6 @@
 # spacecamp
 
+- directory searchable (Directory) functional (need to link to Profile).
 - likes working (postsAPI, ViewPost)
 - comment count will refresh (Feed, ViewPost) when posting new comment.
 - edit post (author only)
