@@ -1,32 +1,40 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";  // Add useSelector to get user info from store
+import { Link } from "react-router-dom";
 import { Button, ButtonGroup } from "react-bootstrap";
-import Search from "./Search"; // Import Search component
+import { setSelectedUserId } from "../features/profile/profileSlice";  // Import action to update selectedUserId
 import "../styles/sidebar.css";
 
 function Sidebar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState(""); // State for search
+  const userId = useSelector((state) => state.auth.user?.id);  // Get the authenticated user's ID from the store
 
+  // Handle profile click to update selectedUserId
+  const handleProfileClick = () => {
+    dispatch(setSelectedUserId(userId));
+  };
+
+  // Handle logout action
   const handleLogout = () => {
-    dispatch({ type: "auth/logout" });
+    dispatch({ type: "auth/logout" });  // Assuming the logout action resets the user state
     localStorage.removeItem("token");
-    navigate("/login");
   };
 
   return (
     <div className="sidebar">
-      <Search onSearch={setSearchQuery} /> {/* ✅ Add Search Component */}
-
       <Button as={Link} to="/dashboard" variant="primary" size="sm" className="sidebar-button mb-3">
         Dashboard
       </Button>
 
       <ButtonGroup vertical className="w-100">
-        <Button as={Link} to="profile" variant="primary" size="sm" className="sidebar-button">
-          Profile
+        {/* Update the "My Profile" button to dispatch the action and update the Redux state */}
+        <Button
+          variant="primary"
+          size="sm"
+          className="sidebar-button"
+          onClick={handleProfileClick}  // Handle profile click
+        >
+          My Profile
         </Button>
         <Button as={Link} to="posts" variant="primary" size="sm" className="sidebar-button">
           Feed
