@@ -1,4 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { useDispatch } from 'react-redux';
+import { setSelectedUserId } from '../profile/profileSlice'; // Import the action
 
 const baseUrl = import.meta.env.VITE_API_URL; // Make sure this URL is correct
 
@@ -22,6 +24,16 @@ export const authAPI = createApi({
         method: 'POST',
         body: loginData,  // Sending { email, password }
       }),
+      // On successful login, dispatch the setSelectedUserId action
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          // Dispatch the action to update selectedUserId with the logged-in user's ID
+          dispatch(setSelectedUserId(data.user.id)); // Assuming 'user.id' is returned from the login API response
+        } catch (error) {
+          console.error('Error setting selected user ID:', error);
+        }
+      }
     }),
     register: builder.mutation({
       query: (registerData) => ({
