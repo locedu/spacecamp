@@ -1,10 +1,9 @@
-// src/features/auth/authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { authAPI } from './authAPI'; // Assuming you have RTK Query setup for auth
+import { authAPI } from './authAPI';
 
 const initialState = {
   token: localStorage.getItem('token') || null,
-  user: null,  // ✅ Store user data directly
+  user: JSON.parse(localStorage.getItem('user')) || null,  // Try to fetch user data from localStorage
   isAuthenticated: !!localStorage.getItem('token'),
 };
 
@@ -14,15 +13,17 @@ const authSlice = createSlice({
   reducers: {
     setAuth: (state, action) => {
       state.token = action.payload.token;
-      state.user = action.payload.user; // ✅ Store user data
+      state.user = action.payload.user; // Store user data
       state.isAuthenticated = true;
       localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('user', JSON.stringify(action.payload.user));  // Store user in localStorage
     },
     logout: (state) => {
       state.token = null;
-      state.user = null;  // ✅ Reset user on logout
+      state.user = null;  // Reset user on logout
       state.isAuthenticated = false;
       localStorage.removeItem('token');
+      localStorage.removeItem('user');  // Remove user data from localStorage
     },
   },
   extraReducers: (builder) => {
@@ -31,15 +32,17 @@ const authSlice = createSlice({
         authAPI.endpoints.login.matchFulfilled,
         (state, { payload }) => {
           state.token = payload.token;
-          state.user = payload.user;  // ✅ Store user after login
+          state.user = payload.user;  // Store user after login
           state.isAuthenticated = true;
           localStorage.setItem('token', payload.token);
+          localStorage.setItem('user', JSON.stringify(payload.user));  // Store user in localStorage
         }
       )
       .addMatcher(
         authAPI.endpoints.fetchUserProfile.matchFulfilled,
         (state, { payload }) => {
-          state.user = payload.user; // ✅ Store user when fetching profile
+          state.user = payload.user; // Store user when fetching profile
+          localStorage.setItem('user', JSON.stringify(payload.user));  // Store user in localStorage
         }
       );
   },
