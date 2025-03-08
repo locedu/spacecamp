@@ -1,14 +1,61 @@
-// src/views/Friends.jsx
+import React, { useEffect } from 'react';
+import { useGetFriendsQuery, useRemoveFriendMutation } from '../features/friends/friendsAPI';
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import '../styles/friends.css';
 
 function Friends() {
-    return (
-      <div className='friends-container'>
-        <h2>Friends</h2>
-        <p>This is the placeholder content for the Friends section.</p>
-      </div>
-    );
+  // Fetch friends list
+  const { data: friends, error, isLoading, refetch } = useGetFriendsQuery();
+  
+  // Mutations for removing a friend
+  const [removeFriend] = useRemoveFriendMutation();
+
+  // Refetch the friends list when the component is mounted or updated
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const handleRemoveFriend = async (friendId) => {
+    try {
+      await removeFriend(friendId); // Remove friend by ID
+      refetch(); // Refetch the friends list after removal
+    } catch (err) {
+      console.error("Error removing friend:", err); // Handle error if something goes wrong
+    }
+  };
+
+  if (isLoading) {
+    return <div className="loading-state"><p>Loading friends...</p></div>;
   }
-  
-  export default Friends;
-  
+
+  if (error) {
+    return <div className="error-message"><p>Error loading friends</p></div>;
+  }
+
+  if (!friends || friends.length === 0) {
+    return <div className="loading-state"><p>Nothing in friends list.</p></div>;
+  }
+
+  return (
+    <div className="friends-container">
+      <AppBar position="static" color="primary" className="friends-appbar">
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            Friends List
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <ul>
+        {friends.map((friend) => (
+          <li key={friend.id}>
+            <p>{friend.name} (@{friend.username})</p>
+            <button onClick={() => handleRemoveFriend(friend.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default Friends;

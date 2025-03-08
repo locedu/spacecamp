@@ -44,10 +44,10 @@ function App() {
           {/* Protected Routes */}
           <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />}>
             <Route index element={<AllSections />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="posts" element={<Feed />} /> {/* ✅ Feed remains unchanged */}
-            <Route path="notifications" element={<Notifications />} />
             <Route path="friends" element={<Friends />} />
+            <Route path="posts" element={<Feed />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="notifications" element={<Notifications />} />
             <Route path="activity" element={<Activity />} />
             <Route path="directory" element={<Directory />} /> 
 

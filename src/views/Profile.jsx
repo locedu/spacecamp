@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetUserByIdQuery } from '../features/user/userAPI'; // Import the correct hook
 import { setSelectedUserId } from '../features/profile/profileSlice'; // Action to set selectedUserId
+import { useGetFriendsQuery, useAddFriendMutation, useRemoveFriendMutation } from '../features/friends/friendsAPI'; // Import the hooks for friends
 import '../styles/profile.css';
 
 function Profile() {
@@ -20,30 +21,53 @@ function Profile() {
   // Use selectedUserId to fetch the profile
   const { data: userResponse, isLoading, error } = useGetUserByIdQuery(selectedUserId);
 
-  if (isLoading) {
+  // Fetch the friends list to check if the user is already a friend
+  const { data: friends, isLoading: friendsLoading, error: friendsError } = useGetFriendsQuery();
+  const [addFriend] = useAddFriendMutation();
+  const [removeFriend] = useRemoveFriendMutation();
+  
+  const [isFriend, setIsFriend] = useState(false);
+
+  // Check if the selected user is already a friend
+  useEffect(() => {
+    if (friends && userResponse) {
+      setIsFriend(friends.some((friend) => friend.id === userResponse.id));
+    }
+  }, [friends, userResponse]);
+
+  const handleAddFriend = async () => {
+    try {
+      await addFriend(userResponse.id); // Add user as a friend
+      setIsFriend(true); // Update the state to show that the user is now a friend
+    } catch (err) {
+      console.error("Error adding friend:", err);
+    }
+  };
+
+  const handleRemoveFriend = async () => {
+    try {
+      await removeFriend(userResponse.id); // Remove user as a friend
+      setIsFriend(false); // Update the state to show that the user is no longer a friend
+    } catch (err) {
+      console.error("Error removing friend:", err);
+    }
+  };
+
+  if (isLoading || friendsLoading) {
     return (
       <div className="profile-container">
         <div className="profile-content">Loading profile...</div>
-        {/* Display selectedUserId for debugging */}
-        <div><strong>selectedUserId:</strong> [{selectedUserId ?? 'null'}]</div>
-        {/* Display authUserId for debugging */}
-        <div><strong>authUserId:</strong> [{authUserId ?? 'null'}]</div>
       </div>
     );
   }
 
-  if (error) {
+  if (error || friendsError) {
     return (
       <div className="profile-container">
         <div className="profile-content error">
           Error loading profile
-          {/* Display the error details for debugging */}
           <pre>{JSON.stringify(error, null, 2)}</pre>
         </div>
-        {/* Display selectedUserId for debugging */}
-        <div><strong>selectedUserId:</strong> [{selectedUserId ?? 'null'}]</div>
-        {/* Display authUserId for debugging */}
-        <div><strong>authUserId:</strong> [{authUserId ?? 'null'}]</div>
       </div>
     );
   }
@@ -51,15 +75,7 @@ function Profile() {
   if (!userResponse) {
     return (
       <div className="profile-container">
-        <div className="profile-content no-data">
-          No profile data available
-          {/* Display the raw response for debugging */}
-          <pre>{JSON.stringify(userResponse, null, 2)}</pre>
-        </div>
-        {/* Display selectedUserId for debugging */}
-        <div><strong>selectedUserId:</strong> [{selectedUserId ?? 'null'}]</div>
-        {/* Display authUserId for debugging */}
-        <div><strong>authUserId:</strong> [{authUserId ?? 'null'}]</div>
+        <div className="profile-content no-data">No profile data available</div>
       </div>
     );
   }
@@ -75,12 +91,6 @@ function Profile() {
     <div className="profile-container">
       <div className="profile-content">
         <h2>Profile</h2>
-
-        {/* Debug: Display selectedUserId with label */}
-        <div><strong>selectedUserId:</strong> [{selectedUserId ?? 'null'}]</div>
-        {/* Debug: Display authUserId with label */}
-        <div><strong>authUserId:</strong> [{authUserId ?? 'null'}]</div>
-
         <div className="profile-info">
           <div><strong>Name:</strong> {user?.name || 'N/A'}</div>
           <div><strong>Email:</strong> {user?.email || 'N/A'}</div>
@@ -90,6 +100,19 @@ function Profile() {
           <div><strong>Bio:</strong> {user?.bio || 'No bio available'}</div>
           <div><strong>Last Login:</strong> {user?.lastLogin || 'Unknown'}</div>
         </div>
+
+        {/* Conditionally render Add or Remove Friend button */}
+        {authUserId !== user.id && (
+          !isFriend ? (
+            <button onClick={handleAddFriend} className="friend-button">
+              Add Friend
+            </button>
+          ) : (
+            <button onClick={handleRemoveFriend} className="friend-button">
+              Remove Friend
+            </button>
+          )
+        )}
 
         {/* Footer with formatted Updated Date and Edit Profile */}
         <div className="profile-footer">

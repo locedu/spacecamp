@@ -5,6 +5,7 @@ import { postsAPI } from '../features/posts/postsAPI'; // Import the postsAPI
 import { commentsAPI } from '../features/comments/commentsAPI'; // ✅ Import the commentsAPI
 import { userAPI } from '../features/user/userAPI'; // ✅ Import the userAPI
 import profileReducer from '../features/profile/profileSlice'; // ✅ Import the profileSlice reducer
+import { friendsAPI } from '../features/friends/friendsAPI'; // ✅ Import the friendsAPI
 
 const store = configureStore({
   reducer: {
@@ -14,13 +15,15 @@ const store = configureStore({
     [postsAPI.reducerPath]: postsAPI.reducer, // Add the postsAPI reducer to handle RTK Query requests
     [commentsAPI.reducerPath]: commentsAPI.reducer, // ✅ Add the commentsAPI reducer
     [userAPI.reducerPath]: userAPI.reducer, // ✅ Add the userAPI reducer
+    [friendsAPI.reducerPath]: friendsAPI.reducer, // ✅ Add the friendsAPI reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authAPI.middleware,
       postsAPI.middleware,
       commentsAPI.middleware, // ✅ Add commentsAPI middleware
-      userAPI.middleware // ✅ Add userAPI middleware
+      userAPI.middleware, // ✅ Add userAPI middleware
+      friendsAPI.middleware // ✅ Add friendsAPI middleware
     ),
 });
 
