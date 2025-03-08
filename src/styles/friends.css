@@ -1,15 +1,76 @@
-/* Style for the container */
+/* src/styles/friends.css */
+
+/* Container for the friends list in Friends.jsx */
 .friends-container {
-    background-color: #eaeaea;
-    border-radius: 0.5em;
     padding: 20px;
-    margin: 10px;
-    flex: 1 1 45%;
-    box-sizing: border-box;
-  }
-  
-  h2 {
+    background-color: #eaeaea !important; /* Light grey background */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* AppBar styling */
+.friends-appbar {
+    width: 100%;
+    background-color: #3f51b5;
+    margin-bottom: 20px;
+}
+
+/* Friend list and individual items in Friends.jsx */
+.friends-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Styling for individual friend items in Friends.jsx */
+.friends-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Styling for friend's name and username */
+.friends-list li p {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Remove button styling inside Friends.jsx */
+.friend-remove-btn {
+    background-color: #ff9800; /* Orange */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Remove hover effect for the button */
+.friend-remove-btn:hover {
+    background-color: #fb8c00; /* Darker orange */
+}
+
+/* Loading/Error state messages */
+.loading-state, .error-message {
     text-align: center;
-    color: #333;
-  }
-  
+    margin-top: 20px;
+}
+
+/* Specific error message styling */
+.error-message {
+    color: red;
+}
+
+/* Styling for the empty friends list */
+.loading-state p {
+    font-size: 18px;
+    color: #555;
+}

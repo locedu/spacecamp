@@ -1,10 +1,11 @@
+/* src/styles/profile.css */
+
+/* Container for the profile page */
 .profile-container {
-    /* max-width: 400px; */
     margin: 20px auto;
     padding: 20px;
     background: #eaeaea;
     border-radius: 10px;
-    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,13 +13,12 @@
     text-align: left;
 }
 
-/* White inner container */
+/* White inner container for profile content */
 .profile-content {
     width: 100%;
     background: white;
     padding: 20px;
     border-radius: 10px;
-    /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05); */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +38,7 @@
     gap: 8px;
     font-size: 1em;
     color: black;
-    padding-bottom:1em;
+    padding-bottom: 1em;
 }
 
 /* Footer - Flexbox alignment */
@@ -50,7 +50,6 @@
     margin-top: auto;
     border-top: 1px solid #ddd;
     padding-top: 10px;
-    
 }
 
 /* Last Updated */
@@ -69,4 +68,26 @@
 
 .edit-link:hover {
     color: darkblue;
+}
+
+/* Add Friend Button Styling */
+.friend-button {
+    background-color: #ff9800; /* Orange background */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+/* Plain button - no hover effects */
+.friend-button:hover {
+    background-color: #ff9800; /* Keep the same color on hover */
+}
+
+/* Optional: Focus outline for better accessibility */
+.friend-button:focus {
+    outline: none;
 }
