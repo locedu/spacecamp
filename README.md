@@ -1,5 +1,7 @@
 # spacecamp
 
+- friends (Profile.jsx: Add/Remove friend button)
+- friends (Friends: displays list of friends)
 - Profile updates to end user info (authSlice re-populates Redux state.user)
 - Sidebar (My Profile) updates Profile.
 - searchable directory updates Profile.
