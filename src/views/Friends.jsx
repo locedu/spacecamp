@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useGetFriendsQuery, useRemoveFriendMutation } from '../features/friends/friendsAPI';
-import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 import '../styles/friends.css';
 
 function Friends() {
@@ -46,14 +46,29 @@ function Friends() {
         </Toolbar>
       </AppBar>
 
-      <ul>
-        {friends.map((friend) => (
-          <li key={friend.id}>
-            <p>{friend.name} (@{friend.username})</p>
-            <button onClick={() => handleRemoveFriend(friend.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
+      {/* Friends table */}
+      <table className="friends-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {friends.map((friend) => (
+            <tr key={friend.id}>
+              <td>{friend.name}</td>
+              <td>@{friend.username}</td>
+              <td>
+                <button onClick={() => handleRemoveFriend(friend.id)} className="remove-button">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -23,12 +23,8 @@ function Feed() {
     return <div className="error-message"><p>Error loading posts</p></div>;
   }
 
-  if (!posts || posts.length === 0) {
-    return <div className="loading-state"><p>No posts available</p></div>;
-  }
-
   // ✅ Sort posts by updatedAt (newest first)
-  const sortedPosts = [...posts].sort(
+  const sortedPosts = [...posts || []].sort(
     (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
   );
 
@@ -53,9 +49,16 @@ function Feed() {
         </Toolbar>
       </AppBar>
 
-      {visiblePosts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      {/* ✅ Conditionally render the posts or a "No posts available" message */}
+      <div className="feed-posts">
+        {visiblePosts.length > 0 ? (
+          visiblePosts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))
+        ) : (
+          <p>No posts available</p>
+        )}
+      </div>
 
       {/* ✅ Plain text link for "View All (Total Count)" */}
       {isDashboard && (
