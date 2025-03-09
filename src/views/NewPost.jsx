@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreatePostMutation } from "../features/posts/postsAPI"; // RTK Query
-import { TextField, Button, CircularProgress, Box } from "@mui/material";
+import { TextField, Button, CircularProgress, Box, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@mui/material";
 import "../styles/newPost.css";
 
 function NewPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [visibility, setVisibility] = useState("public"); // Added visibility state
   const [createPost, { isLoading, error }] = useCreatePostMutation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createPost({ title, content }).unwrap();
+      await createPost({ title, content, visibility }).unwrap(); // Send visibility along with title and content
       navigate("/dashboard/posts"); // ✅ Redirect to post list after success
     } catch (err) {
       console.error("Post creation failed:", err);
@@ -56,6 +57,19 @@ function NewPost() {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
+
+      {/* Visibility selection (radio buttons) */}
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Visibility</FormLabel>
+        <RadioGroup
+          value={visibility}
+          onChange={(e) => setVisibility(e.target.value)}
+          row
+        >
+          <FormControlLabel value="public" control={<Radio />} label="Public" />
+          <FormControlLabel value="friends" control={<Radio />} label="Friends Only" />
+        </RadioGroup>
+      </FormControl>
 
       <Button
         type="submit"

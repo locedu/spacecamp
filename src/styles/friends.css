@@ -17,33 +17,30 @@
     margin-bottom: 20px;
 }
 
-/* Friend list and individual items in Friends.jsx */
-.friends-list {
-    list-style-type: none;
-    padding: 0;
+/* Friends table styling */
+.friends-table {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
+    border-collapse: collapse; /* Ensure borders are collapsed into single lines */
+    margin-top: 20px;
 }
 
-/* Styling for individual friend items in Friends.jsx */
-.friends-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
+/* Table Header Styling */
+.friends-table th {
+    background-color: #f0f0f0;
+    text-align: left;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-/* Styling for friend's name and username */
-.friends-list li p {
-    margin: 0;
     font-weight: bold;
+    border: 1px solid black;  /* Border between header columns */
 }
 
-/* Remove button styling inside Friends.jsx */
+/* Table Cell Styling */
+.friends-table td {
+    padding: 10px;
+    border: 1px solid black;  /* Border between table cells */
+}
+
+/* Remove button styling */
 .friend-remove-btn {
     background-color: #ff9800; /* Orange */
     color: white;
