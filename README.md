@@ -1,5 +1,6 @@
 # spacecamp
 
+- posts (display public + friends-only posts)
 - friends (Profile.jsx: Add/Remove friend button)
 - friends (Friends: displays list of friends)
 - Profile updates to end user info (authSlice re-populates Redux state.user)
