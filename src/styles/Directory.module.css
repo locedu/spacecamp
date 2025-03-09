@@ -1,0 +1,133 @@
+/* Directory.module.css */
+
+/* Container for the whole directory */
+.directoryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    background-color: #eaeaea;
+    font-family: 'Roboto', sans-serif;
+    max-width: 100%;
+    font-size: .85em;
+    /* margin: .25em; */
+    box-sizing: border-box; /* Ensure padding is considered inside the width */
+}
+
+
+/* Title of the page */
+.directoryTitle {
+ font-size: 1.75em;
+ font-weight: bold;
+ width: 100%;
+ text-align: left;
+ padding: 1em;
+}
+
+/* Search bar section with some spacing between the elements */
+.directorySearch {
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically */
+    gap: 10px;
+    width: 100%;  /* Make sure the search container takes up the full width */
+    max-width: 100%;
+    box-sizing: border-box;  /* Prevent overflow */
+    padding: 1em;
+    margin: 0;  /* Ensure no margin outside the container */
+}
+
+/* Input field for search */
+.searchInput {
+    padding: 0.8em;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    flex: 1;
+    max-width: 400px;
+}
+
+/* Radio buttons for filtering */
+.filterRadio {
+    display: flex;
+    gap: 15px; /* Add spacing between radio buttons */
+    margin-top: 5px; /* Add some spacing above the radio buttons */
+}
+
+.filterRadio label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    gap: 5px; /* Add spacing between the radio button and its label */
+}
+
+/* Loading and error text */
+.loadingText, .errorText {
+    font-size: 1.2em;
+    color: #777;
+    margin-top: 1em;
+}
+
+/* Container for the table */
+.tableContainer {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1em;
+    padding: .25em;
+    box-sizing: border-box;
+    /* background-color: white; */
+    overflow-x: auto;
+    padding:1em;
+}
+
+/* Table for displaying users */
+.userTable {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.userTable th, .userTable td {
+    padding: 1em;
+    border: 1px solid #ddd;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.userTable th {
+    background-color: #f1f1f1;
+}
+
+.userTable tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.userTable tr:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+/* Link in the table to select users */
+.userLink {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.userLink:hover {
+    text-decoration: underline;
+}
+
+/* No results found message */
+.noResults {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 1em;
+    font-style: italic;
+}
+
+/* Style for displaying the selected user ID at the bottom */
+.selectedUserId {
+    margin-top: 2em;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #444;
+}

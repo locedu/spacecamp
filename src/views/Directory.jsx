@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; // Import useDispatch and useSelector from Redux
 import { useSearchUsersQuery } from "../features/user/userAPI";
 import { setSelectedUserId } from "../features/profile/profileSlice"; // Import setSelectedUserId action
-import "../styles/directory.css"; // ✅ Import styling
+import styles from "../styles/Directory.module.css"; // ✅ Import CSS module
 
 const Directory = () => {
   const [query, setQuery] = useState("");
@@ -22,65 +22,82 @@ const Directory = () => {
   };
 
   return (
-    <div className="directory-container">
-      <h2 className="directory-title">User Directory</h2>
+    <div className={styles.directoryContainer}>
+      <h2 className={styles.directoryTitle}>Directory</h2>
 
       {/* Search Bar */}
-      <div className="directory-search">
+      <div className={styles.directorySearch}>
         <input
           type="text"
-          className="search-input"
+          className={styles.searchInput}
           placeholder="Search users..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <select className="filter-select" value={filter} onChange={(e) => setFilter(e.target.value)}>
-          <option value="username">Username</option>
-          <option value="name">Name</option>
-          <option value="email">Email</option>
-        </select>
+        {/* Radio buttons for filtering */}
+        <div className={styles.filterRadio}>
+          <label>
+            <input
+              type="radio"
+              name="filter"
+              value="username"
+              checked={filter === "username"}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+            Username
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="filter"
+              value="name"
+              checked={filter === "name"}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+            Name
+          </label>
+        </div>
       </div>
 
       {/* Loading & Error Handling */}
-      {isLoading && <p className="loading-text">Loading...</p>}
-      {error && <p className="error-text">Error loading users</p>}
+      {isLoading && <p className={styles.loadingText}>Loading...</p>}
+      {error && <p className={styles.errorText}>Error loading users</p>}
 
       {/* Table to display search results */}
       {users?.length > 0 && (
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Username</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td>
-                  <span
-                    className="user-link"
-                    onClick={() => handleUserClick(user.id)} // Dispatch selected userId to Redux
-                    style={{ cursor: 'pointer', color: 'blue' }}
-                  >
-                    {user.name}
-                  </span>
-                </td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
+        <div className={styles.tableContainer}>
+          <table className={styles.userTable}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>
+                    <span
+                      className={styles.userLink}
+                      onClick={() => handleUserClick(user.id)} // Dispatch selected userId to Redux
+                    >
+                      {user.name}
+                    </span>
+                  </td>
+                  <td>{user.username}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {/* If no users are found */}
-      {query && users?.length === 0 && <p className="no-results">No users found</p>}
+      {query && users?.length === 0 && <p className={styles.noResults}>No users found</p>}
 
       {/* Display selected user ID */}
       <div>
-        <strong>Selected User ID: </strong>{selectedUserId || "None"}
+        {/* <strong>Selected User ID: </strong>{selectedUserId || "None"} */}
       </div>
     </div>
   );
