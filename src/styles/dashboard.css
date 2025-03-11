@@ -13,10 +13,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
+    width: 80%;
   }
   
   .section-container {
-    width: 48%; /* Each section container takes up 45% of the width */
+    width: 100%; /* Each section container takes up 45% of the width */
     box-sizing: border-box;
     padding: 0px;
     margin-bottom: 0px;

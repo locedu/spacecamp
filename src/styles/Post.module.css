@@ -1,19 +1,17 @@
 /* Style for each individual post */
 .post {
     background-color: #fff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    margin-bottom: 0em;
     text-align: left;
 }
 
 /* Post header */
-.post-header {
+.postHeader {
     margin-bottom: 10px;
 }
 
-.post-header h2 {
+.postHeader h2 {
     font-size: 1em; /* Same size as post content */
     font-weight: bold;
     margin: 0;
@@ -22,7 +20,7 @@
 }
 
 /* Post content */
-.post-content {
+.postContent {
     font-size: 1em; /* Adjusted to maintain consistency with title size */
     line-height: 1.6;
     color: #333;
@@ -30,7 +28,7 @@
 }
 
 /* Post Footer Layout */
-.post-footer {
+.postFooter {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,13 +39,13 @@
 }
 
 /* Bottom-left details (Author, Timestamp, Comments, Likes) */
-.post-details {
+.postDetails {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.post-details p {
+.postDetails p {
     margin: 0;
     font-size: 0.8em;
 }
@@ -58,25 +56,25 @@
 }
 
 /* Author */
-.post-author {
+.postAuthor {
     font-weight: bold;
     color: #555;
 }
 
 /* Bottom-right "View Post" link */
-.post-actions {
+.postActions {
     align-self: flex-end;
 }
 
 /* "View Post" link */
-.view-post-link {
+.viewPostLink {
     font-size: 0.9em;
     color: #007bff;
     text-decoration: none;
     font-weight: bold;
 }
 
-.view-post-link:hover {
+.viewPostLink:hover {
     color: #0056b3;
     text-decoration: underline;
 }

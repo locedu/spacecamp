@@ -6,10 +6,7 @@ import '../styles/dashboard.css';
 function Dashboard() {
   return (
     <div className="dashboard">
-      <div className="content">
-        {/* Render the active route component */}
-        <Outlet />
-      </div>
+      <Outlet />
       <Sidebar />
     </div>
   );

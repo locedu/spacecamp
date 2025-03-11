@@ -1,0 +1,40 @@
+.feedContainer {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feedAppbar {
+    margin-bottom: 20px;
+  }
+  
+  .feedPosts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .feedViewAll {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .viewAllLink {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .viewAllLink:hover {
+    text-decoration: underline;
+  }
+  
+  .loadingState, .errorMessage {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
+  .errorMessage {
+    color: red;
+  }
+  

@@ -1,17 +1,16 @@
 /* Feed Container */
 .feed-container {
-    padding: 0; /* Keep AppBar flush */
-    margin: 20px auto; /* ✅ Adds spacing around the Feed */
-    max-width: 800px;
+    padding: 0;
+    /* margin: 20px auto; */
+    /* max-width: 800px; */
     background-color: #eaeaea;
-    border-radius: 8px;
-    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+    margin: .1em;
 }
 
 /* AppBar Styling */
 .feed-appbar {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    /* border-top-left-radius: 8px;
+    border-top-right-radius: 8px; */
 }
 
 /* Style for each post */

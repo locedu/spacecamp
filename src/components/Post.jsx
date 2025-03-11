@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import '../styles/post.css';
+import styles from '../styles/Post.module.css'; // Import the CSS module
 
 function Post({ post }) {
   const { id } = useParams(); // Get post ID from the route
@@ -11,32 +11,30 @@ function Post({ post }) {
   };
 
   return (
-    <div className="post">
-      <div className="post-header">
+    <div className={styles.post}>
+      <div className={styles.postHeader}>
         <h2>{post.title}</h2>
       </div>
-      <div className="post-content">
+      <div className={styles.postContent}>
         {post.content}
       </div>
 
       {/* Footer */}
-      <div className="post-footer">
-        <div className="post-details">
-          <p className="post-author">{post.user?.name || "Unknown User"}</p>
-          <p className="timestamp">{formatDate(post.updatedAt)}</p>
+      <div className={styles.postFooter}>
+        <div className={styles.postDetails}>
+          <p className={styles.postAuthor}>{post.user?.name || "Unknown User"}</p>
+          <p className={styles.timestamp}>{formatDate(post.updatedAt)}</p>
           <p>Comments ({post.comments?.length || 0})</p>
           <p>Likes ({post.likes?.length || 0})</p>
         </div>
-        <div className="post-actions">
+        <div className={styles.postActions}>
           {id !== String(post.id) && (
-            <Link to={`/dashboard/posts/${post.id}`} className="view-post-link">
+            <Link to={`/dashboard/posts/${post.id}`} className={styles.viewPostLink}>
               View Post
             </Link>
           )}
         </div>
       </div>
-
-      {/* REMOVE COMMENT RENDERING COMPLETELY */}
     </div>
   );
 }
