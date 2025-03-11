@@ -8,11 +8,12 @@
     background-color: #f9f9f9;
     padding: 0em;
     margin: 1px;
+    border-left: 4px solid transparent; /* Default border (transparent) for all notifications */
 }
 
 /* Styles for unread notifications */
 .unread {
-    border-left: 4px solid #007bff; /* Blue line for unread */
+    border-left: 4px solid #007bff; /* Blue line for unread notifications */
 }
 
 .unread a {
@@ -21,7 +22,7 @@
 
 /* Styles for read notifications */
 .read {
-    border-left: 4px solid #cccccc; /* Gray line for read */
+    border-left: 4px solid #cccccc; /* Grey line for read notifications */
 }
 
 /* Styling for notification text */

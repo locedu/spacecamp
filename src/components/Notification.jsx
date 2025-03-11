@@ -1,22 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // For navigation links
+import { useMarkAsReadMutation } from '../features/notifications/notificationsAPI'; // Import the mutation
 import styles from '../styles/Notification.module.css'; // Import the CSS module
 
-function Notification({ notification }) {
-  const renderNotificationText = (type) => {
-    switch (type) {
-      case 'POST':
-        return 'A friend added a post.';
-      case 'COMMENT':
-        return 'A friend commented on your post.';
-      case 'LIKE':
-        return 'A friend liked your post.';
-      case 'FRIEND':
-        return 'You have been friended.';
-      case 'UN_FRIEND':
-        return 'You have been un-friended.';
-      default:
-        return 'You have a new notification.';
+function Notification({ notification, link, notificationText }) {
+  const [markAsRead] = useMarkAsReadMutation();
+
+  // Function to handle marking the notification as read when clicked
+  const handleNotificationClick = async () => {
+    if (!notification.read) {
+      await markAsRead(notification.id); // Update the notification to read
     }
   };
 
@@ -26,27 +19,20 @@ function Notification({ notification }) {
         {new Date(notification.createdAt).toLocaleString()}:
       </span>
       <span className={styles.message}>
-        {renderNotificationText(notification.targetType)}
+        {notificationText}
       </span>
     </>
   );
 
-  let link;
-  if (notification.targetType === 'POST') {
-    link = `/dashboard/posts/${notification.targetId}`;
-  } else if (notification.targetType === 'COMMENT') {
-    link = `/posts/${notification.targetId}`;
-  } else if (notification.targetType === 'FRIEND') {
-    link = `/profile/${notification.targetId}`;
-  }
+  // Apply the "unread" class to the notification when it's unread
+  const notificationClass = notification.read ? styles.read : styles.unread;
 
   return (
-    <div className={styles.notification}>
-      {notification.read ? (
-        <span>{notificationContent}</span>
-      ) : (
-        <Link to={link}>{notificationContent}</Link>
-      )}
+    <div className={`${styles.notification} ${notificationClass}`}>
+      {/* Both read and unread notifications will have a link now */}
+      <Link to={link} onClick={handleNotificationClick}>
+        {notificationContent}
+      </Link>
     </div>
   );
 }
