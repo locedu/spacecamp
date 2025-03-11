@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useGetFriendsQuery, useRemoveFriendMutation } from '../features/friends/friendsAPI';
-import { AppBar, Toolbar, Typography } from '@mui/material';
-import '../styles/friends.css';
+import { useGetFriendsQuery, useRemoveFriendMutation } from '../features/friends/friendsAPI'; // Import hooks
+import Friend from '../components/Friend'; // Import the Friend component
+import styles from '../styles/Friends.module.css'; // Import the CSS module
 
 function Friends() {
   // Fetch friends list
@@ -25,29 +25,21 @@ function Friends() {
   };
 
   if (isLoading) {
-    return <div className="loading-state"><p>Loading friends...</p></div>;
+    return <div className={styles.loadingState}><p>Loading friends...</p></div>;
   }
 
   if (error) {
-    return <div className="error-message"><p>Error loading friends</p></div>;
+    return <div className={styles.errorMessage}><p>Error loading friends</p></div>;
   }
 
   if (!friends || friends.length === 0) {
-    return <div className="loading-state"><p>Nothing in friends list.</p></div>;
+    return <div className={styles.loadingState}><p>No friends available.</p></div>;
   }
 
   return (
-    <div className="friends-container">
-      <AppBar position="static" color="primary" className="friends-appbar">
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Friends List
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
-      {/* Friends table */}
-      <table className="friends-table">
+    <div className={styles.friendsContainer}>
+      <h2 className={styles.friendsHeader}>Friends List</h2>
+      <table className={styles.friendsTable}>
         <thead>
           <tr>
             <th>Name</th>
@@ -57,15 +49,11 @@ function Friends() {
         </thead>
         <tbody>
           {friends.map((friend) => (
-            <tr key={friend.id}>
-              <td>{friend.name}</td>
-              <td>@{friend.username}</td>
-              <td>
-                <button onClick={() => handleRemoveFriend(friend.id)} className="remove-button">
-                  Remove
-                </button>
-              </td>
-            </tr>
+            <Friend 
+              key={friend.id} 
+              friend={friend} 
+              handleRemoveFriend={handleRemoveFriend} 
+            />
           ))}
         </tbody>
       </table>
