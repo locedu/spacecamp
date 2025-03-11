@@ -1,5 +1,6 @@
 # spacecamp
 
+- notifications display (read/unread)
 - notifications linking to post and profile view (Notifications, Notification)
 - posts generate notifications (backend)
 - css modules (Profile, Directory)
