@@ -1,5 +1,6 @@
 # spacecamp
 
+- profile css cleanup
 - friends re-factor components (Friends, Friend)
 - notifications display (read/unread)
 - notifications linking to post and profile view (Notifications, Notification)
