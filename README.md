@@ -1,5 +1,7 @@
 # spacecamp
 
+- notifications linking to post and profile view (Notifications, Notification)
+- posts generate notifications (backend)
 - css modules (Profile, Directory)
 - posts (display public + friends-only posts)
 - friends (Profile.jsx: Add/Remove friend button)
