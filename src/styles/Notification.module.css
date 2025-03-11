@@ -1,0 +1,61 @@
+/* /src/styles/Notification.module.css */
+
+/* Container for each notification */
+.notification {
+    display: flex;
+    align-items: center; /* Align text to the left */
+    justify-content: flex-start;
+    background-color: #f9f9f9;
+    padding: 0em;
+    margin: 1px;
+}
+
+/* Styles for unread notifications */
+.unread {
+    border-left: 4px solid #007bff; /* Blue line for unread */
+}
+
+.unread a {
+    text-decoration: underline; /* Ensure underline is visible for unread notifications */
+}
+
+/* Styles for read notifications */
+.read {
+    border-left: 4px solid #cccccc; /* Gray line for read */
+}
+
+/* Styling for notification text */
+.notification p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    display: inline; /* Ensures that timestamp and message are on the same line */
+}
+
+/* Timestamp */
+.notification .timestamp {
+    font-size: 12px;
+    color: #888;
+    margin-right: 5px;
+}
+
+/* Notification message */
+.notification .message {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Link styles for navigation */
+.notification a {
+    color: #007bff;
+    text-decoration: none; /* Remove underline by default */
+}
+
+.notification a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Remove "Mark as Read" button styles, since it's no longer needed */
+.notification button {
+    display: none;
+}
