@@ -13,8 +13,12 @@ function AllSections() {
         <Profile />
       </div>
       <div className="section-container">
+        <Notifications />
+      </div>
+      <div className="section-container">
         <Directory />
       </div>
+
       <div className="section-container">
         <Friends />
       </div>
@@ -22,9 +26,7 @@ function AllSections() {
         <Feed />
       </div>
 
-      <div className="section-container">
-        <Notifications />
-      </div>
+
 
       <div className="section-container">
         <Activity />

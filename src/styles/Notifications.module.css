@@ -1,0 +1,83 @@
+/* Notifications.module.css */
+.notificationsContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #eaeaea;
+    margin: 0.25em;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+
+  }
+  
+  .notificationsHeader {
+    width: 100%;
+    background-color: rgb(211, 209, 209); /* Light background color for the header */
+    padding: 0.25em;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .notificationsTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .notificationsList {
+    width: 100%;
+    max-width: 800px;
+    background-color: #eaeaea;
+    padding: 0.5em;
+    border-radius: 8px;
+    font-size: 1em;
+  }
+  
+  .notificationItem {
+    background-color: #fff;
+    margin: 0.5em 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .notificationItem p {
+    font-size: 1em;
+    margin: 0.5em 0;
+  }
+  
+  .notificationItem .notificationTimestamp {
+    font-size: 0.9em;
+    color: gray;
+  }
+  
+  .markAsReadButton {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .markAsReadButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .link {
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  

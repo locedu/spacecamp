@@ -6,6 +6,7 @@ import { commentsAPI } from '../features/comments/commentsAPI'; // ✅ Import th
 import { userAPI } from '../features/user/userAPI'; // ✅ Import the userAPI
 import profileReducer from '../features/profile/profileSlice'; // ✅ Import the profileSlice reducer
 import { friendsAPI } from '../features/friends/friendsAPI'; // ✅ Import the friendsAPI
+import { notificationsAPI } from '../features/notifications/notificationsAPI'; // ✅ Import the notificationsAPI
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     [commentsAPI.reducerPath]: commentsAPI.reducer, // ✅ Add the commentsAPI reducer
     [userAPI.reducerPath]: userAPI.reducer, // ✅ Add the userAPI reducer
     [friendsAPI.reducerPath]: friendsAPI.reducer, // ✅ Add the friendsAPI reducer
+    [notificationsAPI.reducerPath]: notificationsAPI.reducer, // ✅ Add the notificationsAPI reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -23,7 +25,8 @@ const store = configureStore({
       postsAPI.middleware,
       commentsAPI.middleware, // ✅ Add commentsAPI middleware
       userAPI.middleware, // ✅ Add userAPI middleware
-      friendsAPI.middleware // ✅ Add friendsAPI middleware
+      friendsAPI.middleware, // ✅ Add friendsAPI middleware
+      notificationsAPI.middleware // ✅ Add notificationsAPI middleware
     ),
 });
 
