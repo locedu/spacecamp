@@ -1,5 +1,6 @@
 # spacecamp
 
+- layout cleanup (component layout, module css)
 - profile css cleanup
 - friends re-factor components (Friends, Friend)
 - notifications display (read/unread)
