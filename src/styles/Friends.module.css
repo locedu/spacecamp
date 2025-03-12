@@ -2,60 +2,62 @@
 
 /* Container for the entire Friends section */
 .friendsContainer {
+    display: flex;
+    flex-direction: column;
     padding: 15px;
     background-color: #eaeaea;
-  }
-  
-  /* Title style */
-  .title {
+    height: 100%; /* Allow the container to stretch to the same height as its sibling */
+}
+
+/* Title style */
+.title {
     font-size: 1.25rem; /* Slightly smaller font for the title */
     font-weight: bold;
     color: #333;
     margin-bottom: 15px;
     font-family: 'Roboto', sans-serif; /* Font styling consistency */
-  }
-  
-  /* Friends Table */
-  .friendsTable {
+}
+
+/* Friends Table */
+.friendsTable {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .friendsTable th,
-  .friendsTable td {
+}
+
+.friendsTable th,
+.friendsTable td {
     padding: 6px; /* Reduced padding for a leaner table */
     text-align: left;
     border-bottom: 1px solid #ccc;
     font-size: 14px; /* Smaller text for the table */
     font-family: 'Roboto', sans-serif; /* Font consistency */
-  }
-  
-  .friendsTable th {
+}
+
+.friendsTable th {
     background-color: #007bff;
     color: white;
-  }
-  
-  .friendsTable td {
+}
+
+.friendsTable td {
     background-color: #f9f9f9;
-  }
-  
-  /* Remove link style */
-  .removeLink {
+}
+
+/* Remove link style */
+.removeLink {
     color: #007bff;
     text-decoration: none;
     font-size: 14px; /* Smaller font size for the link */
     font-family: 'Roboto', sans-serif; /* Font styling consistency */
-  }
-  
-  .removeLink:hover {
+}
+
+.removeLink:hover {
     text-decoration: underline;
-  }
-  
-  /* Loading, Error, and No friends states */
-  .loadingState, .errorMessage, .noFriends {
+}
+
+/* Loading, Error, and No friends states */
+.loadingState, .errorMessage, .noFriends {
     text-align: center;
     font-size: 1.2rem;
     margin-top: 20px;
     font-family: 'Roboto', sans-serif; /* Font styling consistency */
-  }
-  
+}

@@ -1,0 +1,13 @@
+.activityContainer {
+    background-color: #eaeaea;
+    padding: 20px;
+    /* margin: 10px; */
+    flex: 1 1 45%;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  

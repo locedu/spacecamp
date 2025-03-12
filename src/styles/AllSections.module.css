@@ -1,23 +1,38 @@
 .allSections {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .leftColumn {
-    flex: 1;
-    margin-right: 20px;
-  }
-  
-  .rightColumn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-wrap: wrap; /* Allow items to wrap into new rows */
+    width: 100%; /* Full width of the parent container */
   }
   
   .sectionContainer {
-    margin-bottom: 20px;
+    background-color: #fff; /* Clean white background */
+    margin-bottom: 20px; /* Space between sections */
+    display: flex;
+    flex-direction: column; /* Allow sections to stretch based on content */
+    align-items: stretch; /* Stretch sections to the same height */
+  }
+  
+  /* Create a container to place Feed and Profile on the same row */
+  .row {
+    display: flex;
+    width: 100%;
+    gap: 20px; /* Space between the sections */
+  }
+  
+  .row .sectionContainer {
+    width: 50%; /* Make Feed and Profile each take up 50% of the row */
+    display: flex;
+    flex-direction: column; /* Allow each component inside to stretch */
+    align-items: stretch; /* Make sure both sections stretch to the same height */
+  }
+  
+  .activityContainer {
+    background-color: #eaeaea;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
   }
   
