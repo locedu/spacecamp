@@ -1,13 +1,14 @@
 /* Profile container with text styling */
 .profileContainer {
     display: flex;
-    justify-content: center;
-    padding: 0;
+    justify-content: flex-start; /* Align content to the start vertically */
+    align-items: stretch; /* Stretch the container to fill available height */
+    padding: 20px;
     border-color: black;
     font-family: 'Roboto', sans-serif;
     flex-direction: column;
     background-color: #eaeaea;
-    margin: .25em;
+    height: 100%; /* Ensure it takes up full height of parent container */
 }
 
 /* Profile information styling */
@@ -18,6 +19,7 @@
     padding: 0.5em;
     border-radius: 8px;
     font-size: 14px;
+    flex-grow: 1; /* Allow profile content to expand vertically */
 }
 
 /* Timestamp styling similar to notifications */

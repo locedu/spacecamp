@@ -1,13 +1,11 @@
-// src/views/Dashboard.jsx
 import Sidebar from '../components/Sidebar';
 import { Outlet } from 'react-router-dom';
-import '../styles/dashboard.css';
+import styles from '../styles/Dashboard.module.css';  // Import the CSS module
 
 function Dashboard() {
   return (
-    <div className="dashboard">
-      <div className="content">
-        {/* Render the active route component */}
+    <div className={styles.dashboard}>
+      <div className={styles.content}>
         <Outlet />
       </div>
       <Sidebar />
