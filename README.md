@@ -1,5 +1,6 @@
 # spacecamp
 
+- backend (notifications: friend, post, comment, like)
 - layout cleanup (component layout, module css)
 - profile css cleanup
 - friends re-factor components (Friends, Friend)
