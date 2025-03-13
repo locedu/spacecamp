@@ -1,5 +1,7 @@
 # spacecamp
 
+- profile (edit) still in progress
+- backend (activity: login, post, comment, like, friend)
 - backend (notifications: friend, post, comment, like)
 - layout cleanup (component layout, module css)
 - profile css cleanup
