@@ -2,11 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useGetUserByIdQuery } from "../features/user/userAPI";
 import { setSelectedUserId } from "../features/profile/profileSlice";
-import {
-  useGetFriendsQuery,
-  useAddFriendMutation,
-  useRemoveFriendMutation,
-} from "../features/friends/friendsAPI";
+import { useGetFriendsQuery } from "../features/friends/friendsAPI";
+import ProfileView from "../components/ProfileView";
+import ProfileEdit from "../components/ProfileEdit";
 import styles from "../styles/Profile.module.css"; // Import the CSS module
 
 function Profile() {
@@ -14,6 +12,7 @@ function Profile() {
 
   const selectedUserId = useSelector((state) => state.profile.selectedUserId);
   const authUserId = useSelector((state) => state.auth.user?.id); // Get the authenticated user's ID from auth slice
+  const [isEditMode, setIsEditMode] = useState(false); // Track edit mode state
 
   useEffect(() => {
     if (selectedUserId === null && authUserId) {
@@ -21,18 +20,8 @@ function Profile() {
     }
   }, [selectedUserId, authUserId, dispatch]);
 
-  const {
-    data: userResponse,
-    isLoading,
-    error,
-  } = useGetUserByIdQuery(selectedUserId);
-  const {
-    data: friends,
-    isLoading: friendsLoading,
-    error: friendsError,
-  } = useGetFriendsQuery();
-  const [addFriend] = useAddFriendMutation();
-  const [removeFriend] = useRemoveFriendMutation();
+  const { data: userResponse, isLoading, error } = useGetUserByIdQuery(selectedUserId);
+  const { data: friends, isLoading: friendsLoading, error: friendsError } = useGetFriendsQuery();
 
   const [isFriend, setIsFriend] = useState(false);
 
@@ -42,22 +31,21 @@ function Profile() {
     }
   }, [friends, userResponse]);
 
-  const handleAddFriend = async () => {
+  const handleEditClick = () => {
+    setIsEditMode(true); // Switch to edit mode
+  };
+
+  const handleSave = async (updatedUser) => {
     try {
-      await addFriend(userResponse.id);
-      setIsFriend(true);
+      // Send the updated data to the backend to save
+      setIsEditMode(false); // Switch back to view mode after saving
     } catch (err) {
-      console.error("Error adding friend:", err);
+      console.error("Error saving profile:", err);
     }
   };
 
-  const handleRemoveFriend = async () => {
-    try {
-      await removeFriend(userResponse.id);
-      setIsFriend(false);
-    } catch (err) {
-      console.error("Error removing friend:", err);
-    }
+  const handleCancel = () => {
+    setIsEditMode(false); // Switch back to view mode without saving
   };
 
   if (isLoading || friendsLoading) {
@@ -91,69 +79,13 @@ function Profile() {
 
   const user = userResponse;
 
-  const formattedUpdatedAt = user?.updatedAt
-    ? new Date(user.updatedAt).toLocaleDateString()
-    : "Unknown";
-
   return (
     <div className={styles.profileContainer}>
-      {/* Header section */}
-      {/* <div className={styles.profileHeader}>
-        <h2>Profile</h2>
-      </div> */}
-
-      <div className={styles.profileContent}>
-        <div className={styles.profileInfo}>
-          <div className={styles.profileTitle}>
-            <h2>Profile</h2>
-          </div>
-          <div>
-            <strong>Name:</strong> {user?.name || "N/A"}
-          </div>
-          <div>
-            <strong>Email:</strong> {user?.email || "N/A"}
-          </div>
-          <div>
-            <strong>Username:</strong> {user?.username || "N/A"}
-          </div>
-          <div>
-            <strong>Status:</strong> {user?.status || "N/A"}
-          </div>
-          <div>
-            <strong>Status Message:</strong>{" "}
-            {user?.statusMessage || "No status"}
-          </div>
-          <div>
-            <strong>Bio:</strong> {user?.bio || "No bio available"}
-          </div>
-          <div>
-            <strong>Last Login:</strong> {user?.lastLogin || "Unknown"}
-          </div>
-          <div>
-            <strong>Last updated:</strong> {formattedUpdatedAt || "Unknown"}
-          </div>
-        </div>
-
-        {authUserId !== user.id &&
-          (!isFriend ? (
-            <button onClick={handleAddFriend} className={styles.friendButton}>
-              Add Friend
-            </button>
-          ) : (
-            <button
-              onClick={handleRemoveFriend}
-              className={styles.friendButton}
-            >
-              Remove Friend
-            </button>
-          ))}
-
-        <div className={styles.profileFooter}>
-          <a href="#" className={styles.editLink}>
-            Edit
-          </a>
-        </div>
-      </div>
+      {isEditMode ? (
+        <ProfileEdit user={user} onSave={handleSave} onCancel={handleCancel} />
+      ) : (
+        <ProfileView user={user} onEdit={handleEditClick} />
+      )}
     </div>
   );
 }

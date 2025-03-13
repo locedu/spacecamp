@@ -1,0 +1,58 @@
+/* ProfileView.module.css */
+
+/* Container for the profile */
+.profileContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 20px auto; /* Center the container */
+  }
+  
+  /* Content section within the container */
+  .profileContent {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Title of the profile section */
+  .profileTitle h2 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  
+  /* Profile info container for individual details */
+  .profileInfo {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  /* Each individual profile information row */
+  .profileInfo div {
+    margin-bottom: 10px;
+  }
+  
+  .profileInfo strong {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  /* Footer section for extra actions like edit links */
+  .profileFooter {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .editLink {
+    color: #007bff;
+    font-size: 1.1rem;
+    text-decoration: none;
+  }
+  
+  .editLink:hover {
+    text-decoration: underline;
+  }
+  
