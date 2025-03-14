@@ -1,5 +1,8 @@
 # spacecamp
 
+- some session timeout (needs work: some component display error on token expiration)
+- Profile (display Add/Remove Friend, Edit Profile)
+- some layout cleanup (css)
 - profile (edit) still in progress
 - backend (activity: login, post, comment, like, friend)
 - backend (notifications: friend, post, comment, like)
