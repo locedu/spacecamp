@@ -1,0 +1,28 @@
+/* ActivityItem.module.css */
+.activityItem {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .timestamp {
+    font-size: 0.9em;
+    color: #888;
+  }
+  
+  .message {
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+  
+  .read {
+    opacity: 0.6;
+  }
+  
+  .unread {
+    font-weight: bold;
+    background-color: #e8f4fd;
+  }
+  

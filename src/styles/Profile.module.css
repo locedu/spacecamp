@@ -31,7 +31,7 @@
 
 /* Profile details */
 .profileContent .message {
-    font-size: 14px;
+    font-size: .5em;
     color: #333;
 }
 
@@ -47,7 +47,7 @@
 
 /* Profile Title styling */
 .profileTitle h2 {
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
     text-align: left;
 }
