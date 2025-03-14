@@ -1,27 +1,29 @@
 /* Style for each individual post */
 .post {
     background-color: #fff;
-    padding: 1em;
+    padding: .5em;
     margin-bottom: 0em;
     text-align: left;
+    margin:1em;
 }
 
 /* Post header */
 .postHeader {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .postHeader h2 {
-    font-size: 1em; /* Same size as post content */
+    font-size: 14px; /* Same size as post content */
     font-weight: bold;
     margin: 0;
     color: #333;
     text-align: left;
+    /* background-color:orange; */
 }
 
 /* Post content */
 .postContent {
-    font-size: 1em; /* Adjusted to maintain consistency with title size */
+    font-size: 14px; /* Adjusted to maintain consistency with title size */
     line-height: 1.6;
     color: #333;
     margin-bottom: 15px;
@@ -32,10 +34,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9em;
+    font-size: 14px;
     color: #777;
     border-top: 1px solid #eee;
-    padding-top: 10px;
+    /* padding-top: 5px; */
 }
 
 /* Bottom-left details (Author, Timestamp, Comments, Likes) */
@@ -47,7 +49,7 @@
 
 .postDetails p {
     margin: 0;
-    font-size: 0.8em;
+    font-size: 14px;
 }
 
 /* Timestamp */
@@ -68,7 +70,7 @@
 
 /* "View Post" link */
 .viewPostLink {
-    font-size: 0.9em;
+    font-size: 14px;
     color: #007bff;
     text-decoration: none;
     font-weight: bold;

@@ -1,5 +1,5 @@
 .feedContainer {
-    padding: 20px;
+    /* padding: 20px; */
     background-color: #eaeaea;
   }
   
@@ -10,11 +10,11 @@
   .feedPosts {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    /* gap: 5px; */
   }
   
   .feedViewAll {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     text-align: center;
   }
   
@@ -25,6 +25,7 @@
   
   .viewAllLink:hover {
     text-decoration: underline;
+    color: #007bff;
   }
   
   .loadingState, .errorMessage {
