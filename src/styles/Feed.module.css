@@ -1,38 +1,40 @@
 .feedContainer {
-    padding: 20px;
-    background-color: #eaeaea;
-  }
-  
-  .feedAppbar {
-    margin-bottom: 20px;
-  }
-  
-  .feedPosts {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-  }
-  
-  .feedViewAll {
-    margin-top: 20px;
+    background-color: #eaeaea;
+    height: 100%; /* Ensure full height inside parent container */
+    flex-grow: 1; /* Stretch equally with Profile */
+}
+
+.feedAppbar {
+    /* margin-bottom: 20px; */
+}
+
+.feedPosts {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow posts section to expand */
+}
+
+.feedViewAll {
     text-align: center;
-  }
-  
-  .viewAllLink {
+}
+
+.viewAllLink {
     color: #007bff;
     text-decoration: none;
-  }
-  
-  .viewAllLink:hover {
+}
+
+.viewAllLink:hover {
     text-decoration: underline;
-  }
-  
-  .loadingState, .errorMessage {
+    color: #007bff;
+}
+
+.loadingState, .errorMessage {
     text-align: center;
     font-size: 1.2rem;
-  }
-  
-  .errorMessage {
+}
+
+.errorMessage {
     color: red;
-  }
-  
+}
