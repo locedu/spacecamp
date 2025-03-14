@@ -14,7 +14,7 @@ function TokenValidation() {
     // Only check for token expiration if the user is on a protected route
     if (currentPath.startsWith('/dashboard') && isTokenExpired(token)) {
       dispatch(logout());  // Dispatch logout if the token has expired
-      navigate('/');  // Redirect to home page
+      navigate('/login');  // Redirect to login
     }
   }, [token, dispatch, navigate, currentPath]);
 

@@ -3,15 +3,28 @@ import { useEffect, useState } from "react";
 import { useGetUserByIdQuery } from "../features/user/userAPI";
 import { setSelectedUserId } from "../features/profile/profileSlice";
 import { useGetFriendsQuery } from "../features/friends/friendsAPI";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../features/auth/authSlice";
+import { isTokenExpired } from "../utils/tokenExpiration";
 import ProfileView from "../components/ProfileView";
 import ProfileEdit from "../components/ProfileEdit";
 import styles from "../styles/Profile.module.css";
 
 function Profile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const token = useSelector((state) => state.auth.token);
   const selectedUserId = useSelector((state) => state.profile.selectedUserId);
   const authUserId = useSelector((state) => state.auth.user?.id);
   const [isEditMode, setIsEditMode] = useState(false);
+
+  // Check token expiration before fetching user data
+  useEffect(() => {
+    if (isTokenExpired(token)) {
+      dispatch(logout());
+      navigate("/login");
+    }
+  }, [token, dispatch, navigate]);
 
   useEffect(() => {
     if (!selectedUserId && authUserId) {
@@ -19,8 +32,13 @@ function Profile() {
     }
   }, [selectedUserId, authUserId, dispatch]);
 
-  const { data: userResponse, isLoading, error } = useGetUserByIdQuery(selectedUserId);
-  const { data: friends, isLoading: friendsLoading, error: friendsError } = useGetFriendsQuery();
+  const { data: userResponse, isLoading, error } = useGetUserByIdQuery(selectedUserId, {
+    skip: isTokenExpired(token), // Prevent API call if token is expired
+  });
+  const { data: friends, isLoading: friendsLoading, error: friendsError } = useGetFriendsQuery(undefined, {
+    skip: isTokenExpired(token),
+  });
+
   const [isFriend, setIsFriend] = useState(false);
 
   useEffect(() => {
