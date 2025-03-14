@@ -35,9 +35,22 @@ function ProfileView({ user, onEdit }) {
     }
   };
 
-  const formattedUpdatedAt = user?.updatedAt
-    ? new Date(user.updatedAt).toLocaleDateString()
-    : "Unknown";
+  // ✅ Format Last Login and Last Updated in "3/14/2025 @11:38PM EST" format
+  const formatDateTime = (dateString) => {
+    if (!dateString) return "Unknown";
+    return new Intl.DateTimeFormat("en-US", {
+      month: "numeric",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZoneName: "short",
+    }).format(new Date(dateString));
+  };
+
+  const formattedLastLogin = formatDateTime(user?.lastLogin);
+  const formattedUpdatedAt = formatDateTime(user?.updatedAt);
 
   return (
     <div className={styles.profileContent}>
@@ -48,10 +61,11 @@ function ProfileView({ user, onEdit }) {
         <div><strong>Name:</strong> {user?.name || "N/A"}</div>
         <div><strong>Email:</strong> {user?.email || "N/A"}</div>
         <div><strong>Username:</strong> {user?.username || "N/A"}</div>
-        <div><strong>Status:</strong> {user?.status || "N/A"}</div>
+        <div><strong>Status:</strong> {user?.status || "N/A"}</div>  {/* ✅ Added Status */}
+        <div><strong>Role:</strong> {user?.role || "N/A"}</div>  {/* ✅ Added Role */}
         <div><strong>Status Message:</strong> {user?.statusMessage || "No status"}</div>
         <div><strong>Bio:</strong> {user?.bio || "No bio available"}</div>
-        <div><strong>Last Login:</strong> {user?.lastLogin || "Unknown"}</div>
+        <div><strong>Last Login:</strong> {formattedLastLogin}</div>
         <div><strong>Last Updated:</strong> {formattedUpdatedAt}</div>
       </div>
 
