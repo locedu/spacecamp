@@ -1,18 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { useDispatch } from 'react-redux';
-import { setSelectedUserId } from '../profile/profileSlice'; // Import the action
+import { setSelectedUserId } from '../profile/profileSlice';
 
-const baseUrl = import.meta.env.VITE_API_URL; // Make sure this URL is correct
+const baseUrl = import.meta.env.VITE_API_URL; 
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',
   baseQuery: fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers, { getState }) => {
-      // Get token from Redux state or localStorage
-      const token = getState().auth.token || localStorage.getItem('token');  // Access token from Redux or localStorage
+      const token = getState().auth.token || localStorage.getItem('token');
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`); // Set Authorization header
+        headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;
     },
@@ -22,14 +21,12 @@ export const authAPI = createApi({
       query: (loginData) => ({
         url: '/api/auth/login',
         method: 'POST',
-        body: loginData,  // Sending { email, password }
+        body: loginData,
       }),
-      // On successful login, dispatch the setSelectedUserId action
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          // Dispatch the action to update selectedUserId with the logged-in user's ID
-          dispatch(setSelectedUserId(data.user.id)); // Assuming 'user.id' is returned from the login API response
+          dispatch(setSelectedUserId(data.user.id));
         } catch (error) {
           console.error('Error setting selected user ID:', error);
         }
@@ -42,11 +39,19 @@ export const authAPI = createApi({
         body: registerData,
       }),
     }),
-    // Fetch user profile from /api/auth/me
     fetchUserProfile: builder.query({
-      query: () => '/api/auth/me', // GET request to retrieve user profile
+      query: () => '/api/auth/me',
+    }),
+    
+    // ✅ Added update user profile mutation
+    updateUser: builder.mutation({
+      query: (updatedData) => ({
+        url: '/api/auth/me',
+        method: 'PUT',
+        body: updatedData,
+      }),
     }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useFetchUserProfileQuery } = authAPI;
+export const { useLoginMutation, useRegisterMutation, useFetchUserProfileQuery, useUpdateUserMutation } = authAPI;

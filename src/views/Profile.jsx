@@ -32,8 +32,8 @@ function Profile() {
     }
   }, [selectedUserId, authUserId, dispatch]);
 
-  const { data: userResponse, isLoading, error } = useGetUserByIdQuery(selectedUserId, {
-    skip: isTokenExpired(token), // Prevent API call if token is expired
+  const { data: userResponse, isLoading, error, refetch } = useGetUserByIdQuery(selectedUserId, {
+    skip: isTokenExpired(token),
   });
   const { data: friends, isLoading: friendsLoading, error: friendsError } = useGetFriendsQuery(undefined, {
     skip: isTokenExpired(token),
@@ -51,11 +51,12 @@ function Profile() {
     setIsEditMode(true);
   };
 
-  const handleSave = async (updatedUser) => {
+  const handleSave = async () => {
     try {
+      await refetch(); // ✅ Force a fresh fetch of user data after save
       setIsEditMode(false);
     } catch (err) {
-      console.error("Error saving profile:", err);
+      console.error("Error refreshing profile:", err);
     }
   };
 
