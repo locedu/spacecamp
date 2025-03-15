@@ -7,26 +7,29 @@ import { userAPI } from '../features/user/userAPI'; // ✅ Import the userAPI
 import profileReducer from '../features/profile/profileSlice'; // ✅ Import the profileSlice reducer
 import { friendsAPI } from '../features/friends/friendsAPI'; // ✅ Import the friendsAPI
 import { notificationsAPI } from '../features/notifications/notificationsAPI'; // ✅ Import the notificationsAPI
+import { activityAPI } from '../features/activity/activityAPI'; // ✅ Import the activityAPI
 
 const store = configureStore({
   reducer: {
-    auth: authReducer,  // Add the auth reducer to the store
-    profile: profileReducer, // Add profileReducer to manage selectedUserId
-    [authAPI.reducerPath]: authAPI.reducer, // Add the authAPI reducer to handle RTK Query requests
-    [postsAPI.reducerPath]: postsAPI.reducer, // Add the postsAPI reducer to handle RTK Query requests
-    [commentsAPI.reducerPath]: commentsAPI.reducer, // ✅ Add the commentsAPI reducer
-    [userAPI.reducerPath]: userAPI.reducer, // ✅ Add the userAPI reducer
-    [friendsAPI.reducerPath]: friendsAPI.reducer, // ✅ Add the friendsAPI reducer
-    [notificationsAPI.reducerPath]: notificationsAPI.reducer, // ✅ Add the notificationsAPI reducer
+    auth: authReducer,  
+    profile: profileReducer, 
+    [authAPI.reducerPath]: authAPI.reducer, 
+    [postsAPI.reducerPath]: postsAPI.reducer, 
+    [commentsAPI.reducerPath]: commentsAPI.reducer, 
+    [userAPI.reducerPath]: userAPI.reducer, 
+    [friendsAPI.reducerPath]: friendsAPI.reducer, 
+    [notificationsAPI.reducerPath]: notificationsAPI.reducer, 
+    [activityAPI.reducerPath]: activityAPI.reducer, // ✅ Add the activityAPI reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authAPI.middleware,
       postsAPI.middleware,
-      commentsAPI.middleware, // ✅ Add commentsAPI middleware
-      userAPI.middleware, // ✅ Add userAPI middleware
-      friendsAPI.middleware, // ✅ Add friendsAPI middleware
-      notificationsAPI.middleware // ✅ Add notificationsAPI middleware
+      commentsAPI.middleware, 
+      userAPI.middleware, 
+      friendsAPI.middleware, 
+      notificationsAPI.middleware, 
+      activityAPI.middleware // ✅ Add activityAPI middleware
     ),
 });
 
