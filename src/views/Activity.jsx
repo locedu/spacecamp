@@ -1,16 +1,22 @@
 import React from "react";
+import { useLocation, Link } from "react-router-dom";
 import { useGetActivitiesQuery } from "../features/activity/activityAPI";
 import { isTokenExpired } from "../utils/tokenExpiration";
 import { useSelector } from "react-redux";
 import styles from "../styles/Activity.module.css";
 
 function Activity() {
+  const location = useLocation();
   const token = useSelector((state) => state.auth.token);
 
   // Fetch user activities, skipping if token is expired
   const { data: activities, isLoading, error } = useGetActivitiesQuery(undefined, {
     skip: isTokenExpired(token),
   });
+
+  // Determine mode based on the route
+  const isDashboard = location.pathname === "/dashboard";
+  const title = isDashboard ? "Recent Activity" : "Activity Log";
 
   if (isLoading) {
     return <div className={styles.activityContainer}>Loading activity...</div>;
@@ -39,9 +45,12 @@ function Activity() {
     return messages[targetType] || "Unknown activity.";
   };
 
+  // Show only the first 5 activities if in dashboard
+  const displayedActivities = isDashboard ? activities.slice(0, 5) : activities;
+
   return (
     <div className={styles.activityContainer}>
-      <h2 className={styles.activityTitle}>Recent Activity</h2>
+      <h2 className={styles.activityTitle}>{title}</h2>
       <table className={styles.activityTable}>
         <thead>
           <tr>
@@ -50,7 +59,7 @@ function Activity() {
           </tr>
         </thead>
         <tbody>
-          {activities.map((activity) => (
+          {displayedActivities.map((activity) => (
             <tr key={activity.id} className={styles.activityRow}>
               <td className={styles.activityTimestamp}>
                 {new Date(activity.createdAt).toLocaleString()}
@@ -62,6 +71,15 @@ function Activity() {
           ))}
         </tbody>
       </table>
+
+      {/* Show "Activity (#)" link only when in dashboard */}
+      {isDashboard && (
+        <div className={styles.viewAllLinkContainer}>
+          <Link to="/dashboard/activity" className={styles.viewAllLink}>
+            Activity ({activities.length})
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
