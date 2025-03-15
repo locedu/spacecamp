@@ -1,5 +1,6 @@
 # spacecamp
 
+- activity links (friend, post, comment, like) to appropriate routes.
 - activity (login, friend, post, comment, like)
 - activity (display timestamp, message)
 - profile (edit), profile (css)
