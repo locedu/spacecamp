@@ -26,18 +26,19 @@
 
 /* Profile info container for individual details */
 .profileInfo {
-    font-size: 1.1rem;
+    font-size: 14px;
     color: #333;
 }
 
 /* Each individual profile information row */
 .profileInfo div {
     margin-bottom: 10px;
+    /* background-color: white; */
 }
 
 .profileInfo strong {
     font-weight: bold;
-    color: #007bff;
+    color: darkslategray;
 }
 
 /* Footer section for extra actions like edit links */
@@ -66,7 +67,7 @@
 .addFriend {
     background-color: #28a745;
     color: white;
-    font-size: 1.1rem;
+    font-size: 14px;
     padding: 10px 15px;
     border-radius: 5px;
     border: none;

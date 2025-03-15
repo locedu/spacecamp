@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useUpdateUserMutation } from "../features/auth/authAPI"; // ✅ Correct import
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useUpdateUserMutation } from "../features/auth/authAPI";
+import { logout } from "../features/auth/authSlice";
 import { isTokenExpired } from "../utils/tokenExpiration";
 import styles from "../styles/ProfileEdit.module.css";
 
 function ProfileEdit({ user, onSave, onCancel }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
-  const [updateUser] = useUpdateUserMutation();
+  const [updateUser, { isLoading, isError, error }] = useUpdateUserMutation();
 
-  // ✅ Ensure default values prevent uncontrolled input warnings
+  // ✅ Track editable fields and original values
   const [name, setName] = useState(user?.name ?? "");
   const [statusMessage, setStatusMessage] = useState(user?.statusMessage ?? "");
   const [bio, setBio] = useState(user?.bio ?? "");
+  const [hasChanges, setHasChanges] = useState(false); // ✅ Track changes
 
   useEffect(() => {
     if (user) {
@@ -21,13 +26,31 @@ function ProfileEdit({ user, onSave, onCancel }) {
     }
   }, [user]);
 
+  // ✅ Detect changes in form fields
+  useEffect(() => {
+    const hasChanged =
+      name !== (user?.name ?? "") ||
+      statusMessage !== (user?.statusMessage ?? "") ||
+      bio !== (user?.bio ?? "");
+    setHasChanges(hasChanged);
+  }, [name, statusMessage, bio, user]);
+
   const handleSave = async () => {
-    if (isTokenExpired(token)) return;
+    if (isTokenExpired(token)) {
+      dispatch(logout());
+      navigate("/login");
+      return;
+    }
+
     try {
-      await updateUser({ name, statusMessage, bio }).unwrap();
-      onSave(); // ✅ Trigger parent refresh
+      console.log("🔹 Sending update request:", { name, statusMessage, bio });
+
+      const response = await updateUser({ name, statusMessage, bio }).unwrap();
+      console.log("✅ Profile updated successfully:", response);
+
+      onSave();
     } catch (err) {
-      console.error("Error saving profile:", err);
+      console.error("❌ Error saving profile:", err);
     }
   };
 
@@ -41,7 +64,7 @@ function ProfileEdit({ user, onSave, onCancel }) {
             <strong>Name:</strong>
             <input 
               type="text" 
-              value={name ?? ""}  // ✅ Ensures value is never null/undefined
+              value={name}  
               onChange={(e) => setName(e.target.value)} 
               className={styles.editField} 
             />
@@ -54,7 +77,7 @@ function ProfileEdit({ user, onSave, onCancel }) {
             <strong>Status Message:</strong>
             <input 
               type="text" 
-              value={statusMessage ?? ""}  // ✅ Ensures value is never null/undefined
+              value={statusMessage}  
               onChange={(e) => setStatusMessage(e.target.value)} 
               className={styles.editField} 
             />
@@ -63,7 +86,7 @@ function ProfileEdit({ user, onSave, onCancel }) {
           <div>
             <strong>Bio:</strong>
             <textarea 
-              value={bio ?? ""}  // ✅ Ensures value is never null/undefined
+              value={bio}  
               onChange={(e) => setBio(e.target.value)} 
               className={styles.editField} 
             />
@@ -71,9 +94,17 @@ function ProfileEdit({ user, onSave, onCancel }) {
         </div>
 
         <div className={styles.profileEditFooter}>
-          <button onClick={handleSave} className={styles.saveButton}>Save</button>
           <button onClick={onCancel} className={styles.cancelButton}>Cancel</button>
+          <button 
+            onClick={handleSave} 
+            className={styles.saveButton} 
+            disabled={!hasChanges || isLoading} // ✅ Disable unless changes are detected
+          >
+            {isLoading ? "Saving..." : "Save"}
+          </button>
         </div>
+
+        {isError && <p className={styles.errorMessage}>Error: {error?.data?.message || "Failed to save profile"}</p>}
       </div>
     </div>
   );

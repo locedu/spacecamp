@@ -18,7 +18,7 @@ function Profile() {
   const authUserId = useSelector((state) => state.auth.user?.id);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // Check token expiration before fetching user data
+  // ✅ Redirect if token expires
   useEffect(() => {
     if (isTokenExpired(token)) {
       dispatch(logout());
@@ -26,21 +26,33 @@ function Profile() {
     }
   }, [token, dispatch, navigate]);
 
+  // ✅ Ensure selectedUserId is set
   useEffect(() => {
     if (!selectedUserId && authUserId) {
       dispatch(setSelectedUserId(authUserId));
     }
   }, [selectedUserId, authUserId, dispatch]);
 
-  const { data: userResponse, isLoading, error, refetch } = useGetUserByIdQuery(selectedUserId, {
+  // ✅ Fetch user data when selectedUserId changes
+  const { data: userResponse, isLoading, error, refetch, isUninitialized } = useGetUserByIdQuery(selectedUserId, {
     skip: isTokenExpired(token),
   });
+
+  // ✅ Ensure refetch is only called when the query is initialized
+  useEffect(() => {
+    if (selectedUserId && !isUninitialized) {
+      refetch();
+    }
+  }, [selectedUserId, refetch, isUninitialized]);
+
+  // ✅ Fetch friends list
   const { data: friends, isLoading: friendsLoading, error: friendsError } = useGetFriendsQuery(undefined, {
     skip: isTokenExpired(token),
   });
 
   const [isFriend, setIsFriend] = useState(false);
 
+  // ✅ Ensure friendship status updates when friends or userResponse change
   useEffect(() => {
     if (friends && userResponse) {
       setIsFriend(friends.some((friend) => friend.id === userResponse.id));
@@ -53,7 +65,9 @@ function Profile() {
 
   const handleSave = async () => {
     try {
-      await refetch(); // ✅ Force a fresh fetch of user data after save
+      if (!isUninitialized) {
+        await refetch(); // ✅ Ensure refetch is only called if query has been initialized
+      }
       setIsEditMode(false);
     } catch (err) {
       console.error("Error refreshing profile:", err);
