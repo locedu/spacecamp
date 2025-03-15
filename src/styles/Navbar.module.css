@@ -1,0 +1,87 @@
+/* src/styles/Navbar.module.css */
+
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center;
+    background-color: #2f4f4f;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+/* Navigation list */
+.navList {
+    display: flex;
+    list-style-type: none;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+/* Navigation item */
+.navItem {
+    display: inline-block;
+}
+
+/* Navigation links */
+.navLink {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    /* border-radius: 5px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* transition: background-color 0.3s ease; */
+}
+
+/* Ensures visited links remain white */
+.navLink:visited {
+    color: white;
+}
+
+/* Remove hover effect */
+.navLink:hover {
+    background-color: transparent;
+    color: white;
+}
+
+/* Active link */
+.navLink:active {
+    color: white;
+}
+
+/* Logout button */
+.logoutButton {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Logout button hover effect */
+.logoutButton:hover {
+    background-color: transparent;
+    color: white;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navList {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navItem {
+        width: 100%;
+        text-align: left;
+    }
+}

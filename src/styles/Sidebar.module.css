@@ -1,0 +1,28 @@
+/* src/styles/Sidebar.module.css */
+
+/* Sidebar container */
+.sidebar {
+    width: 20%;
+    padding: 1em;
+    background-color: #eaeaea !important;
+    /* border-radius: 0.5em !important; */
+    margin: 1em;
+    box-sizing: border-box;
+}
+
+/* Sidebar buttons */
+.sidebarButton {
+    width: 100%;
+    margin: 0;
+}
+
+/* Logout button */
+.logoutButton {
+    margin-top: 15px;
+}
+
+/* Logout button hover effect */
+.logoutButton:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

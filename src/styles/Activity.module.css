@@ -46,6 +46,7 @@
 /* Activity Rows */
 .activityRow {
     border-bottom: 1px solid #ddd;
+    font-size: 14px;
 }
 
 .activityRow:nth-child(even) {
