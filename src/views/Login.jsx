@@ -1,33 +1,32 @@
-// src/views/Login.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../features/auth/authAPI';
-import { TextField, Button, CircularProgress, Box } from '@mui/material';
+import { TextField, Button, CircularProgress, Box, Typography } from '@mui/material';
 import '../styles/login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [login, { isLoading, error }] = useLoginMutation();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      // Convert email to lowercase before sending
-      const formattedEmail = email.trim().toLowerCase();
+    setErrorMessage(''); // Reset error message before attempting login
 
-      // Send POST request with formatted email and password
+    try {
+      const formattedEmail = email.trim().toLowerCase();
       const response = await login({ email: formattedEmail, password }).unwrap();
 
-      // Save the token to localStorage and update the Redux store
       localStorage.setItem('token', response.token);
-
-      // Redirect to the dashboard upon successful login
       navigate('/dashboard');
     } catch (err) {
       console.error('Login failed:', err);
-      alert('Login failed. Please check your credentials.');
+
+      // Extract error message from backend response
+      const errorMsg = err?.data?.error || 'Login failed. Please check your credentials.';
+      setErrorMessage(errorMsg);
     }
   };
 
@@ -54,7 +53,7 @@ function Login() {
         fullWidth
         required
         value={email}
-        onChange={(e) => setEmail(e.target.value.trim().toLowerCase())} // ✅ Auto-lowercase input
+        onChange={(e) => setEmail(e.target.value.trim().toLowerCase())}
       />
 
       <TextField
@@ -81,7 +80,11 @@ function Login() {
         {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Login'}
       </Button>
 
-      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error.message}</p>}
+      {errorMessage && (
+        <Typography color="error" sx={{ textAlign: 'center' }}>
+          {errorMessage}
+        </Typography>
+      )}
     </Box>
   );
 }

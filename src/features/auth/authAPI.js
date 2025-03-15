@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { useDispatch } from 'react-redux';
 import { setSelectedUserId } from '../profile/profileSlice';
 
-const baseUrl = import.meta.env.VITE_API_URL; 
+const baseUrl = import.meta.env.VITE_API_URL;
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',
@@ -42,11 +42,11 @@ export const authAPI = createApi({
     fetchUserProfile: builder.query({
       query: () => '/api/auth/me',
     }),
-    
-    // ✅ Added update user profile mutation
+
+    // ✅ Updated updateUser mutation
     updateUser: builder.mutation({
-      query: (updatedData) => ({
-        url: '/api/auth/me',
+      query: ({ id, ...updatedData }) => ({
+        url: id ? `/api/users/${id}` : '/api/auth/me', // If `id` exists, update that user; otherwise, update self
         method: 'PUT',
         body: updatedData,
       }),
