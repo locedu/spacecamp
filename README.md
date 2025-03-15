@@ -1,5 +1,6 @@
 # spacecamp
 
+- activity (display timestamp, message)
 - profile (edit), profile (css)
 - profile (edit), layout (sections stretch to fit)
 - some session timeout (needs work: some component display error on token expiration)
