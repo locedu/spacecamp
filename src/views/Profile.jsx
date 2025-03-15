@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { useGetUserByIdQuery } from "../features/user/userAPI";
+import { useGetProfileByIdQuery } from "../features/profile/profileAPI";
 import { setSelectedUserId } from "../features/profile/profileSlice";
 import { useGetFriendsQuery } from "../features/friends/friendsAPI";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ function Profile() {
   const token = useSelector((state) => state.auth.token);
   const selectedUserId = useSelector((state) => state.profile.selectedUserId);
   const authUserId = useSelector((state) => state.auth.user?.id);
+  const authUserRole = useSelector((state) => state.auth.user?.role);
   const [isEditMode, setIsEditMode] = useState(false);
 
   // ✅ Redirect if token expires
@@ -26,17 +27,21 @@ function Profile() {
     }
   }, [token, dispatch, navigate]);
 
-  // ✅ Ensure selectedUserId is set
+  // ✅ Ensure selectedUserId is set (only if it hasn't been set already)
   useEffect(() => {
     if (!selectedUserId && authUserId) {
+      console.log("Setting selectedUserId:", authUserId); // Debugging
       dispatch(setSelectedUserId(authUserId));
     }
   }, [selectedUserId, authUserId, dispatch]);
 
-  // ✅ Fetch user data when selectedUserId changes
-  const { data: userResponse, isLoading, error, refetch, isUninitialized } = useGetUserByIdQuery(selectedUserId, {
-    skip: isTokenExpired(token),
+  // ✅ Fetch user profile only if selectedUserId is valid
+  const { data: userResponse, isLoading, error, refetch, isUninitialized } = useGetProfileByIdQuery(selectedUserId, {
+    skip: !selectedUserId || isTokenExpired(token),
   });
+
+  // ✅ Extract user object from the response
+  const user = userResponse?.user; // ✅ Fix applied here
 
   // ✅ Ensure refetch is only called when the query is initialized
   useEffect(() => {
@@ -54,10 +59,10 @@ function Profile() {
 
   // ✅ Ensure friendship status updates when friends or userResponse change
   useEffect(() => {
-    if (friends && userResponse) {
-      setIsFriend(friends.some((friend) => friend.id === userResponse.id));
+    if (friends && user) {
+      setIsFriend(friends.some((friend) => friend.id === user.id));
     }
-  }, [friends, userResponse]);
+  }, [friends, user]);
 
   const handleEditClick = () => {
     setIsEditMode(true);
@@ -79,23 +84,26 @@ function Profile() {
   };
 
   if (isLoading || friendsLoading) {
-    return <div className={styles.profileContainer}><div className={styles.profileContent}>Loading profile...</div></div>;
+    return <div className={styles.profileContainer}>Loading profile...</div>;
   }
 
   if (error || friendsError) {
-    return <div className={styles.profileContainer}><div className={styles.profileContentError}>Error loading profile</div></div>;
+    return <div className={styles.profileContainer}>Error loading profile</div>;
   }
 
-  if (!userResponse) {
-    return <div className={styles.profileContainer}><div className={styles.profileContentNoData}>No profile data available</div></div>;
+  if (!user) {
+    return <div className={styles.profileContainer}>No profile data available</div>;
   }
 
   return (
     <div className={styles.profileContainer}>
       {isEditMode ? (
-        <ProfileEdit user={userResponse} onSave={handleSave} onCancel={handleCancel} />
+        <ProfileEdit user={user} onSave={handleSave} onCancel={handleCancel} />
       ) : (
-        <ProfileView user={userResponse} onEdit={selectedUserId === authUserId ? handleEditClick : null} />
+        <ProfileView 
+          user={user} 
+          onEdit={(selectedUserId === authUserId || authUserRole === "ADMIN") ? handleEditClick : null} 
+        />
       )}
     </div>
   );

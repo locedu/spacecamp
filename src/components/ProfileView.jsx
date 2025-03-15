@@ -6,6 +6,7 @@ import styles from "../styles/ProfileView.module.css";
 
 function ProfileView({ user, onEdit }) {
   const authUserId = useSelector((state) => state.auth.user?.id);
+  const authUserRole = useSelector((state) => state.auth.user?.role);
   const selectedUserId = useSelector((state) => state.profile.selectedUserId);
   const token = useSelector((state) => state.auth.token);
 
@@ -35,7 +36,6 @@ function ProfileView({ user, onEdit }) {
     }
   };
 
-  // ✅ Format Last Login and Last Updated in "3/14/2025 @11:38PM EST" format
   const formatDateTime = (dateString) => {
     if (!dateString) return "Unknown";
     return new Intl.DateTimeFormat("en-US", {
@@ -49,27 +49,25 @@ function ProfileView({ user, onEdit }) {
     }).format(new Date(dateString));
   };
 
-  const formattedLastLogin = formatDateTime(user?.lastLogin);
-  const formattedUpdatedAt = formatDateTime(user?.updatedAt);
-
   return (
     <div className={styles.profileContent}>
       <div className={styles.profileInfo}>
         <div className={styles.profileTitle}>
           <h2>Profile</h2>
         </div>
-        <div><strong>Name:</strong> {user?.name || "N/A"}</div>
-        <div><strong>Email:</strong> {user?.email || "N/A"}</div>
-        <div><strong>Username:</strong> {user?.username || "N/A"}</div>
-        <div><strong>Status:</strong> {user?.status || "N/A"}</div>  {/* ✅ Added Status */}
-        <div><strong>Role:</strong> {user?.role || "N/A"}</div>  {/* ✅ Added Role */}
-        <div><strong>Status Message:</strong> {user?.statusMessage || "No status"}</div>
-        <div><strong>Bio:</strong> {user?.bio || "No bio available"}</div>
-        <div><strong>Last Login:</strong> {formattedLastLogin}</div>
-        <div><strong>Last Updated:</strong> {formattedUpdatedAt}</div>
+        <div><strong>Selected User ID:</strong> {selectedUserId || "N/A"}</div> {/* ✅ Always show selectedUserId */}
+        <div><strong>Name:</strong> {user?.name ?? "N/A"}</div>
+        <div><strong>Email:</strong> {user?.email ?? "N/A"}</div>
+        <div><strong>Username:</strong> {user?.username ?? "N/A"}</div>
+        <div><strong>Status:</strong> {user?.status ?? "N/A"}</div>
+        <div><strong>Role:</strong> {user?.role ?? "N/A"}</div>
+        <div><strong>Status Message:</strong> {user?.statusMessage ?? "No status"}</div>
+        <div><strong>Bio:</strong> {user?.bio ?? "No bio available"}</div>
+        <div><strong>Last Login:</strong> {formatDateTime(user?.lastLogin)}</div>
+        <div><strong>Last Updated:</strong> {formatDateTime(user?.updatedAt)}</div>
       </div>
 
-      {selectedUserId === authUserId && (
+      {(selectedUserId === authUserId || authUserRole === "ADMIN") && (
         <div className={styles.profileFooter}>
           <button className={styles.editLink} onClick={onEdit}>Edit Profile</button>
         </div>
