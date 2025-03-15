@@ -1,11 +1,10 @@
-// src/components/Navbar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import '../styles/navbar.css';
+import styles from '../styles/Navbar.module.css'; // ✅ Import updated CSS module
 
 function Navbar() {
-  const token = useSelector((state) => state.auth.token); // Check if the user is authenticated
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -13,16 +12,18 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar">
-      <ul>
+    <nav className={styles.navbar}>
+      <ul className={styles.navList}>
         {!token ? (
           <>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
+            <li className={styles.navItem}><Link to="/" className={styles.navLink}>Home</Link></li>
+            <li className={styles.navItem}><Link to="/login" className={styles.navLink}>Login</Link></li>
+            <li className={styles.navItem}><Link to="/register" className={styles.navLink}>Register</Link></li>
           </>
         ) : (
-          <li><button onClick={handleLogout}>Logout</button></li>
+          <li className={styles.navItem}>
+            <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+          </li>
         )}
       </ul>
     </nav>
