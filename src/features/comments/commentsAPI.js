@@ -14,7 +14,7 @@ export const commentsAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Comments', 'Posts'], 
+  tagTypes: ['Comments', 'Posts', 'Activity'], // ✅ Added 'Activity' tag
 
   endpoints: (builder) => ({
     getCommentsForPost: builder.query({
@@ -34,6 +34,7 @@ export const commentsAPI = createApi({
       invalidatesTags: (result, error, { postId }) => [
         { type: 'Comments', postId },
         { type: 'Posts', id: postId }, // ✅ Ensure post refreshes to update comment count
+        'Activity', // ✅ Invalidate Activity to trigger refresh
       ],
     }),
     updateComment: builder.mutation({
@@ -45,7 +46,8 @@ export const commentsAPI = createApi({
       invalidatesTags: (result, error, { id, postId }) => [
         { type: 'Comments', postId },
         { type: 'Comments', id },
-        { type: 'Posts', id: postId }, 
+        { type: 'Posts', id: postId },
+        'Activity', // ✅ Invalidate Activity on update
       ],
     }),
     deleteComment: builder.mutation({
@@ -55,7 +57,8 @@ export const commentsAPI = createApi({
       }),
       invalidatesTags: (result, error, { postId }) => [
         { type: 'Comments', postId },
-        { type: 'Posts', id: postId }, 
+        { type: 'Posts', id: postId },
+        'Activity', // ✅ Invalidate Activity on delete
       ],
     }),
   }),

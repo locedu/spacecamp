@@ -1,17 +1,29 @@
-import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useGetActivitiesQuery } from "../features/activity/activityAPI";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../features/auth/authSlice";
 import { isTokenExpired } from "../utils/tokenExpiration";
-import { useSelector } from "react-redux";
 import styles from "../styles/Activity.module.css";
 
 function Activity() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
 
-  // Fetch user activities, skipping if token is expired
+  // Redirect if token expires
+  useEffect(() => {
+    if (isTokenExpired(token)) {
+      dispatch(logout());
+      navigate("/login", { replace: true });
+    }
+  }, [token, dispatch, navigate]);
+
+  // Fetch user activities, ensuring it auto-refetches when the 'Activity' tag is invalidated
   const { data: activities, isLoading, error } = useGetActivitiesQuery(undefined, {
     skip: isTokenExpired(token),
+    refetchOnMountOrArgChange: true, // ✅ Ensures refresh on invalidation
   });
 
   // Determine mode based on the route
