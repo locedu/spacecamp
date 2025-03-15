@@ -6,8 +6,8 @@
     align-items: stretch;
     padding: 20px;
     background-color: #eaeaea;
-    height: 100%; /* Ensures it takes full height */
     font-family: "Roboto", sans-serif;
+    height: auto; /* ✅ Adjusts height dynamically based on content */
 }
 
 /* Title Styling */
@@ -59,6 +59,9 @@
     padding: 10px;
     color: #333;
     font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Responsive Table */
@@ -66,4 +69,8 @@
     .activityTable {
         font-size: 14px;
     }
+}
+
+button {
+    color: black;
 }

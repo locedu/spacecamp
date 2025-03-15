@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { activityAPI } from '../activity/activityAPI'; // ✅ Import activityAPI
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -14,7 +15,7 @@ export const postsAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Posts'],
+  tagTypes: ['Posts', 'Activity'],
 
   endpoints: (builder) => ({
     getPosts: builder.query({
@@ -31,7 +32,7 @@ export const postsAPI = createApi({
         method: 'POST',
         body: newPost,
       }),
-      invalidatesTags: ['Posts'],
+      invalidatesTags: ['Posts', 'Activity'],
     }),
     updatePost: builder.mutation({
       query: ({ id, ...updatedData }) => ({
@@ -46,25 +47,41 @@ export const postsAPI = createApi({
         url: `/api/posts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Posts'],
+      invalidatesTags: ['Posts', 'Activity'],
     }),
 
-    // ✅ Add Like Post Mutation
+    // ✅ Add Like Post Mutation with explicit Activity invalidation
     likePost: builder.mutation({
       query: (postId) => ({
         url: `/api/likes/${postId}`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, postId) => [{ type: 'Posts', postId }], // ✅ Refresh Post Data
+      async onQueryStarted(postId, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(activityAPI.util.invalidateTags(['Activity'])); // ✅ Invalidate Activity after success
+        } catch (error) {
+          console.error('Error invalidating Activity after like:', error);
+        }
+      },
+      invalidatesTags: (result, error, postId) => [{ type: 'Posts', postId }],
     }),
 
-    // ✅ Add Unlike Post Mutation
+    // ✅ Add Unlike Post Mutation with explicit Activity invalidation
     unlikePost: builder.mutation({
       query: (postId) => ({
         url: `/api/likes/${postId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, postId) => [{ type: 'Posts', postId }], // ✅ Refresh Post Data
+      async onQueryStarted(postId, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(activityAPI.util.invalidateTags(['Activity'])); // ✅ Invalidate Activity after success
+        } catch (error) {
+          console.error('Error invalidating Activity after unlike:', error);
+        }
+      },
+      invalidatesTags: (result, error, postId) => [{ type: 'Posts', postId }],
     }),
   }),
 });
@@ -75,6 +92,6 @@ export const {
   useCreatePostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
-  useLikePostMutation, // ✅ New
-  useUnlikePostMutation, // ✅ New
+  useLikePostMutation,
+  useUnlikePostMutation,
 } = postsAPI;

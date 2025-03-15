@@ -61,3 +61,24 @@
     margin-top: 20px;
     font-family: 'Roboto', sans-serif; /* Font styling consistency */
 }
+
+/* ✅ Refresh Activity Link (Always Visible & Styled as Blue) */
+.refreshActivityContainer {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.refreshButton {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: 'Roboto', sans-serif;
+}
+
+.refreshButton:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
