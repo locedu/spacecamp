@@ -1,5 +1,6 @@
 # spacecamp
 
+- activity (login, friend, post, comment, like)
 - activity (display timestamp, message)
 - profile (edit), profile (css)
 - profile (edit), layout (sections stretch to fit)
