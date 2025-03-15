@@ -5,7 +5,7 @@
 }
 
 .sectionContainer {
-    background-color: orange; /* Clean white background */
+    background-color: #e2dfdf; /* Clean white background */
     margin-bottom: 20px; /* Space between sections */
     display: flex;
     flex-direction: column; /* Allow sections to stretch based on content */
@@ -33,7 +33,7 @@
 }
 
 .activityContainer {
-    background-color: orange;
+    background-color: #aeaeae;
     padding: 20px;
 }
 

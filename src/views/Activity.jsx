@@ -23,7 +23,7 @@ function Activity() {
   // Fetch user activities, ensuring it auto-refetches when the 'Activity' tag is invalidated
   const { data: activities, isLoading, error } = useGetActivitiesQuery(undefined, {
     skip: isTokenExpired(token),
-    refetchOnMountOrArgChange: true, // ✅ Ensures refresh on invalidation
+    refetchOnMountOrArgChange: true, 
   });
 
   // Determine mode based on the route
@@ -42,19 +42,30 @@ function Activity() {
     return <div className={styles.activityContainer}><p className={styles.noActivity}>No activity found.</p></div>;
   }
 
-  // Function to format activity messages
-  const getActivityMessage = (targetType) => {
-    const messages = {
-      LOGIN: "You signed in.",
-      LOGOUT: "You signed out.",
-      POST: "You added a post.",
-      COMMENT: "You commented on a post.",
-      LIKE: "You liked a post.",
-      UN_LIKE: "You un-liked a post.",
-      FRIEND: "You added a friend.",
-      UN_FRIEND: "You removed a friend.",
-    };
-    return messages[targetType] || "Unknown activity.";
+  // Function to format activity messages with correct links
+  const getActivityMessage = (activity) => {
+    const { targetType, targetId } = activity;
+
+    switch (targetType) {
+      case "LOGIN":
+        return "You signed in.";
+      case "LOGOUT":
+        return "You signed out.";
+      case "POST":
+        return <Link to={`/dashboard/posts/${targetId}`}>You added a post.</Link>;
+      case "COMMENT":
+        return <Link to={`/dashboard/posts/${targetId}`}>You commented on a post.</Link>;
+      case "LIKE":
+        return <Link to={`/dashboard/posts/${targetId}`}>You liked a post.</Link>; // ✅ Fixed LIKE link
+      case "UN_LIKE":
+        return <Link to={`/dashboard/posts/${targetId}`}>You un-liked a post.</Link>; // ✅ Fixed UN_LIKE link
+      case "FRIEND":
+        return <Link to={`/dashboard/profile/${targetId}`}>You added a friend.</Link>;
+      case "UN_FRIEND":
+        return <Link to={`/dashboard/profile/${targetId}`}>You removed a friend.</Link>;
+      default:
+        return "Unknown activity.";
+    }
   };
 
   // Show only the first 5 activities if in dashboard
@@ -77,7 +88,7 @@ function Activity() {
                 {new Date(activity.createdAt).toLocaleString()}
               </td>
               <td className={styles.activityMessage}>
-                {getActivityMessage(activity.targetType)}
+                {getActivityMessage(activity)}
               </td>
             </tr>
           ))}
