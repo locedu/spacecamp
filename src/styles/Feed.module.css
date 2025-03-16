@@ -4,6 +4,8 @@
     background-color: #eaeaea;
     height: 100%; /* Ensure full height inside parent container */
     flex-grow: 1; /* Stretch equally with Profile */
+    overflow: hidden; /* Ensures nothing spills out */
+    /* padding: 1em; */
 }
 
 .feedAppbar {
@@ -14,6 +16,14 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1; /* Allow posts section to expand */
+    width: 100%; /* Ensure posts take up full width of Feed */
+    overflow: hidden; /* Prevents children from overflowing */
+    padding: 1em;
+}
+
+.feedPosts div {
+    margin-bottom: 1em;
+    /* background-color: orange; */
 }
 
 .feedViewAll {

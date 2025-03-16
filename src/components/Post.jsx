@@ -13,7 +13,7 @@ function Post({ post }) {
   return (
     <div className={styles.post}>
       <div className={styles.postHeader}>
-        <h2>{post.title}</h2>
+        <h2>Post: {post.title}</h2>
       </div>
       <div className={styles.postContent}>
         {post.content}
@@ -22,19 +22,23 @@ function Post({ post }) {
       {/* Footer */}
       <div className={styles.postFooter}>
         <div className={styles.postDetails}>
-          <p className={styles.postAuthor}>{post.user?.name || "Unknown User"}</p>
+          <p className={styles.postAuthor}>
+            {post.user?.name || "Unknown User"} (@{post.user?.username || "unknown"})
+          </p>
           <p className={styles.timestamp}>{formatDate(post.updatedAt)}</p>
           <p>Comments ({post.comments?.length || 0})</p>
           <p>Likes ({post.likes?.length || 0})</p>
         </div>
-        <div className={styles.postActions}>
-          {id !== String(post.id) && (
-            <Link to={`/dashboard/posts/${post.id}`} className={styles.viewPostLink}>
-              View Post
-            </Link>
-          )}
-        </div>
       </div>
+
+      {/* ✅ Moved View Post button below the footer */}
+      {id !== String(post.id) && (
+        <div className={styles.viewPostContainer}>
+          <Link to={`/dashboard/posts/${post.id}`} className={styles.viewPostButton}>
+            View Post
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
