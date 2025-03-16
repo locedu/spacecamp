@@ -71,7 +71,7 @@
 .addFriend {
     background-color: #28a745;
     color: white;
-    font-size: 14px;
+    font-size: 1.1rem;
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
@@ -80,6 +80,7 @@
 
 .addFriend:hover {
     background-color: #218838;
+    text-decoration: underline;
 }
 
 /* Remove Friend button */
@@ -95,4 +96,5 @@
 
 .removeFriend:hover {
     background-color: #c82333;
+    text-decoration: underline;
 }

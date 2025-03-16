@@ -4,6 +4,7 @@ import { useGetActivitiesQuery } from "../features/activity/activityAPI";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 import { isTokenExpired } from "../utils/tokenExpiration";
+import { setSelectedUserId } from "../features/profile/profileSlice";
 import styles from "../styles/Activity.module.css";
 
 function Activity() {
@@ -42,6 +43,11 @@ function Activity() {
     return <div className={styles.activityContainer}><p className={styles.noActivity}>No activity found.</p></div>;
   }
 
+  // Function to handle clicks on friend/unfriend links
+  const handleUserClick = (userId) => {
+    dispatch(setSelectedUserId(userId));
+  };
+
   // Function to format activity messages with correct links
   const getActivityMessage = (activity) => {
     const { targetType, targetId } = activity;
@@ -56,13 +62,27 @@ function Activity() {
       case "COMMENT":
         return <Link to={`/dashboard/posts/${targetId}`}>You commented on a post.</Link>;
       case "LIKE":
-        return <Link to={`/dashboard/posts/${targetId}`}>You liked a post.</Link>; // ✅ Fixed LIKE link
+        return <Link to={`/dashboard/posts/${targetId}`}>You liked a post.</Link>;
       case "UN_LIKE":
-        return <Link to={`/dashboard/posts/${targetId}`}>You un-liked a post.</Link>; // ✅ Fixed UN_LIKE link
+        return <Link to={`/dashboard/posts/${targetId}`}>You un-liked a post.</Link>;
       case "FRIEND":
-        return <Link to={`/dashboard/profile/${targetId}`}>You added a friend.</Link>;
+        return (
+          <Link 
+            to={`/dashboard/profile/${targetId}`} 
+            onClick={() => handleUserClick(targetId)}
+          >
+            You added a friend.
+          </Link>
+        );
       case "UN_FRIEND":
-        return <Link to={`/dashboard/profile/${targetId}`}>You removed a friend.</Link>;
+        return (
+          <Link 
+            to={`/dashboard/profile/${targetId}`} 
+            onClick={() => handleUserClick(targetId)}
+          >
+            You removed a friend.
+          </Link>
+        );
       default:
         return "Unknown activity.";
     }
