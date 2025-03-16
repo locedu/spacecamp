@@ -2,28 +2,25 @@
 .post {
     background-color: #fff;
     padding: 1em;
-    margin-bottom: 0em;
-    text-align: left;
-    margin:1em;
+    margin: 0em auto; /* Ensures spacing while staying within Feed */
+    width: 100%; /* Adjust to prevent overflow */
+    max-width: 100%; /* Ensures it doesn't exceed container */
+    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+    overflow: hidden; /* Prevents content overflow */
 }
 
 /* Post header */
-.postHeader {
-    /* margin-bottom: 10px; */
-}
-
 .postHeader h2 {
-    font-size: 14px; /* Same size as post content */
+    font-size: 14px;
     font-weight: bold;
     margin: 0;
     color: #333;
     text-align: left;
-    /* background-color:orange; */
 }
 
 /* Post content */
 .postContent {
-    font-size: 14px; /* Adjusted to maintain consistency with title size */
+    font-size: 14px;
     line-height: 1.6;
     color: #333;
     margin-bottom: 15px;
@@ -34,10 +31,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
+    font-size: 12px;
     color: #777;
     border-top: 1px solid #eee;
-    /* padding-top: 5px; */
     padding: 1em 0 0 0 !important;
 }
 
@@ -60,24 +56,31 @@
 
 /* Author */
 .postAuthor {
-    font-weight: bold;
-    color: #555;
+    font-weight: normal;
+    color: black;
 }
 
-/* Bottom-right "View Post" link */
-.postActions {
-    align-self: flex-end;
+/* ✅ New: View Post container */
+.viewPostContainer {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
 }
 
-/* "View Post" link */
-.viewPostLink {
+/* ✅ New: View Post button */
+.viewPostButton {
+    display: inline-block;
     font-size: 14px;
-    color: #007bff;
+    color: white;
+    background-color: #007bff;
+    padding: 8px 15px;
     text-decoration: none;
     font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.2s;
 }
 
-.viewPostLink:hover {
-    color: #0056b3;
-    text-decoration: underline;
+.viewPostButton:hover {
+    background-color: #0056b3;
+    text-decoration: none;
 }

@@ -9,83 +9,85 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #eaeaea;
     margin: 0 auto;
 }
 
-/* Post content styling */
-.viewPostContent {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Comments wrapper container */
+.commentsWrapper {
     width: 100%;
-    height: 100%;
-}
-
-/* Title styling */
-.viewPostTitle h2 {
-    font-size: 1.75rem;
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 10px;
-}
-
-/* Post info container */
-.postInfo {
-    font-size: 14px;
-    color: #333;
-    width: 100%;
-    flex-grow: 1;
-}
-
-/* Each individual post information row */
-.postInfo div {
-    margin-bottom: 10px;
-}
-
-.postInfo strong {
-    font-weight: bold;
-    color: darkslategray;
-}
-
-/* Like Section */
-.likeSection {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 15px;
-    width: 100%;
-}
-
-/* Unified action buttons section */
-.viewPostFooter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
+    padding: 15px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    flex-wrap: wrap;
 }
 
-/* General button styling */
+/* Updated: Comments section header */
+.commentsHeader {
+    font-size: 1em; /* ✅ Adjusted to 1em */
+    font-weight: bold;
+    color: #333;
+    text-align: left; /* ✅ Left-aligned */
+    margin-bottom: 10px;
+}
+
+/* Comments list */
+.commentsList {
+    list-style: none;
+    padding: 0;
+}
+
+/* No comments text */
+.noComments {
+    font-style: italic;
+    color: #888;
+}
+
+/* Post Actions Wrapper */
+.postActionsWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center the action buttons */
+    margin-top: 10px;
+}
+
+/* ✅ Fixed: Post Actions Container */
+.postActionsContainer {
+    display: flex;
+    justify-content: flex-start; /* ✅ Aligns buttons to the left */
+    flex-wrap: wrap; /* ✅ Allows wrapping if needed */
+    gap: 10px; /* ✅ Keeps spacing between buttons */
+    padding: 1em 0;
+    width: 100%; /* ✅ Ensures it spans the full width */
+    max-width: 100%;
+    border-top: 1px solid #ddd; /* ✅ Light border for separation */
+}
+
+/* ✅ Fixed: Button Sizes & Layout */
 .actionBtn {
-    font-size: 1.1rem;
+    font-size: 12px;
     text-decoration: none;
     background-color: #007bff;
     color: white;
-    padding: 10px 15px;
+    padding: 8px 10px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* ✅ Ensures spacing between icon & text */
+    min-width: 80px;
+    height: 35px;
 }
 
 .actionBtn:hover {
     background-color: #0056b3;
 }
 
-/* Delete button (Red) */
+/* ✅ Fixed: Delete Button */
 .deleteBtn {
     background-color: #dc3545;
 }
@@ -107,29 +109,32 @@
     background-color: #ccc;
 }
 
-/* Comments section */
-.commentsContainer {
-    width: 100%;
-    padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+/* Ensure icons have proper spacing */
+.icon {
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
-.commentsHeader {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    text-align: left;
-    margin-bottom: 10px;
+/* ✅ Fixed: Uniform Button Sizes */
+.uniformBtn {
+    width: 80px; /* ✅ Ensures all buttons are exactly 80px wide */
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap; /* ✅ Prevents text from wrapping inside buttons */
 }
 
-.commentsList {
-    list-style: none;
-    padding: 0;
-}
-
-.noComments {
-    font-style: italic;
-    color: #888;
+/* ✅ Fixed: Comment Button */
+.commentBtn {
+    width: 100px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
 }

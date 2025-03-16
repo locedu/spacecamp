@@ -10,6 +10,7 @@ import {
 import { useGetCommentsForPostQuery } from "../features/comments/commentsAPI";
 import Post from "../components/Post";
 import Comment from "../components/Comment";
+import { ThumbUp, AddComment, EditNote, DeleteForever } from "@mui/icons-material"; // ✅ Import icons
 import styles from "../styles/ViewPost.module.css"; // ✅ Using new module
 
 function ViewPost() {
@@ -72,34 +73,40 @@ function ViewPost() {
     <div className={styles.viewPostContainer}>
       <Post post={post} />
 
-      {/* ✅ Like, Add Comment, and Back are now in the same row */}
-      <div className={styles.viewPostFooter}>
-        <button className={styles.actionBtn} onClick={handleLikeToggle}>
-          {hasLiked ? "Unlike" : "Like"}
-        </button>
+      {/* ✅ Button container with uniform button sizes */}
+      <div className={styles.postActionsWrapper}>
+        <div className={styles.postActionsContainer}>
+          <button className={`${styles.actionBtn} ${styles.uniformBtn}`} onClick={handleLikeToggle}>
+            <ThumbUp fontSize="small" className={styles.icon} /> {/* ✅ Like icon */}
+            {hasLiked ? " Unlike" : " Like"}
+          </button>
 
-        <Link to={`/dashboard/posts/${post.id}/comment`} className={styles.actionBtn}>
-          Add Comment
-        </Link>
+          <Link to={`/dashboard/posts/${post.id}/comment`} className={`${styles.actionBtn} ${styles.commentBtn}`}>
+            <AddComment fontSize="small" className={styles.icon} /> {/* ✅ Comment icon */}
+            Comment
+          </Link>
 
-        <Link to="/dashboard/posts" className={styles.actionBtn}>
-          Back
-        </Link>
+          {user?.id === post.userId && (
+            <>
+              <Link to={`/dashboard/posts/${post.id}/edit`} className={`${styles.actionBtn} ${styles.uniformBtn}`}>
+                <EditNote fontSize="small" className={styles.icon} /> {/* ✅ Edit icon */}
+                Edit
+              </Link>
+              <button onClick={handleDelete} className={`${styles.actionBtn} ${styles.deleteBtn} ${styles.uniformBtn}`}>
+                <DeleteForever fontSize="small" className={styles.icon} /> {/* ✅ Delete icon */}
+                Delete
+              </button>
+            </>
+          )}
+
+          {/* <Link to="/dashboard/posts" className={`${styles.actionBtn} ${styles.uniformBtn}`}>
+            Back
+          </Link> */}
+        </div>
       </div>
 
-      {/* ✅ Admin-specific controls remain separate */}
-      {user?.id === post.userId && (
-        <div className={styles.viewPostFooter}>
-          <Link to={`/dashboard/posts/${post.id}/edit`} className={styles.actionBtn}>
-            Edit
-          </Link>
-          <button onClick={handleDelete} className={`${styles.actionBtn} ${styles.deleteBtn}`}>
-            Delete
-          </button>
-        </div>
-      )}
-
-      <div className={styles.commentsContainer}>
+      {/* ✅ New comments wrapper */}
+      <div className={styles.commentsWrapper}>
         <h3 className={styles.commentsHeader}>Comments</h3>
         {sortedComments.length > 0 ? (
           <ul className={styles.commentsList}>
