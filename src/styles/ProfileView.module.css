@@ -47,6 +47,10 @@
     text-align: center;
 }
 
+.profileFooter button {
+    margin: 0 0 1em 0;
+}
+
 .editLink {
     color: white;
     font-size: 1.1rem;

@@ -29,14 +29,14 @@ function Friends() {
 
   return (
     <div className={styles.friendsContainer}>
-      <h2 className={styles.friendsHeader}>Friends List</h2>
+      <h2 className={styles.friendsHeader}>Friends</h2>
 
       {/* Refresh Activity Link (Always Visible) */}
-      <div className={styles.refreshActivityContainer}>
+      {/* <div className={styles.refreshActivityContainer}>
         <button className={styles.refreshButton} onClick={handleRefreshActivity}>
           Refresh Activity
         </button>
-      </div>
+      </div> */}
 
       {isLoading && <div className={styles.loadingState}><p>Loading friends...</p></div>}
       {error && <div className={styles.errorMessage}><p>Error loading friends</p></div>}

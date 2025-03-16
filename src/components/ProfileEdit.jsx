@@ -108,7 +108,7 @@ function ProfileEdit({ user, onSave, onCancel }) {
           </div>
 
           <div className={styles.profileTitle}>
-            <strong>Status:</strong>
+            <strong>Status: </strong>
             {isAdmin && !isEditingSelf ? (
               <select
                 value={status}

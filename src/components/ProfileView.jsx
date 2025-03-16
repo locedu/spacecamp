@@ -1,25 +1,42 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useGetFriendsQuery, useAddFriendMutation, useRemoveFriendMutation } from "../features/friends/friendsAPI";
+import { logout } from "../features/auth/authSlice";
 import { isTokenExpired } from "../utils/tokenExpiration";
 import styles from "../styles/ProfileView.module.css";
 
 function ProfileView({ user, onEdit }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const authUserId = useSelector((state) => state.auth.user?.id);
   const authUserRole = useSelector((state) => state.auth.user?.role);
   const selectedUserId = useSelector((state) => state.profile.selectedUserId);
   const token = useSelector((state) => state.auth.token);
 
+  // ✅ Redirect to /login if token is expired
+  useEffect(() => {
+    if (isTokenExpired(token)) {
+      dispatch(logout());
+      navigate("/login");
+    }
+  }, [token, dispatch, navigate]);
+
+  // ✅ Skip API calls if token is expired
   const { data: friends } = useGetFriendsQuery(undefined, {
     skip: isTokenExpired(token),
   });
+
   const [addFriend] = useAddFriendMutation();
   const [removeFriend] = useRemoveFriendMutation();
-
   const isFriend = friends?.some((friend) => friend.id === selectedUserId);
 
   const handleAddFriend = async () => {
-    if (isTokenExpired(token)) return;
+    if (isTokenExpired(token)) {
+      dispatch(logout());
+      navigate("/login");
+      return;
+    }
     try {
       await addFriend(selectedUserId).unwrap();
     } catch (err) {
@@ -28,7 +45,11 @@ function ProfileView({ user, onEdit }) {
   };
 
   const handleRemoveFriend = async () => {
-    if (isTokenExpired(token)) return;
+    if (isTokenExpired(token)) {
+      dispatch(logout());
+      navigate("/login");
+      return;
+    }
     try {
       await removeFriend(selectedUserId).unwrap();
     } catch (err) {
@@ -55,7 +76,7 @@ function ProfileView({ user, onEdit }) {
         <div className={styles.profileTitle}>
           <h2>Profile</h2>
         </div>
-        <div><strong>Selected User ID:</strong> {selectedUserId || "N/A"}</div> {/* ✅ Always show selectedUserId */}
+        <div><strong>Selected User ID:</strong> {selectedUserId || "N/A"}</div>
         <div><strong>Name:</strong> {user?.name ?? "N/A"}</div>
         <div><strong>Email:</strong> {user?.email ?? "N/A"}</div>
         <div><strong>Username:</strong> {user?.username ?? "N/A"}</div>
@@ -67,21 +88,20 @@ function ProfileView({ user, onEdit }) {
         <div><strong>Last Updated:</strong> {formatDateTime(user?.updatedAt)}</div>
       </div>
 
-      {(selectedUserId === authUserId || authUserRole === "ADMIN") && (
-        <div className={styles.profileFooter}>
+      <div className={styles.profileFooter}>
+        {/* ✅ Keep Edit Profile and Add/Remove Friend buttons in the same section */}
+        {(selectedUserId === authUserId || authUserRole === "ADMIN") && (
           <button className={styles.editLink} onClick={onEdit}>Edit Profile</button>
-        </div>
-      )}
+        )}
 
-      {selectedUserId !== authUserId && (
-        <div className={styles.profileFooter}>
-          {isFriend ? (
+        {selectedUserId !== authUserId && (
+          isFriend ? (
             <button className={styles.removeFriend} onClick={handleRemoveFriend}>Remove Friend</button>
           ) : (
             <button className={styles.addFriend} onClick={handleAddFriend}>Add Friend</button>
-          )}
-        </div>
-      )}
+          )
+        )}
+      </div>
     </div>
   );
 }

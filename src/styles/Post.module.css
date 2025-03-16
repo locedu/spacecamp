@@ -1,7 +1,7 @@
 /* Style for each individual post */
 .post {
     background-color: #fff;
-    padding: .5em;
+    padding: 1em;
     margin-bottom: 0em;
     text-align: left;
     margin:1em;
@@ -38,6 +38,7 @@
     color: #777;
     border-top: 1px solid #eee;
     /* padding-top: 5px; */
+    padding: 1em 0 0 0 !important;
 }
 
 /* Bottom-left details (Author, Timestamp, Comments, Likes) */
