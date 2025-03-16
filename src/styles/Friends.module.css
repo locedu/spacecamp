@@ -2,83 +2,93 @@
 
 /* Container for the entire Friends section */
 .friendsContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    background-color: #eaeaea;
-    height: 100%; /* Allow the container to stretch to the same height as its sibling */
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #eaeaea;
+  height: 100%; /* Allow the container to stretch to the same height as its sibling */
+}
+
+.friendsContainer h2 {
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 /* Title style */
 .title {
-    font-size: 1.25rem; /* Slightly smaller font for the title */
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-    font-family: 'Roboto', sans-serif; /* Font styling consistency */
+  font-size: 1.25rem; /* Slightly smaller font for the title */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  font-family: "Roboto", sans-serif; /* Font styling consistency */
+  text-align: left;
 }
 
 /* Friends Table */
 .friendsTable {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .friendsTable th,
 .friendsTable td {
-    padding: 6px; /* Reduced padding for a leaner table */
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-    font-size: 14px; /* Smaller text for the table */
-    font-family: 'Roboto', sans-serif; /* Font consistency */
+  padding: 10px; /* Reduced padding for a leaner table */
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px; /* Smaller text for the table */
+  font-family: "Roboto", sans-serif; /* Font consistency */
 }
 
 .friendsTable th {
-    background-color: #007bff;
-    color: white;
+  background-color: aliceblue;
+  color: #2f4f4f;
 }
 
 .friendsTable td {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 /* Remove link style */
 .removeLink {
-    color: #007bff;
-    text-decoration: none;
-    font-size: 14px; /* Smaller font size for the link */
-    font-family: 'Roboto', sans-serif; /* Font styling consistency */
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px; /* Smaller font size for the link */
+  font-family: "Roboto", sans-serif; /* Font styling consistency */
 }
 
 .removeLink:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Loading, Error, and No friends states */
-.loadingState, .errorMessage, .noFriends {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 20px;
-    font-family: 'Roboto', sans-serif; /* Font styling consistency */
+.loadingState,
+.errorMessage,
+.noFriends {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  font-family: "Roboto", sans-serif; /* Font styling consistency */
 }
 
 /* ✅ Refresh Activity Link (Always Visible & Styled as Blue) */
 .refreshActivityContainer {
-    text-align: center;
-    margin: 10px 0;
+  text-align: center;
+  margin: 10px 0;
 }
 
 .refreshButton {
-    background: none;
-    border: none;
-    color: #007bff;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-    font-family: 'Roboto', sans-serif;
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: "Roboto", sans-serif;
 }
 
 .refreshButton:hover {
-    color: #0056b3;
-    text-decoration: underline;
+  color: #0056b3;
+  text-decoration: underline;
 }

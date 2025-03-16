@@ -87,18 +87,22 @@
 }
 
 .userTable th, .userTable td {
-    padding: 1em;
+    padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
     word-wrap: break-word;
 }
 
 .userTable th {
-    background-color: #f1f1f1;
+    background-color: aliceblue;
 }
 
 .userTable tr:nth-child(even) {
-    background-color: #fafafa;
+    background-color: #f9f9f9;
+}
+
+.userTable tr:nth-child(odd) {
+    background-color: white;
 }
 
 .userTable tr:hover {

@@ -99,7 +99,7 @@ function Activity() {
       {isDashboard && (
         <div className={styles.viewAllLinkContainer}>
           <Link to="/dashboard/activity" className={styles.viewAllLink}>
-            Activity ({activities.length})
+            View All ({activities.length})
           </Link>
         </div>
       )}

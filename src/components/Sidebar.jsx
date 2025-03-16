@@ -20,7 +20,7 @@ function Sidebar() {
 
   return (
     <div className={styles.sidebar}>
-      <Button as={Link} to="/dashboard" variant="primary" size="sm" className={styles.sidebarButton}>
+      <Button as={Link} to="/dashboard" variant="primary" size="sm" className={styles.dashboardButton}>
         Dashboard
       </Button>
 
