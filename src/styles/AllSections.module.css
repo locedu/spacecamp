@@ -20,7 +20,7 @@
     width: 100%;
     gap: 20px; /* Space between the sections */
     align-items: stretch; /* Ensures children (Feed & Profile) stretch equally */
-    margin-bottom: 20px; /* ✅ Ensures spacing at the bottom of each row */
+    margin-bottom: 0px; /* ✅ Ensures spacing at the bottom of each row */
 }
 
 .row .sectionContainer {
