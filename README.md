@@ -1,5 +1,6 @@
 # spacecamp
 
+- post, feed (css cleanup)
 - activity (friend link to profile), css cleanup
 - profile (refactor for backend route api/profiles)
 - activity links (friend, post, comment, like) to appropriate routes.
