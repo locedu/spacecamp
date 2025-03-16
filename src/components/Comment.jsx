@@ -1,24 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import '../styles/comment.css';
+import styles from '../styles/Comment.module.css'; // ✅ Import CSS Module
 
 function Comment({ comment }) {
   const user = useSelector((state) => state.auth.user);
 
+  // ✅ Determine the footer text dynamically
+  const isOwnComment = user?.id === comment.userId;
+  const commentText = isOwnComment
+    ? `You commented on ${new Date(comment.updatedAt).toLocaleString()}`
+    : `${comment.user?.name || "Unknown User"} (@${comment.user?.username || "unknown"}) commented on ${new Date(comment.updatedAt).toLocaleString()}`;
+
   return (
-    <li className="comment-item">
-      <p className="comment-content">"{comment.content}"</p>
-      <p className="comment-author">
-        <strong>{comment.user?.name || "Unknown User"}</strong>
-      </p>
-      <p className="comment-time">
-        Last updated on {new Date(comment.updatedAt).toLocaleString()}
-      </p>
+    <li className={styles.commentItem}>
+      <p className={styles.commentContent}>{comment.content}</p>
+
+      {/* ✅ Footer with dynamic author display */}
+      <div className={styles.commentFooter}>
+        <p className={styles.commentAuthor}>{commentText}</p>
+      </div>
 
       {/* ✅ Show Edit button only if the logged-in user owns the comment */}
-      {user?.id === comment.userId && (
-        <Link to={`/dashboard/comments/${comment.id}/edit`} className="edit-comment-link">
+      {isOwnComment && (
+        <Link to={`/dashboard/comments/${comment.id}/edit`} className={styles.editCommentLink}>
           Edit
         </Link>
       )}

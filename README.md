@@ -1,5 +1,6 @@
 # spacecamp
 
+- css cleanup, intro animation
 - post, feed (css cleanup)
 - activity (friend link to profile), css cleanup
 - profile (refactor for backend route api/profiles)

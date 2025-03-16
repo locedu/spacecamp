@@ -1,0 +1,68 @@
+/* Comment.module.css */
+
+/* Ensure the comment list stacks items vertically */
+.commentsList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: block; /* ✅ Ensures comments stack vertically */
+}
+
+/* Individual Comment Box */
+.commentItem {
+    background: aliceblue;
+    padding: 1em;
+    margin-bottom: 0.5em;
+    width: 100%; /* ✅ Full width */
+    display: block; /* ✅ Prevents flex row behavior */
+    box-sizing: border-box; /* ✅ Avoids overflow issues */
+
+}
+
+/* Comment Text */
+.commentContent {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-align: left;
+    color: black;
+    font-style: italic;
+}
+
+/* ✅ New: Comment Footer */
+.commentFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: black;
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+    margin-top: 10px;
+}
+
+/* Author */
+.commentAuthor {
+    font-weight: normal;
+    color: black;
+}
+
+/* Timestamp */
+.commentTime {
+    color: #555;
+    font-size: 0.8rem;
+}
+
+/* Edit Comment Link */
+.editCommentLink {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.editCommentLink:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}

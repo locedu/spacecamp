@@ -27,7 +27,7 @@
 .commentsHeader {
     font-size: 1em; /* ✅ Adjusted to 1em */
     font-weight: bold;
-    color: #333;
+    color: darkgray;
     text-align: left; /* ✅ Left-aligned */
     margin-bottom: 10px;
 }
