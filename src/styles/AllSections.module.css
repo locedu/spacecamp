@@ -5,7 +5,7 @@
 }
 
 .sectionContainer {
-    background-color: #e2dfdf; /* Clean white background */
+    background-color: #eaeaea; /* Clean white background */
     margin-bottom: 20px; /* Space between sections */
     display: flex;
     flex-direction: column; /* Allow sections to stretch based on content */
@@ -20,7 +20,7 @@
     width: 100%;
     gap: 20px; /* Space between the sections */
     align-items: stretch; /* Ensures children (Feed & Profile) stretch equally */
-    margin-bottom: 20px; /* ✅ Ensures spacing at the bottom of each row */
+    margin-bottom: 10px; /* ✅ Ensures spacing at the bottom of each row */
 }
 
 .row .sectionContainer {
@@ -33,7 +33,7 @@
 }
 
 .activityContainer {
-    background-color: #aeaeae;
+    background-color: orange;
     padding: 20px;
 }
 

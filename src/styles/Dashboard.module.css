@@ -1,7 +1,8 @@
 .dashboard {
     display: flex;
     flex-direction: row; /* Align children in a row (sidebar + content) */
-    height: 100vh; /* Full viewport height */
+    /* height: 100vh;  */
+    height:auto;
   }
   
   .content {
