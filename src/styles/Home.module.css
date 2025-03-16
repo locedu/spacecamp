@@ -1,0 +1,58 @@
+/* Home.module.css */
+
+.home {
+    text-align: center;
+    padding: 50px;
+}
+
+/* ✅ First animation (Starts immediately) */
+.anim1 {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+/* ✅ Second animation (Starts after 1s delay) */
+.anim2 {
+    color: darkkhaki;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1.5s ease-out forwards;
+    animation-delay: 1s;
+}
+
+/* ✅ Third animation (Starts after 2s delay) */
+.anim3 {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1.5s ease-out forwards;
+    animation-delay: 2s;
+}
+
+/* ✅ Fourth animation (Starts after 3s delay) */
+.anim4 {
+    color: lightseagreen;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1.5s ease-out forwards;
+    animation-delay: 3s;
+}
+
+/* ✅ Coffee Icon Styling */
+.icon {
+    margin-left: 8px; /* Adds spacing between text & icon */
+    vertical-align: middle; /* Aligns icon with text */
+    color: #6d4c41; /* Coffee brown */
+}
+
+/* ✅ Fade-in and slide-up animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

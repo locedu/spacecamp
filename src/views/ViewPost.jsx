@@ -10,7 +10,7 @@ import {
 import { useGetCommentsForPostQuery } from "../features/comments/commentsAPI";
 import Post from "../components/Post";
 import Comment from "../components/Comment";
-import { ThumbUp, AddComment, EditNote, DeleteForever } from "@mui/icons-material"; // ✅ Import icons
+import { ThumbUp, ThumbDown, AddComment, EditNote, DeleteForever } from "@mui/icons-material"; // ✅ Import icons
 import styles from "../styles/ViewPost.module.css"; // ✅ Using new module
 
 function ViewPost() {
@@ -77,8 +77,17 @@ function ViewPost() {
       <div className={styles.postActionsWrapper}>
         <div className={styles.postActionsContainer}>
           <button className={`${styles.actionBtn} ${styles.uniformBtn}`} onClick={handleLikeToggle}>
-            <ThumbUp fontSize="small" className={styles.icon} /> {/* ✅ Like icon */}
-            {hasLiked ? " Unlike" : " Like"}
+            {hasLiked ? (
+              <>
+                <ThumbDown fontSize="small" className={styles.icon} /> {/* ✅ Unlike icon */}
+                Unlike
+              </>
+            ) : (
+              <>
+                <ThumbUp fontSize="small" className={styles.icon} /> {/* ✅ Like icon */}
+                Like
+              </>
+            )}
           </button>
 
           <Link to={`/dashboard/posts/${post.id}/comment`} className={`${styles.actionBtn} ${styles.commentBtn}`}>
