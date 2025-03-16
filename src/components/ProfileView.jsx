@@ -70,12 +70,17 @@ function ProfileView({ user, onEdit }) {
     }).format(new Date(dateString));
   };
 
+  // ✅ Set profile title dynamically
+  const profileTitle = selectedUserId === authUserId ? "My Profile" : "User Profile";
+
   return (
     <div className={styles.profileContent}>
       <div className={styles.profileInfo}>
+        {/* ✅ Dynamic Profile Title */}
         <div className={styles.profileTitle}>
-          <h2>Profile</h2>
+          <h2>{profileTitle}</h2>
         </div>
+
         <div><strong>Selected User ID:</strong> {selectedUserId || "N/A"}</div>
         <div><strong>Name:</strong> {user?.name ?? "N/A"}</div>
         <div><strong>Email:</strong> {user?.email ?? "N/A"}</div>

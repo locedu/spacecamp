@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetPostByIdQuery, useUpdatePostMutation } from '../features/posts/postsAPI';
-import '../styles/editPost.css';
+import styles from '../styles/EditPost.module.css'; // ✅ Correctly import CSS Module
 
 function EditPost() {
   const { id } = useParams(); // Get post ID from URL
@@ -31,33 +31,41 @@ function EditPost() {
     navigate(`/dashboard/posts/${id}`); // Redirect to view post
   };
 
-  if (isLoading) return <div className="loading-state">Loading post...</div>;
-  if (error || !post) return <div className="error-message">Error loading post.</div>;
+  if (isLoading) return <div className={styles.loadingState}>Loading post...</div>;
+  if (error || !post) return <div className={styles.errorMessage}>Error loading post.</div>;
 
   return (
-    <div className="edit-post-container">
+    <div className={styles.editPostContainer}>
       <h2>Edit Post</h2>
       <form onSubmit={handleSubmit}>
-        <label>Title</label>
+        <label className={styles.inputLabel}>Title</label>
         <input
           type="text"
           name="title"
           value={formData.title}
           onChange={handleChange}
           required
+          className={styles.inputField}
         />
 
-        <label>Content</label>
+        <label className={styles.inputLabel}>Content</label>
         <textarea
           name="content"
           value={formData.content}
           onChange={handleChange}
           required
+          className={styles.textArea}
         ></textarea>
 
-        <div className="edit-post-actions">
-          <button type="submit" className="save-btn">Save</button>
-          <button type="button" className="cancel-btn" onClick={() => navigate(`/dashboard/posts/${id}`)}>Cancel</button>
+        <div className={styles.editPostActions}>
+          <button
+            type="button"
+            className={styles.cancelBtn}
+            onClick={() => navigate(`/dashboard/posts/${id}`)}
+          >
+            Cancel
+          </button>
+          <button type="submit" className={styles.saveBtn}>Save</button>
         </div>
       </form>
     </div>

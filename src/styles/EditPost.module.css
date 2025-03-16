@@ -1,0 +1,82 @@
+/* EditPost.module.css */
+
+.editPostContainer {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.editPostContainer h2 {
+    text-align: center;
+}
+
+/* Form Layout */
+.editPostContainer form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputLabel {
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.inputField,
+.textArea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.editPostActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+/* ✅ Added margin between buttons */
+.saveBtn,
+.cancelBtn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1; /* Ensures buttons take equal space */
+    margin: 0 5px; /* Adds spacing between them */
+}
+
+.saveBtn {
+    background-color: #007bff;
+    color: white;
+}
+
+.saveBtn:hover {
+    background-color: #0056b3;
+    text-decoration: underline;
+}
+
+.cancelBtn {
+    background-color: #dddddd;
+    color: black;
+}
+
+.cancelBtn:hover {
+    background-color: #ededed;
+    text-decoration: underline;
+}
+
+/* Loading & Error States */
+.loadingState,
+.errorMessage {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.errorMessage {
+    color: red;
+}
