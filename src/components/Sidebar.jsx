@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";  
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // ✅ Import router hooks
 import { Button, ButtonGroup } from "react-bootstrap";
 import { setSelectedUserId } from "../features/profile/profileSlice";  
 import styles from "../styles/Sidebar.module.css"; // ✅ Import CSS module
 
 function Sidebar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ For navigation
+  const location = useLocation(); // ✅ Get current route
   const userId = useSelector((state) => state.auth.user?.id);  
 
   const handleProfileClick = () => {
-    dispatch(setSelectedUserId(userId));
+    dispatch(setSelectedUserId(userId)); // ✅ Set selectedUserId
+
+    // ✅ Navigate only if the user is not already on "/dashboard"
+    if (location.pathname !== "/dashboard") {
+      navigate("/dashboard");
+    }
   };
 
   const handleLogout = () => {
