@@ -1,5 +1,6 @@
 # spacecamp
 
+- css cleanup (comment, edit post)
 - css cleanup, intro animation
 - post, feed (css cleanup)
 - activity (friend link to profile), css cleanup

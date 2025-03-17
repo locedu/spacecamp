@@ -45,6 +45,28 @@
     color: #6d4c41; /* Coffee brown */
 }
 
+/* ✅ Horizontal Bar */
+.horizontalBar {
+    width: 80%; /* Adjust width */
+    height: 2px; /* Bar thickness */
+    background-color: #ccc; /* Light gray */
+    margin: 25px auto; /* Space above and below */
+}
+
+/* ✅ Logos Section */
+.logoContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between logos */
+    margin-top: 20px;
+}
+
+/* ✅ Style individual logos */
+.logoReact, .logoRedux {
+    width: 5em;
+    height: auto;
+}
+
 /* ✅ Fade-in and slide-up animation */
 @keyframes fadeInUp {
     from {
