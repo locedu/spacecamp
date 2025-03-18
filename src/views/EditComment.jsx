@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetCommentByIdQuery, useUpdateCommentMutation } from '../features/comments/commentsAPI';
-import '../styles/editComment.css';
+import styles from '../styles/EditComment.module.css'; // ✅ Import CSS Module
 
 function EditComment() {
   const { id } = useParams(); // Get comment ID from URL
@@ -37,11 +37,11 @@ function EditComment() {
     }
   };
 
-  if (isLoading) return <div className="loading-state">Loading comment...</div>;
-  if (error || !comment) return <div className="error-message">Error loading comment.</div>;
+  if (isLoading) return <div className={styles.loadingState}>Loading comment...</div>;
+  if (error || !comment) return <div className={styles.errorMessage}>Error loading comment.</div>;
 
   return (
-    <div className="edit-comment-container">
+    <div className={styles.editCommentContainer}>
       <h2>Edit Comment</h2>
       <form onSubmit={handleSubmit}>
         <label>Comment</label>
@@ -52,9 +52,9 @@ function EditComment() {
           required
         ></textarea>
 
-        <div className="edit-comment-actions">
-          <button type="submit" className="save-btn">Save</button>
-          <button type="button" className="cancel-btn" onClick={() => navigate(-1)}>Cancel</button>
+        <div className={styles.editCommentActions}>
+          <button type="button" className={styles.cancelBtn} onClick={() => navigate(-1)}>Cancel</button>
+          <button type="submit" className={styles.saveBtn}>Save</button>
         </div>
       </form>
     </div>
