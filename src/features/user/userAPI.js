@@ -15,13 +15,23 @@ export const userAPI = createApi({
     },
   }),
   endpoints: (builder) => ({
+    // ✅ Search users by query (Filter by username or name)
     searchUsers: builder.query({
       query: ({ query, filter = 'username' }) => ({
         url: `/api/users/search?q=${encodeURIComponent(query)}&filter=${filter}`,
         method: 'GET',
       }),
     }),
-    // Fetch user by ID
+
+    // ✅ Fetch all users
+    getAllUsers: builder.query({
+      query: () => ({
+        url: `/api/users`, // Fetch all users
+        method: 'GET',
+      }),
+    }),
+
+    // ✅ Fetch user by ID
     getUserById: builder.query({
       query: (id) => `/api/users/${id}`, // Fetch user by ID
     }),
@@ -29,4 +39,4 @@ export const userAPI = createApi({
 });
 
 // Export hooks for use in components
-export const { useSearchUsersQuery, useGetUserByIdQuery } = userAPI;
+export const { useSearchUsersQuery, useGetAllUsersQuery, useGetUserByIdQuery } = userAPI;
