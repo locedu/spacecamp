@@ -81,7 +81,7 @@ function ProfileView({ user, onEdit }) {
           <h2>{profileTitle}</h2>
         </div>
 
-        <div><strong>Selected User ID:</strong> {selectedUserId || "N/A"}</div>
+        {/* <div><strong>Selected User ID:</strong> {selectedUserId || "N/A"}</div> */}
         <div><strong>Name:</strong> {user?.name ?? "N/A"}</div>
         <div><strong>Email:</strong> {user?.email ?? "N/A"}</div>
         <div><strong>Username:</strong> {user?.username ?? "N/A"}</div>

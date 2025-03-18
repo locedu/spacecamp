@@ -1,25 +1,45 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux"; // Import useDispatch and useSelector from Redux
-import { useSearchUsersQuery } from "../features/user/userAPI";
-import { setSelectedUserId } from "../features/profile/profileSlice"; // Import setSelectedUserId action
-import styles from "../styles/Directory.module.css"; // ✅ Import CSS module
+import { useDispatch, useSelector } from "react-redux";  
+import { useLocation, Link } from "react-router-dom";
+import { useGetAllUsersQuery, useSearchUsersQuery } from "../features/user/userAPI"; // ✅ Import API hooks
+import { setSelectedUserId } from "../features/profile/profileSlice";  
+import styles from "../styles/Directory.module.css";  
 
 const Directory = () => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("username");
 
-  const dispatch = useDispatch(); // Initialize dispatch
-  const selectedUserId = useSelector((state) => state.profile.selectedUserId); // Access selectedUserId from Redux
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const selectedUserId = useSelector((state) => state.profile.selectedUserId);
 
-  // Fetch users based on search input
-  const { data: users, error, isLoading } = useSearchUsersQuery(
-    { query, filter },
-    { skip: query.length === 0 }
-  );
+  // ✅ Fetch all users when there's no search query
+  const {
+    data: allUsers = [],
+    error: allUsersError,
+    isLoading: allUsersLoading,
+  } = useGetAllUsersQuery(undefined, { skip: query.length > 0 });
+
+  // ✅ Fetch users based on search input
+  const {
+    data: searchedUsers = [],
+    error: searchError,
+    isLoading: searchLoading,
+  } = useSearchUsersQuery({ query, filter }, { skip: query.length === 0 });
+
+  // ✅ Use search results if query exists, otherwise use all users
+  const users = query.length > 0 ? searchedUsers : allUsers;
 
   const handleUserClick = (userId) => {
-    dispatch(setSelectedUserId(userId)); // Dispatch action to set selected user ID
+    dispatch(setSelectedUserId(userId));
   };
+
+  // ✅ Determine route
+  const isDashboard = location.pathname === "/dashboard";
+  const isDirectoryPage = location.pathname === "/dashboard/directory";
+
+  // ✅ Limit users to first 5 if on dashboard
+  const visibleUsers = isDashboard ? users.slice(0, 5) : users;
 
   return (
     <div className={styles.directoryContainer}>
@@ -60,11 +80,11 @@ const Directory = () => {
       </div>
 
       {/* Loading & Error Handling */}
-      {isLoading && <p className={styles.loadingText}>Loading...</p>}
-      {error && <p className={styles.errorText}>Error loading users</p>}
+      {(searchLoading || allUsersLoading) && <p className={styles.loadingText}>Loading users...</p>}
+      {(searchError || allUsersError) && <p className={styles.errorText}>Error loading users</p>}
 
-      {/* Table to display search results */}
-      {users?.length > 0 && (
+      {/* Table to display users */}
+      {visibleUsers.length > 0 ? (
         <div className={styles.tableContainer}>
           <table className={styles.userTable}>
             <thead>
@@ -74,12 +94,12 @@ const Directory = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {visibleUsers.map((user) => (
                 <tr key={user.id}>
                   <td>
                     <span
                       className={styles.userLink}
-                      onClick={() => handleUserClick(user.id)} // Dispatch selected userId to Redux
+                      onClick={() => handleUserClick(user.id)}
                     >
                       {user.name}
                     </span>
@@ -90,15 +110,18 @@ const Directory = () => {
             </tbody>
           </table>
         </div>
+      ) : (
+        <p className={styles.noResults}>No users found</p>
       )}
 
-      {/* If no users are found */}
-      {query && users?.length === 0 && <p className={styles.noResults}>No users found</p>}
-
-      {/* Display selected user ID */}
-      <div>
-        {/* <strong>Selected User ID: </strong>{selectedUserId || "None"} */}
-      </div>
+      {/* ✅ "View All (#)" link, only on dashboard */}
+      {isDashboard && users.length > 5 && (
+        <div className={styles.viewAllLinkContainer}>
+          <Link to="/dashboard/directory" className={styles.viewAllLink}>
+            View All ({users.length})
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

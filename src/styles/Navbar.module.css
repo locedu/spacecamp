@@ -46,6 +46,7 @@
 .navLink:hover {
     background-color: transparent;
     color: white;
+    text-decoration: underline;
 }
 
 /* Active link */
@@ -66,6 +67,7 @@
 .logoutButton:hover {
     background-color: transparent;
     color: white;
+    text-decoration: underline;
 }
 
 /* Mobile responsiveness */
