@@ -2,11 +2,40 @@
 
 /* Sidebar container */
 .sidebar {
-    /* width: 100%; */
     padding: 1em;
     background-color: #eaeaea !important;
     margin: 1em 1em 1em 0;
     box-sizing: border-box;
+}
+
+/* Role indicator bar */
+.roleBar {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+/* Admin-specific bar */
+.adminBar {
+    background-color: darkkhaki;
+}
+
+/* User-specific bar */
+.userBar {
+    background-color: lightseagreen;
+}
+
+/* Welcome bar */
+.welcomeBar {
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+    background-color: #f0f0f0;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 /* Sidebar buttons */
