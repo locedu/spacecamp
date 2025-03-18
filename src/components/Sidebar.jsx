@@ -1,20 +1,26 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";  
-import { Link, useLocation, useNavigate } from "react-router-dom"; // ✅ Import router hooks
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { setSelectedUserId } from "../features/profile/profileSlice";  
 import styles from "../styles/Sidebar.module.css"; // ✅ Import CSS module
 
 function Sidebar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ✅ For navigation
-  const location = useLocation(); // ✅ Get current route
-  const userId = useSelector((state) => state.auth.user?.id);  
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = useSelector((state) => state.auth.user);
+  const userId = user?.id;
+  const userRole = user?.role;
+  const userName = user?.name || "User";
+  const userUsername = user?.username ? `@${user.username}` : "";
+
+
+console.log("User from Redux:", user);
+
 
   const handleProfileClick = () => {
-    dispatch(setSelectedUserId(userId)); // ✅ Set selectedUserId
-
-    // ✅ Navigate only if the user is not already on "/dashboard"
+    dispatch(setSelectedUserId(userId));
     if (location.pathname !== "/dashboard") {
       navigate("/dashboard");
     }
@@ -27,6 +33,23 @@ function Sidebar() {
 
   return (
     <div className={styles.sidebar}>
+      {/* Role Indicator Bar */}
+      <div
+        className={`${styles.roleBar} ${
+          userRole === "ADMIN" ? styles.adminBar : styles.userBar
+        }`}
+      >
+        {/* {userRole === "ADMIN" ? "Administrator Account" : `${userName} ${userUsername}`} */}
+        {userRole === "ADMIN" ? "Administrator" : "User"}
+        
+      </div>
+
+      {/* Welcome Bar */}
+      <div className={styles.welcomeBar}>
+        {/* Welcome, {userName} {userUsername} */}
+        Welcome, {userName}
+      </div>
+
       <Button as={Link} to="/dashboard" variant="primary" size="sm" className={styles.dashboardButton}>
         Dashboard
       </Button>
