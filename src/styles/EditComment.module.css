@@ -1,0 +1,86 @@
+/* EditComment.module.css */
+
+/* Edit Comment Main Container */
+.editCommentContainer {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.editCommentContainer h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Form Styling */
+.editCommentContainer form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+.editCommentContainer label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Textarea Input */
+.editCommentContainer textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+/* Action Buttons */
+.editCommentActions {
+    display: flex;
+    justify-content: center; /* ✅ Centers buttons */
+    gap: 10px; /* ✅ Adds spacing between Cancel and Save */
+    margin-top: 15px;
+}
+
+/* Save Button */
+.saveBtn {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* transition: background 0.3s ease; */
+    min-width: 100px; /* ✅ Ensures uniform button size */
+}
+
+.saveBtn:hover {
+    background-color: #218838;
+    text-decoration: underline;
+}
+
+/* Cancel Button */
+.cancelBtn {
+    padding: 10px 15px;
+    background-color: #dddddd;
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 100px; /* ✅ Ensures uniform button size */
+}
+
+.cancelBtn:hover {
+    background-color: #ededed;
+    text-decoration: underline;
+}

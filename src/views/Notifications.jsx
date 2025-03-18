@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useGetNotificationsQuery } from '../features/notifications/notificationsAPI';
-import Notification from '../components/Notification'; // Import the Notification component
+import { useLocation, Link } from 'react-router-dom'; // ✅ Import router utilities
+import Notification from '../components/Notification';
 import { CircularProgress } from '@mui/material';
-import styles from '../styles/Notifications.module.css'; // Import the CSS module
+import styles from '../styles/Notifications.module.css';
 
 function Notifications() {
   const { data: notifications, error, isLoading, refetch } = useGetNotificationsQuery();
+  const location = useLocation(); // ✅ Get current route
 
   // Force a fresh request when the component is mounted or navigated back to
   useEffect(() => {
@@ -30,26 +32,25 @@ function Notifications() {
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
 
+  // ✅ Check if on "/dashboard"
+  const isDashboard = location.pathname === "/dashboard";
+
+  // ✅ Display first 5 notifications if on "/dashboard", otherwise show all
+  const displayedNotifications = isDashboard ? sortedNotifications.slice(0, 5) : sortedNotifications;
+
   // Determine the link for each notification based on the targetType
   const getNotificationLink = (notification) => {
-    let link = '';
     switch (notification.targetType) {
       case 'POST':
-        link = `/dashboard/posts/${notification.targetId}`;
-        break;
       case 'COMMENT':
-        link = `/dashboard/posts/${notification.targetId}`;
-        break;
+        return `/dashboard/posts/${notification.targetId}`;
       case 'FRIEND':
-        link = `/profile/${notification.targetId}`;
-        break;
+        return `/profile/${notification.targetId}`;
       case 'UN_FRIEND':
-        link = ''; // No link for un-friend, as per requirements
-        break;
+        return ''; // No link for un-friend, as per requirements
       default:
-        link = ''; // Default case if no match
+        return ''; // Default case if no match
     }
-    return link;
   };
 
   // Create notification text based on the notification type
@@ -74,8 +75,8 @@ function Notifications() {
     <div className={styles.notificationsContainer}>
       <h2>Notifications</h2>
       <div className={styles.notificationsList}>
-        {sortedNotifications.length > 0 ? (
-          sortedNotifications.map((notification) => {
+        {displayedNotifications.length > 0 ? (
+          displayedNotifications.map((notification) => {
             const link = getNotificationLink(notification);
             return (
               <Notification
@@ -90,6 +91,15 @@ function Notifications() {
           <p>No new notifications.</p>
         )}
       </div>
+
+      {/* ✅ Show "View All (#)" link only on the dashboard */}
+      {isDashboard && (
+        <div className={styles.viewAllLinkContainer}>
+          <Link to="/dashboard/notifications" className={styles.viewAllLink}>
+            View All ({notifications.length})
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
