@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useGetFriendsQuery, useRemoveFriendMutation } from '../features/friends/friendsAPI';
-import { activityAPI } from '../features/activity/activityAPI';
+import { postsAPI } from '../features/posts/postsAPI'; // Import postsAPI
 import Friend from '../components/Friend';
 import styles from '../styles/Friends.module.css';
 
@@ -16,27 +16,17 @@ function Friends() {
 
   const handleRemoveFriend = async (friendId) => {
     try {
-      await removeFriend(friendId);
+      await removeFriend(friendId).unwrap();
+      dispatch(postsAPI.util.invalidateTags(['Posts'])); // Ensure Feed refreshes
       refetch();
     } catch (err) {
       console.error("Error removing friend:", err);
     }
   };
 
-  const handleRefreshActivity = () => {
-    dispatch(activityAPI.util.invalidateTags(['Activity']));
-  };
-
   return (
     <div className={styles.friendsContainer}>
       <h2 className={styles.friendsHeader}>Friends</h2>
-
-      {/* Refresh Activity Link (Always Visible) */}
-      {/* <div className={styles.refreshActivityContainer}>
-        <button className={styles.refreshButton} onClick={handleRefreshActivity}>
-          Refresh Activity
-        </button>
-      </div> */}
 
       {isLoading && <div className={styles.loadingState}><p>Loading friends...</p></div>}
       {error && <div className={styles.errorMessage}><p>Error loading friends</p></div>}
