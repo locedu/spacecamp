@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetFriendsQuery, useAddFriendMutation, useRemoveFriendMutation } from "../features/friends/friendsAPI";
 import { logout } from "../features/auth/authSlice";
 import { isTokenExpired } from "../utils/tokenExpiration";
+import { postsAPI } from "../features/posts/postsAPI"; // ✅ Import postsAPI
 import styles from "../styles/ProfileView.module.css";
 
 function ProfileView({ user, onEdit }) {
@@ -39,6 +40,7 @@ function ProfileView({ user, onEdit }) {
     }
     try {
       await addFriend(selectedUserId).unwrap();
+      dispatch(postsAPI.util.invalidateTags(['Posts'])); // ✅ Refresh Feed
     } catch (err) {
       console.error("Error adding friend:", err);
     }
@@ -52,6 +54,7 @@ function ProfileView({ user, onEdit }) {
     }
     try {
       await removeFriend(selectedUserId).unwrap();
+      dispatch(postsAPI.util.invalidateTags(['Posts'])); // ✅ Refresh Feed
     } catch (err) {
       console.error("Error removing friend:", err);
     }
@@ -76,12 +79,10 @@ function ProfileView({ user, onEdit }) {
   return (
     <div className={styles.profileContent}>
       <div className={styles.profileInfo}>
-        {/* ✅ Dynamic Profile Title */}
         <div className={styles.profileTitle}>
           <h2>{profileTitle}</h2>
         </div>
 
-        {/* <div><strong>Selected User ID:</strong> {selectedUserId || "N/A"}</div> */}
         <div><strong>Name:</strong> {user?.name ?? "N/A"}</div>
         <div><strong>Email:</strong> {user?.email ?? "N/A"}</div>
         <div><strong>Username:</strong> {user?.username ?? "N/A"}</div>
@@ -94,7 +95,6 @@ function ProfileView({ user, onEdit }) {
       </div>
 
       <div className={styles.profileFooter}>
-        {/* ✅ Keep Edit Profile and Add/Remove Friend buttons in the same section */}
         {(selectedUserId === authUserId || authUserRole === "ADMIN") && (
           <button className={styles.editLink} onClick={onEdit}>Edit Profile</button>
         )}
