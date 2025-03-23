@@ -46,7 +46,7 @@ function App() {
             <Route index element={<AllSections />} />
             <Route path="friends" element={<Friends />} />
             <Route path="posts" element={<Feed />} />
-            <Route path="profile/:userId" element={<Profile />} />
+            <Route path="profiles/:userId" element={<Profile />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="activity" element={<Activity />} />
             <Route path="directory" element={<Directory />} /> 
