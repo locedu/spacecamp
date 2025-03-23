@@ -45,7 +45,7 @@ function Notifications() {
       case 'COMMENT':
         return `/dashboard/posts/${notification.targetId}`;
       case 'FRIEND':
-        return `/profile/${notification.targetId}`;
+        return `/dashboard/profiles/${notification.targetId}`;
       case 'UN_FRIEND':
         return ''; // No link for un-friend, as per requirements
       default:
