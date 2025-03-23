@@ -68,7 +68,7 @@ function Activity() {
       case "FRIEND":
         return (
           <Link 
-            to={`/dashboard/profile/${targetId}`} 
+            to={`/dashboard/profiles/${targetId}`} 
             onClick={() => handleUserClick(targetId)}
           >
             You added a friend.
@@ -77,7 +77,7 @@ function Activity() {
       case "UN_FRIEND":
         return (
           <Link 
-            to={`/dashboard/profile/${targetId}`} 
+            to={`/dashboard/profiles/${targetId}`} 
             onClick={() => handleUserClick(targetId)}
           >
             You removed a friend.
